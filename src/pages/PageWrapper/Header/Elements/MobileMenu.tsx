@@ -2,11 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { AnimateItem } from "components/Tools/Animation";
 import styled, { withTheme } from "styled-components";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { LinkStyled } from "components/Elements/Link";
 import { themeType } from "features/theming";
 import { Logo } from "assets/img/LogoIcon";
-
 
 const varBox = {
     open: {
@@ -43,10 +42,9 @@ const MenuBox = styled(motion.div)`
 
     .MenuItem {
         padding: 1rem 0;
-        
+
         transition: background-color var(--transition);
         margin-bottom: 0.3rem;
-
     }
 `;
 
@@ -63,10 +61,7 @@ const MenuItems = withTheme(({ theme }: { theme: themeType }) => {
         >
             {Object.entries(links).map(([anchor, text], i) => (
                 <motion.div variants={varItems} key={i} className="MenuItem">
-                    <LinkStyled
-                        to={`/${anchor}`}
-                        className="MenuAnchor"
-                    >
+                    <LinkStyled to={`/${anchor}`} className="MenuAnchor">
                         {text}
                     </LinkStyled>
                 </motion.div>
@@ -104,26 +99,26 @@ export const MobileMenu = ({
 }) => {
     const refContainer = React.useRef<HTMLDivElement>(null);
     React.useEffect(() => {
-        // Click on ahref with class MenuAnchor
-        const handleClick = (e: any) => {
-            if (e.target.closest("a.MenuAnchor")) toggleOpen();
-        };
+        let handleClickOutside = (e: any) => {};
 
         if (refContainer.current) {
-            refContainer.current.addEventListener("mousedown", handleClick);
+            // Click on ahref with class MenuAnchor
+            refContainer.current.addEventListener("mousedown", (e: any) => {
+                if (e.target.closest("a.MenuAnchor")) toggleOpen();
+            });
+            // Click outside refContainer
+            handleClickOutside = (e: any) => {
+                if (
+                    refContainer.current &&
+                    refContainer.current.contains(e.target) === false &&
+                    !e.target.closest(".ButtonHamburger")
+                )
+                    toggleOpen();
+            };
+
+            document.addEventListener("mousedown", handleClickOutside);
         }
 
-        // Click outside refContainer
-        const handleClickOutside = (e: any) => {
-            if (
-                refContainer.current &&
-                !refContainer.current.contains(e.target) &&
-                !e.target.closest(".ButtonHamburger")
-            )
-                toggleOpen();
-        };
-
-        document.addEventListener("mousedown", handleClickOutside);
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };

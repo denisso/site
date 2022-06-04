@@ -91,7 +91,7 @@ export const Header = withTheme(({ theme }: { theme: themeType }) => {
                     </HeaderRightSide>
                 </HeaderLine>
             </HeaderWrapper>
-            <MobileMenu isOpen={isOpen} toggleOpen={() => toggleOpen()} />
+            <MobileMenu isOpen={isOpen} toggleOpen={toggleOpen} />
         </>
     );
 });

@@ -1,5 +1,5 @@
-import { WrapperComponents } from "./components/PageWrapper";
-import { ThemeProvider } from "./features/theming";
+import { WrapperComponents } from "pages/PageWrapper";
+import { ThemeProvider } from "features/theming";
 
 function App() {
     return (

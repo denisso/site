@@ -8,7 +8,7 @@ import React from "react";
 import { useRefineHeader } from "./useHeadeRefine";
 import { useLazyLoadingContentNote } from "./useLazyLoadingContentNote";
 
-export const useInersections = (refContainer: any) => {
+export const useIntersections = (refContainer: any) => {
     const { numberHeader, arrayHeaders, refineHeader } =
         useRefineHeader(refContainer);
     const { arrayLazyLoading, lazyLoading } = useLazyLoadingContentNote(refContainer);

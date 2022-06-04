@@ -9,7 +9,7 @@ import { NoteDataType } from "mocks/db-notes";
 import { scrollTo } from "components/Tools";
 import styled, { withTheme } from "styled-components";
 import { Markdown } from "components/Tools/Markdown";
-import { useInersections } from "./useInersections";
+import { useIntersections } from "./useIntersections";
 import { ContextNotes } from "../ContextNotes";
 import { ToCMobile } from "./ToCMobile";
 import { themeType, mDown } from "features/theming";
@@ -77,7 +77,7 @@ export const ContentBlock: React.FC<any> = withTheme(
             setRender(!render);
         }, [refContainer.current]);
         // make lazy function later
-        const { number } = useInersections(refContainer);
+        const { number } = useIntersections(refContainer);
 
         const { setCurrentHeader } = React.useContext(ContextNotes);
 
