@@ -27,37 +27,37 @@ export const useRefineHeader = (refContainer: any) => {
         let indxTopPrev = indxTop;
         return (entries: any[]) => {
             entries.forEach((entry) => {
-                let indxAppear = arrayHeaders.indexOf(entry.target);
-                if (indxAppear === -1) return;
+                let indxTriggered = arrayHeaders.indexOf(entry.target);
+                if (indxTriggered === -1) return;
                 if (entry.isIntersecting) {
                     // appear below or above
                     // scroll top - node appears above 
-                    if (indxAppear < indxTop) {
-                        indxTop = indxAppear;
-                        indxTopLastOutside = indxAppear -1;
+                    if (indxTriggered < indxTop) {
+                        indxTop = indxTriggered;
+                        indxTopLastOutside = indxTriggered -1;
                     }
 
                     // scroll bottom - node appears below
-                    if (indxAppear > indxTop && indxTopLastOutside === indxTop) {
-                        indxTop = indxAppear;
-                        if (indxAppear > indxBottom) {
-                            indxBottom = indxAppear;
+                    if (indxTriggered > indxTop && indxTopLastOutside === indxTop) {
+                        indxTop = indxTriggered;
+                        if (indxTriggered > indxBottom) {
+                            indxBottom = indxTriggered;
                         }
                     }
-                    if (indxAppear > indxBottom) indxBottom = indxAppear;
+                    if (indxTriggered > indxBottom) indxBottom = indxTriggered;
                 // scroll top - node leave at the bottom border top < bottom && (top > 0 && bottom > 0) 
                 // for example: isIntersecting false top: 744.796875 bottom: 1511.203125
                 } else if (entry.boundingClientRect.top > 0) {
                     // leave below && scroll up
                     switch (true) {
-                        case indxAppear === 0:
+                        case indxTriggered === 0:
                             indxTop = indxBottom = 0;
                             break;
-                        case indxAppear === indxTop:
-                            indxTop = indxBottom = indxAppear - 1;
+                        case indxTriggered === indxTop:
+                            indxTop = indxBottom = indxTriggered - 1;
                             break;
-                        case indxAppear === indxBottom:
-                            indxBottom = indxAppear - 1;
+                        case indxTriggered === indxBottom:
+                            indxBottom = indxTriggered - 1;
                             break;
                         default:
                     }
@@ -65,17 +65,17 @@ export const useRefineHeader = (refContainer: any) => {
                 // for example: isIntersecting false top: -692.8125 bottom: 73.609375
                 } else {
                     // leave above && scroll bottom
-                    indxTopLastOutside = indxAppear;
+                    indxTopLastOutside = indxTriggered;
                     switch (true) {
-                        case indxAppear === arrayHeaders.length - 1:
-                            indxTop = indxBottom = indxAppear;
+                        case indxTriggered === arrayHeaders.length - 1:
+                            indxTop = indxBottom = indxTriggered;
                             break;
 
-                        case indxAppear === indxTop && indxAppear < indxBottom:
-                            indxTop = indxAppear + 1;
+                        case indxTriggered === indxTop && indxTriggered < indxBottom:
+                            indxTop = indxTriggered + 1;
                             break;
-                        case indxAppear > indxTop && indxAppear === indxBottom:
-                            indxTop = indxAppear;
+                        case indxTriggered > indxTop && indxTriggered === indxBottom:
+                            indxTop = indxTriggered;
                             break;
                         default:
                     }
