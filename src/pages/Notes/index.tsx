@@ -5,10 +5,7 @@ import { AnimateItem, scrollTo } from "components/Tools";
 
 export const Notes = () => {
     const [currentHeader, setCurrentHeader] = React.useState(0);
-    const context = {
-        currentHeader,
-        setCurrentHeader,
-    };
+
     React.useEffect(() => {
         document.title = "Notes";
         scrollTo(0);
@@ -16,7 +13,12 @@ export const Notes = () => {
 
     return (
         <AnimateItem>
-            <ContextNotes.Provider value={context}>
+            <ContextNotes.Provider
+                value={{
+                    currentHeader,
+                    setCurrentHeader,
+                }}
+            >
                 <Outlet />
             </ContextNotes.Provider>
         </AnimateItem>

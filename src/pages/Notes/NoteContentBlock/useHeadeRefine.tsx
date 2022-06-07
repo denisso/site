@@ -27,51 +27,55 @@ export const useRefineHeader = (refContainer: any) => {
         let indxTopPrev = indxTop;
         return (entries: any[]) => {
             entries.forEach((entry) => {
-                let indx = arrayHeaders.indexOf(entry.target);
-                if (indx === -1) return;
+                let indxAppear = arrayHeaders.indexOf(entry.target);
+                if (indxAppear === -1) return;
                 if (entry.isIntersecting) {
                     // appear below or above
-                    // above
-                    if (indx < indxTop) {
-                        indxTop = indx;
-                        indxTopLastOutside = indx - 1;
+                    // scroll top - node appears above 
+                    if (indxAppear < indxTop) {
+                        indxTop = indxAppear;
+                        indxTopLastOutside = indxAppear -1;
                     }
 
-                    // below
-                    if (indx > indxTop && indxTopLastOutside === indxTop) {
-                        indxTop = indx;
-                        if (indx > indxBottom) {
-                            indxBottom = indx;
+                    // scroll bottom - node appears below
+                    if (indxAppear > indxTop && indxTopLastOutside === indxTop) {
+                        indxTop = indxAppear;
+                        if (indxAppear > indxBottom) {
+                            indxBottom = indxAppear;
                         }
                     }
-                    if (indx > indxBottom) indxBottom = indx;
+                    if (indxAppear > indxBottom) indxBottom = indxAppear;
+                // scroll top - node leave at the bottom border top < bottom && (top > 0 && bottom > 0) 
+                // for example: isIntersecting false top: 744.796875 bottom: 1511.203125
                 } else if (entry.boundingClientRect.top > 0) {
                     // leave below && scroll up
                     switch (true) {
-                        case indx === 0:
+                        case indxAppear === 0:
                             indxTop = indxBottom = 0;
                             break;
-                        case indx === indxTop:
-                            indxTop = indxBottom = indx - 1;
+                        case indxAppear === indxTop:
+                            indxTop = indxBottom = indxAppear - 1;
                             break;
-                        case indx === indxBottom:
-                            indxBottom = indx - 1;
+                        case indxAppear === indxBottom:
+                            indxBottom = indxAppear - 1;
                             break;
                         default:
                     }
+                // scroll bottom - node leave at the top border top < bottom && (top < 0 (off-screen top) && bottom > 0) 
+                // for example: isIntersecting false top: -692.8125 bottom: 73.609375
                 } else {
                     // leave above && scroll bottom
-                    indxTopLastOutside = indx;
+                    indxTopLastOutside = indxAppear;
                     switch (true) {
-                        case indx === arrayHeaders.length - 1:
-                            indxTop = indxBottom = indx;
+                        case indxAppear === arrayHeaders.length - 1:
+                            indxTop = indxBottom = indxAppear;
                             break;
 
-                        case indx === indxTop && indx < indxBottom:
-                            indxTop = indx + 1;
+                        case indxAppear === indxTop && indxAppear < indxBottom:
+                            indxTop = indxAppear + 1;
                             break;
-                        case indx > indxTop && indx === indxBottom:
-                            indxTop = indx;
+                        case indxAppear > indxTop && indxAppear === indxBottom:
+                            indxTop = indxAppear;
                             break;
                         default:
                     }

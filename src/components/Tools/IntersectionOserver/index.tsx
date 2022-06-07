@@ -1,49 +1,53 @@
-/**
- * Global intersection observer
- * not uses yet
- */
 import React from "react";
 
-const options = {
-    rootMargin: "0px",
-    threshold: 0.5,
-};
+export const useIntersection = () => {
+    const refArrayNodes = React.useRef(new Map());
+    const refObserver = React.useRef<any>(null);
 
-export const useInersectionObserver = ({
-    root = null,
-    entries = [],
-    options,
-}: {
-    root: any | null;
-    entries: any | any[];
-    options: {
-        rootMargin?: string;
-        threshold?: number | number[];
-    };
-}) => {
-    const [entity, SetEntity] = React.useState();
     React.useEffect(() => {
-        const optionsRes = {
-            root: root ? root.current : null,
-            rootMargin: options.rootMargin
-                ? options.rootMargin
-                : options.rootMargin,
-            threshold: options.threshold
-                ? options.threshold
-                : options.threshold,
+        const options = {
+            root: null,
+            rootMargin: "0px",
+            threshold: 0.2,
         };
-
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    console.log(entry);
+        refObserver.current = new IntersectionObserver((entries) => {
+            for (let indx = 0; indx < entries.length; indx++) {
+                const { isIntersecting, target } = entries[indx];
+                if (refArrayNodes.current.has(target)) {
+                    const trigger = refArrayNodes.current.get(target);
+                    if (trigger) {
+                        trigger({
+                            node: target,
+                            isIntersecting,
+                            unobserve: () => {
+                                refObserver.current.unobserve(target);
+                            },
+                        });
+                    }
                 }
-            });
-        }, optionsRes);
+            }
+        }, options);
+    }, [refObserver]);
 
-        entries.forEach((e: any) => {
-            observer.observe(e.current);
-        });
-    }, [root, entries, options]);
-    return entity;
+    const addNodes = React.useCallback(
+        ({ node, trigger }) => {
+            refObserver.current.observe(node);
+            if (node !== null) refArrayNodes.current.set(node, trigger);
+        },
+        [refArrayNodes, refObserver]
+    );
+
+    const removeNodes = React.useCallback(
+        (node) => {
+            refObserver.current.unobserve(node);
+            if (refArrayNodes.current.has(node)) {
+                refArrayNodes.current.delete(node);
+            }
+        },
+        [refArrayNodes]
+    );
+    return {
+        addNodes,
+        removeNodes,
+    };
 };
