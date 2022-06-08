@@ -70,10 +70,66 @@ export const ContentBlock: React.FC<any> = withTheme(
     }) => {
         const { title, description, createdAt, image, category, slug } = data;
 
+        const markdownComponents = React.useMemo(() => {
+            const headerParser = ({
+                node,
+                className,
+                children,
+                ...props
+            }: any) => {
+                const a = node.children.find(
+                    (e: any) => e.tagName.toUpperCase() === "a".toUpperCase()
+                );
+
+                if (!a) {
+                    return (
+                        <node.tagName {...props} {...{ className }}>
+                            {children}
+                        </node.tagName>
+                    );
+                }
+
+                const hrefId =
+                    a.properties["href"][0] === "#"
+                        ? a.properties["href"].slice(1)
+                        : a.properties["href"];
+                const { id } = props;
+
+                return (
+                    <node.tagName ref={(node:any)=>console.log("header render", node, "href", a.properties["href"])}
+                        {...props}
+                        {...{ className }}
+                        id={`${id || ""} ${hrefId || ""}`.trim()}
+                    >
+                        {children}
+                    </node.tagName>
+                );
+            };
+            return {
+                h1: headerParser,
+                h2: headerParser,
+                h3: headerParser,
+                h4: headerParser,
+                h5: headerParser,
+                h6: headerParser,
+                img({ node, className, children, ...props }: any) {
+                    const { src, alt, ...other } = props;
+                    return (
+                        <img ref={(node:any)=>console.log("img render", node, src, alt)}
+                            data-src={src}
+                            alt={alt}
+                            {...other}
+                            {...{ className }}
+                        />
+                    );
+                },
+            };
+        }, []);
         const [render, setRender] = React.useState(true);
         const refContainer: any = React.useRef(null);
         React.useEffect(() => {
             // work around for useIntersectionHeaders
+            console.log("COMPONENT RENDER END")
             setRender(!render);
         }, [refContainer.current]);
         // make lazy function later
@@ -118,6 +174,7 @@ export const ContentBlock: React.FC<any> = withTheme(
                 <Markdown
                     markdown={description}
                     className="articleContent"
+                    callback={markdownComponents}
                 />
 
                 <hr />
