@@ -6,7 +6,6 @@ import React from "react";
 import styled from "styled-components";
 import { scrollTo } from "components/Tools/scrollTo";
 import { ContextNotes } from "../ContextNotes";
-import { AnchorData } from "./index";
 import { AnchorBox } from "components/Elements/Anchor";
 import { AnimateItem } from "components/Tools";
 
@@ -32,46 +31,49 @@ const AnchorBoxStyled = styled(AnchorBox)`
  *
  * Table of content
  */
-export const ToCDesctop = ({
+export const NavHeadersDesktop = ({
     className,
-    anchorsArrayForToc,
     isVisible = true,
 }: {
     className: string;
-    anchorsArrayForToc?: AnchorData[];
     isVisible?: boolean;
 }) => {
-    const { currentHeader } = React.useContext(ContextNotes);
+    const { currentHeader, refHeaders } = React.useContext(ContextNotes);
+
     // handler for scroll to header
     const onClickAnchor = React.useCallback((e: any) => {
         scrollTo(document.querySelector(e.target.hash).offsetTop);
     }, []);
+
     // refs on elementa a[href] in table of content
     const refAnchors = React.useRef<any[]>([]);
 
     // on change current header for highlight it
     React.useEffect(() => {
-        if (refAnchors.current.length === 0) return;
+        if (refHeaders.current.length === 0 || currentHeader < 0) return;
         refAnchors.current.forEach(
             (e: any) => e && e.classList.remove("active")
         );
 
-        refAnchors.current[currentHeader] && refAnchors.current[currentHeader].classList.add("active");
+        refAnchors.current[currentHeader] &&
+            refAnchors.current[currentHeader].classList.add("active");
     }, [currentHeader]);
+    if (currentHeader < 0) {
+        return <></>;
+    }
     return (
         <AnimateItem {...{ className, isVisible }}>
             <Nav>
-                {anchorsArrayForToc &&
-                    anchorsArrayForToc.map((e, i) => (
-                        <AnchorBoxStyled
-                            key={i}
-                            href={e.headerlink}
-                            onClick={onClickAnchor}
-                            ref={(el) => (refAnchors.current[i] = el)}
-                        >
-                            {e.headerText}
-                        </AnchorBoxStyled>
-                    ))}
+                {refHeaders.current.map((header: any, i: number) => (
+                    <AnchorBoxStyled
+                        key={header.id}
+                        href={"#" + header.id}
+                        onClick={onClickAnchor}
+                        ref={(el) => (refAnchors.current[i] = el)}
+                    >
+                        {header.innerText}
+                    </AnchorBoxStyled>
+                ))}
             </Nav>
         </AnimateItem>
     );

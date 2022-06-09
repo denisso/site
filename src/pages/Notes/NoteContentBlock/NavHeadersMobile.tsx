@@ -1,0 +1,124 @@
+/**
+ * Table of content for mobile
+ */
+import React from "react";
+import { ContextNotes } from "../ContextNotes";
+import styled from "styled-components";
+import { themeType } from "features/theming";
+import { Button } from "components/Elements/Button";
+import { scrollTo } from "components/Tools";
+import { useModal } from "components/Elements/CModal";
+import { AnchorBox } from "components/Elements/Anchor";
+import { AnimateItem } from "components/Tools";
+
+const Wrapper = styled(AnimateItem)<{ theme: themeType }>`
+    position: sticky;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: ${({ theme }) => theme.colorRoot};
+    height: 3rem;
+    padding: 0.5rem 0;
+    z-index: 200;
+    .NavPanel {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+    }
+`;
+
+const NavBox = styled.div`
+    .NavContent {
+        margin-bottom: 1rem;
+        .NavigationAnchor {
+            text-align: center;
+        }
+        .NavigationAnchor + .NavigationAnchor {
+            margin-top: 0.5rem;
+        }
+    }
+    .NavFooter {
+        text-align: center;
+    }
+`;
+
+export const NavHeadersMobile = ({
+    className,
+    isVisible = true,
+}: {
+    className?: string;
+    isVisible?: boolean;
+}) => {
+    const { currentHeader, refHeaders } = React.useContext(ContextNotes);
+    const currentHeaderRef = React.useRef<number>(0);
+    //  to avoid rerun the callback onClickAnchor
+    currentHeaderRef.current = currentHeader;
+    const { Modal, openModal, closeModal } = useModal("Choose section");
+    const onClickAnchor = React.useCallback(({ type, payload }: any) => {
+        if (refHeaders.current.length === 0) return;
+        let indx = currentHeaderRef.current;
+        switch (type) {
+            case "Prev":
+                indx = indx - 1 < 0 ? indx : indx - 1;
+                break;
+            case "Next":
+                indx =
+                    indx + 1 > refHeaders.current.length - 1 ? indx : indx + 1;
+                break;
+            case "ByIndx":
+                indx = payload;
+                break;
+            default:
+        }
+        scrollTo(refHeaders.current[indx].offsetTop);
+    }, []);
+    if (currentHeader < 0) {
+        return <></>;
+    }
+    return (
+        <Wrapper {...{ className: className + " NavHeadersMobile", isVisible }}>
+            <div className="NavPanel">
+                <Button onClick={() => onClickAnchor({ type: "Prev" })}>
+                    Prev
+                </Button>
+                <Button
+                    onClick={(e: any) => {
+                        openModal(e);
+                    }}
+                >
+                    Current: {refHeaders.current[currentHeader].innerText}
+                </Button>
+                <Button onClick={() => onClickAnchor({ type: "Next" })}>
+                    Next
+                </Button>
+            </div>
+
+            <Modal>
+                <NavBox>
+                    <div className="NavContent">
+                        {refHeaders.current.map((header: any, i: number) => (
+                            <AnchorBox
+                                className="NavigationAnchor"
+                                key={header.id}
+                                href={"#" + header.id}
+                                onClick={() =>
+                                    onClickAnchor({
+                                        type: "ByIndx",
+                                        payload: i,
+                                    })
+                                }
+                            >
+                                {header.innerText}
+                            </AnchorBox>
+                        ))}
+                    </div>
+                    <div className="NavFooter">
+                        <Button onClick={(e: any) => closeModal(e)}>
+                            Close
+                        </Button>
+                    </div>
+                </NavBox>
+            </Modal>
+        </Wrapper>
+    );
+};

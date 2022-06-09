@@ -10,15 +10,14 @@ export const useIntersection = () => {
             rootMargin: "0px",
             threshold: 0.2,
         };
-        refObserver.current = new IntersectionObserver((entries) => {
-            for (let indx = 0; indx < entries.length; indx++) {
-                const { isIntersecting, target } = entries[indx];
+        refObserver.current = new IntersectionObserver((entities) => {
+            for (let indx = 0; indx < entities.length; indx++) {
+                const { target } = entities[indx];
                 if (refArrayNodes.current.has(target)) {
                     const trigger = refArrayNodes.current.get(target);
                     if (trigger) {
                         trigger({
-                            node: target,
-                            isIntersecting,
+                            entity: entities[indx],
                             unobserve: () => {
                                 refObserver.current.unobserve(target);
                             },
@@ -30,7 +29,7 @@ export const useIntersection = () => {
     }, [refObserver]);
 
     const addNodes = React.useCallback(
-        ({ node, trigger }) => {
+        ({ node, trigger }: { node: any; trigger: ({}) => any }) => {
             refObserver.current.observe(node);
             if (node !== null) refArrayNodes.current.set(node, trigger);
         },
