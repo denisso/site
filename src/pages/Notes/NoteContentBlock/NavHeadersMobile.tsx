@@ -5,12 +5,12 @@ import React from "react";
 import { ContextNotes } from "../ContextNotes";
 import styled from "styled-components";
 import { themeType } from "features/theming";
-import { AnchorData } from ".";
 import { Button } from "components/Elements/Button";
 import { scrollTo } from "components/Tools";
 import { useModal } from "components/Elements/CModal";
 import { AnchorBox } from "components/Elements/Anchor";
 import { AnimateItem } from "components/Tools";
+
 const Wrapper = styled(AnimateItem)<{ theme: themeType }>`
     position: sticky;
     left: 0;
@@ -42,81 +42,75 @@ const NavBox = styled.div`
     }
 `;
 
-export const NavHeadersDesktop = ({
+export const NavHeadersMobile = ({
     className,
-    anchorsArrayForToc,
     isVisible = true,
 }: {
     className?: string;
-    anchorsArrayForToc: AnchorData[] | undefined;
     isVisible?: boolean;
 }) => {
-    const { currentHeader } = React.useContext(ContextNotes);
-    const currentHeaderRef = React.useRef<number>(0)
-    currentHeaderRef.current = currentHeader
+    const { currentHeader, refHeaders } = React.useContext(ContextNotes);
+    const currentHeaderRef = React.useRef<number>(0);
+    //  to avoid rerun the callback onClickAnchor
+    currentHeaderRef.current = currentHeader;
     const { Modal, openModal, closeModal } = useModal("Choose section");
-    const onClickAnchor = React.useCallback((arg: any) => {
-        if (!anchorsArrayForToc) return;
-        if (arg === "Prev") {
-            scrollTo(
-                document.querySelector(
-                    anchorsArrayForToc[
-                        currentHeaderRef.current > 0 ? currentHeaderRef.current - 1 : currentHeaderRef.current
-                    ].headerlink
-                ).offsetTop
-            );
+    const onClickAnchor = React.useCallback(({ type, payload }: any) => {
+        if (refHeaders.current.length === 0) return;
+        let indx = currentHeaderRef.current;
+        switch (type) {
+            case "Prev":
+                indx = indx - 1 < 0 ? indx : indx - 1;
+                break;
+            case "Next":
+                indx =
+                    indx + 1 > refHeaders.current.length - 1 ? indx : indx + 1;
+                break;
+            case "ByIndx":
+                indx = payload;
+                break;
+            default:
         }
-        if (arg === "Next") {
-            scrollTo(
-                document.querySelector(
-                    anchorsArrayForToc[
-                        currentHeaderRef.current < anchorsArrayForToc.length - 1
-                            ? currentHeaderRef.current + 1
-                            : currentHeaderRef.current
-                    ].headerlink
-                ).offsetTop
-            );
-        }
-        if (Number.isInteger(parseInt(arg))) {
-            const numChapter = parseInt(arg);
-            scrollTo(
-                document.querySelector(
-                    anchorsArrayForToc[numChapter].headerlink
-                ).offsetTop
-            );
-        }
+        scrollTo(refHeaders.current[indx].offsetTop);
     }, []);
-
+    if (currentHeader < 0) {
+        return <></>;
+    }
     return (
-        <Wrapper {...{ className, isVisible }}>
+        <Wrapper {...{ className: className + " NavHeadersMobile", isVisible }}>
             <div className="NavPanel">
-                <Button onClick={onClickAnchor.bind(null, "Prev")}>Prev</Button>
+                <Button onClick={() => onClickAnchor({ type: "Prev" })}>
+                    Prev
+                </Button>
                 <Button
                     onClick={(e: any) => {
                         openModal(e);
                     }}
                 >
-                    Current:{" "}
-                    {anchorsArrayForToc &&
-                        anchorsArrayForToc[currentHeader].headerText}
+                    Current: {refHeaders.current[currentHeader].innerText}
                 </Button>
-                <Button onClick={onClickAnchor.bind(null, "Next")}>Next</Button>
+                <Button onClick={() => onClickAnchor({ type: "Next" })}>
+                    Next
+                </Button>
             </div>
 
             <Modal>
                 <NavBox>
                     <div className="NavContent">
-                        {anchorsArrayForToc &&
-                            anchorsArrayForToc.map((e, i) => (
-                                <AnchorBox
-                                    className="NavigationAnchor"
-                                    key={i}
-                                    href={e.headerlink}
-                                    onClick={onClickAnchor.bind(null, i)}
-                                >
-                                    {e.headerText}
-                                </AnchorBox>
-                            ))}
+                        {refHeaders.current.map((header: any, i: number) => (
+                            <AnchorBox
+                                className="NavigationAnchor"
+                                key={header.id}
+                                href={"#" + header.id}
+                                onClick={() =>
+                                    onClickAnchor({
+                                        type: "ByIndx",
+                                        payload: i,
+                                    })
+                                }
+                            >
+                                {header.innerText}
+                            </AnchorBox>
+                        ))}
                     </div>
                     <div className="NavFooter">
                         <Button onClick={(e: any) => closeModal(e)}>

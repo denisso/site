@@ -10,8 +10,7 @@ import { scrollTo } from "components/Tools";
 import styled, { withTheme } from "styled-components";
 import { Markdown } from "components/Tools/Markdown";
 import { ContextNotes } from "../ContextNotes";
-// import { NavHeadersDesktop } from "./NavHeadersMobile";
-// import { NavHeadersDesktop } from "./NavHeadersDesktop"
+
 import { themeType, mDown } from "features/theming";
 import { useHeadersReducer } from "./useHeadersReducer";
 
@@ -57,7 +56,7 @@ const ArticleBox = styled.div`
  *
  * Container for display content in markdown format
  */
-export const ContentBlock: React.FC<any> = withTheme(
+export const BlockContent = withTheme(
     ({
         theme,
         data,
@@ -72,16 +71,20 @@ export const ContentBlock: React.FC<any> = withTheme(
             React.useContext(ContextNotes);
         const { state, dispatch } = useHeadersReducer();
 
+        // changing the index current header when scrolling
         React.useEffect(() => {
             setCurrentHeader(state.value);
         }, [state]);
 
+        // unmount component and remove nodes from intersector observer
         React.useEffect(() => {
             return () => {
                 refHeaders.current.forEach((e: any) => removeNodes(e));
                 refHeaders.current = [];
+                setCurrentHeader(-1)
             };
         }, []);
+
         // get intersection entry from intersection observer
         const handleHeader = React.useCallback(
             ({ entity }) => {
@@ -93,16 +96,17 @@ export const ContentBlock: React.FC<any> = withTheme(
             },
             [dispatch]
         );
+
         // add nodes header to use intersect hook
-        const addHeaderNodeToIntersect = React.useCallback(
-            (node) => {
-                if (node) {
-                    addNodes({ node, trigger: handleHeader });
-                    refHeaders.current.push(node);
-                }
-            },
-            [addNodes, handleHeader, refHeaders]
-        );
+        const addHeaderNodeToIntersect = React.useCallback((node) => {
+            if (node) {
+                addNodes({ node, trigger: handleHeader });
+                refHeaders.current.push(node);
+                console.log({node})
+            }
+        }, []);
+
+        // components for markdown
         const markdownComponents = React.useMemo(() => {
             const headerParser = ({
                 node,
@@ -158,7 +162,7 @@ export const ContentBlock: React.FC<any> = withTheme(
                     );
                 },
             };
-        }, [handleHeader, addHeaderNodeToIntersect]);
+        }, []);
 
         return (
             <ArticleBox
@@ -195,17 +199,6 @@ export const ContentBlock: React.FC<any> = withTheme(
                 <div className="articlePublishedAt">
                     Published at: {createdAt}
                 </div>
-
-                {/* <ToCMobile
-                    anchorsArrayForToc={anchorsArrayForToc}
-                    className={"TableOfContent"}
-                    isVisible={mDown("md", theme.breakpoint)}
-                /> */}
-                {/* <ToCDesctop
-                    anchorsArrayForToc={anchorsArrayForToc}
-                    className={"TableOfContent"}
-                    isVisible={mUp("md", theme.breakpoint)}
-                /> */}
             </ArticleBox>
         );
     }
