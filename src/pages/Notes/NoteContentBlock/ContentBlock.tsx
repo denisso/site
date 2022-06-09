@@ -9,10 +9,11 @@ import { NoteDataType } from "mocks/db-notes";
 import { scrollTo } from "components/Tools";
 import styled, { withTheme } from "styled-components";
 import { Markdown } from "components/Tools/Markdown";
-import { useIntersections } from "./useIntersections";
 import { ContextNotes } from "../ContextNotes";
-import { ToCMobile } from "./ToCMobile";
+// import { NavHeadersDesktop } from "./NavHeadersMobile";
+// import { NavHeadersDesktop } from "./NavHeadersDesktop"
 import { themeType, mDown } from "features/theming";
+import { useHeadersReducer } from "./useHeadersReducer";
 
 const ArticleBox = styled.div`
     line-height: 1.5rem;
@@ -61,15 +62,47 @@ export const ContentBlock: React.FC<any> = withTheme(
         theme,
         data,
         className,
-        anchorsArrayForToc,
     }: {
         theme: themeType;
-        anchorsArrayForToc: any;
         data: NoteDataType;
         className: string;
     }) => {
-        const { title, description, createdAt, image, category, slug } = data;
+        const { title, description, createdAt, image } = data;
+        const { setCurrentHeader, addNodes, removeNodes, refHeaders } =
+            React.useContext(ContextNotes);
+        const { state, dispatch } = useHeadersReducer();
 
+        React.useEffect(() => {
+            setCurrentHeader(state.value);
+        }, [state]);
+
+        React.useEffect(() => {
+            return () => {
+                refHeaders.current.forEach((e: any) => removeNodes(e));
+                refHeaders.current = [];
+            };
+        }, []);
+        // get intersection entry from intersection observer
+        const handleHeader = React.useCallback(
+            ({ entity }) => {
+                const indxTriggered = refHeaders.current.indexOf(entity.target);
+                dispatch({
+                    type: "changeCurrentHeader",
+                    payload: { indxTriggered, entity },
+                });
+            },
+            [dispatch]
+        );
+        // add nodes header to use intersect hook
+        const addHeaderNodeToIntersect = React.useCallback(
+            (node) => {
+                if (node) {
+                    addNodes({ node, trigger: handleHeader });
+                    refHeaders.current.push(node);
+                }
+            },
+            [addNodes, handleHeader, refHeaders]
+        );
         const markdownComponents = React.useMemo(() => {
             const headerParser = ({
                 node,
@@ -96,7 +129,8 @@ export const ContentBlock: React.FC<any> = withTheme(
                 const { id } = props;
 
                 return (
-                    <node.tagName ref={(node:any)=>console.log("header render", node, "href", a.properties["href"])}
+                    <node.tagName
+                        ref={addHeaderNodeToIntersect}
                         {...props}
                         {...{ className }}
                         id={`${id || ""} ${hrefId || ""}`.trim()}
@@ -115,7 +149,7 @@ export const ContentBlock: React.FC<any> = withTheme(
                 img({ node, className, children, ...props }: any) {
                     const { src, alt, ...other } = props;
                     return (
-                        <img ref={(node:any)=>console.log("img render", node, src, alt)}
+                        <img
                             data-src={src}
                             alt={alt}
                             {...other}
@@ -124,41 +158,21 @@ export const ContentBlock: React.FC<any> = withTheme(
                     );
                 },
             };
-        }, []);
-        const [render, setRender] = React.useState(true);
-        const refContainer: any = React.useRef(null);
-        React.useEffect(() => {
-            // work around for useIntersectionHeaders
-            console.log("COMPONENT RENDER END")
-            setRender(!render);
-        }, [refContainer.current]);
-        // make lazy function later
-        const { number } = useIntersections(refContainer);
-
-        const { setCurrentHeader } = React.useContext(ContextNotes);
-
-        React.useEffect(() => {
-            const clickHandle = (e: any) => {
-                if (e.target.parentNode.nodeName.match(/h[1-6]/i) === null)
-                    return;
-                scrollTo(e.target.parentNode.offsetTop - 40);
-            };
-            refContainer.current.addEventListener("click", clickHandle);
-            return () => {
-                if (refContainer.current)
-                    refContainer.current.removeEventListener(
-                        "click",
-                        clickHandle
-                    );
-            };
-        }, []);
-
-        React.useEffect(() => {
-            setCurrentHeader(number);
-        }, [number, setCurrentHeader]);
+        }, [handleHeader, addHeaderNodeToIntersect]);
 
         return (
-            <ArticleBox className={className} ref={refContainer}>
+            <ArticleBox
+                className={className}
+                ref={(node) => {
+                    if (node)
+                        dispatch({
+                            type: "ready",
+                            payload: {
+                                countHeaders: refHeaders.current.length,
+                            },
+                        });
+                }}
+            >
                 <div className="articleTitle">{title}</div>
                 <hr />
                 {/* For demo */}
@@ -174,7 +188,7 @@ export const ContentBlock: React.FC<any> = withTheme(
                 <Markdown
                     markdown={description}
                     className="articleContent"
-                    callback={markdownComponents}
+                    components={markdownComponents}
                 />
 
                 <hr />
@@ -182,11 +196,16 @@ export const ContentBlock: React.FC<any> = withTheme(
                     Published at: {createdAt}
                 </div>
 
-                <ToCMobile
+                {/* <ToCMobile
                     anchorsArrayForToc={anchorsArrayForToc}
                     className={"TableOfContent"}
                     isVisible={mDown("md", theme.breakpoint)}
-                />
+                /> */}
+                {/* <ToCDesctop
+                    anchorsArrayForToc={anchorsArrayForToc}
+                    className={"TableOfContent"}
+                    isVisible={mUp("md", theme.breakpoint)}
+                /> */}
             </ArticleBox>
         );
     }

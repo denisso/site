@@ -42,7 +42,7 @@ const NavBox = styled.div`
     }
 `;
 
-export const ToCMobile = ({
+export const NavHeadersDesktop = ({
     className,
     anchorsArrayForToc,
     isVisible = true,

@@ -4,13 +4,13 @@
 import React from "react";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 
-const MarkdownComponent = ({ markdown, className, callback }: any) => {
-    console.log("callback", callback)
+const MarkdownComponent = ({ markdown, className, components }: any) => {
+
     return (
         <div {...{ className }}>
             <ReactMarkdown
                 children={markdown}
-                components={callback}
+                components={components}
             />
         </div>
     );
