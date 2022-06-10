@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { themeType } from "features/theming";
 
-const SpinnerContainer = styled.div<{ theme: themeType }>`
+const SpinnerContainer = styled.span<{ theme: themeType }>`
     margin: 20px auto;
     display: flex;
     justify-content: center;
@@ -46,7 +46,7 @@ export const Spinner = () => {
     return (
         <SpinnerContainer>
             {arr.map((e: number) => (
-                <div className={"ball"} key={e}></div>
+                <span className={"ball"} key={e}></span>
             ))}
         </SpinnerContainer>
     );

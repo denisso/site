@@ -2,7 +2,6 @@ import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 const MainWrapper = styled.main`
     padding: 2rem 0;
-
 `;
 
 const MainContainer = styled.div.attrs({ className: "container" })`

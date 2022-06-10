@@ -2,17 +2,17 @@ import React from "react";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { Main } from "./Main";
-import { ContextPageWrapper } from "./ContextpageWrapper";
-
-export { ContextPageWrapper } from "./ContextpageWrapper";
-
+import { useIntersection } from "components/Tools/IntersectionOserver";
+import { PagesContext } from "./PagesContext";
+import {contextType} from "./PagesContext"
 export const WrapperComponents = () => {
-    const context = {};
+    const { addNodes, removeNodes } = useIntersection();
+    const context = React.useRef<contextType>({intersect: { addNodes, removeNodes }})
     return (
-        <ContextPageWrapper.Provider value={context}>
+        <PagesContext.Provider value={context.current}>
             <Header />
             <Main />
             <Footer />
-        </ContextPageWrapper.Provider>
+        </PagesContext.Provider>
     );
 };
