@@ -140,16 +140,7 @@ export const BlockContent = ({
             h5: headerParser,
             h6: headerParser,
             img({ node, ...props }: any) {
-    
-                return (
-                    // <img
-                    //     data-src={src}
-                    //     alt={alt}
-                    //     {...other}
-                    //     {...{ className }}
-                    // />
-                    <ImageLazy {...props}/>
-                );
+                return <ImageLazy {...props} />;
             },
         };
     }, []);
