@@ -30,7 +30,7 @@ const flex = css`
 const HeaderWrapper = styled.header`
     ${flex};
     position: sticky;
-    z-index: 100;
+    z-index: 9999;
     top: 0px;
     background-color: white;
     ${up("sm")} {

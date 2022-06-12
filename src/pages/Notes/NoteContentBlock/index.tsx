@@ -14,19 +14,27 @@ import { Spinner } from "components/Elements/Spinner";
 import { AnimateItem, scrollTo } from "components/Tools";
 import { CommentsComponent } from "../Comments";
 import { ErrorBoundary } from "components/Tools/ErrorBoundary";
-import { up } from "styled-breakpoints";
+import { up, down } from "styled-breakpoints";
 
 const Container = styled.div`
-    ${up("md")} {
-        .ContainerContent {
-            display: flex;
-            .BlockContent {
-                flex: 1;
+    .ContainerContent {
+        display: flex;
+        flex-wrap: wrap;
+        .BlockContent {
+            ${up("md")} {
+                flex-basis: 70%;
             }
-            .NavHeaders {
-                flex-basis: 30%;
-                min-width: 200px;
+            ${down("md")} {
+                flex-basis: 100%;
             }
+            transition: flex-basis var(--transition);
+        }
+        .NavHeadersDesctop {
+            flex-basis: 30%;
+            min-width: 200px;
+        }
+        .NavHeadersMobile {
+            flex-basis: 100%;
         }
     }
 `;
@@ -65,11 +73,11 @@ export const NoteContent = withTheme(({ theme }: { theme: themeType }) => {
                                 className={"BlockContent"}
                             />
                             <NavHeadersMobile
-                                className={"NavHeaders"}
+                                className={"NavHeadersMobile"}
                                 isVisible={mDown("md", theme.breakpoint)}
                             />
                             <NavHeadersDesktop
-                                className={"NavHeaders"}
+                                className={"NavHeadersDesctop"}
                                 isVisible={mUp("md", theme.breakpoint)}
                             />
                         </div>
