@@ -75,7 +75,7 @@ const MenuWrapper = styled(AnimateItem)`
     top: 3rem;
     left: 0;
     background: ${({ theme }) => theme.colorRoot};
-    z-index: 100;
+    z-index: 9999;
     box-shadow: var(--boxShadowVertical) ${({ theme }) => theme.colorBoxShadow};
     .MenuContainer {
         padding: 1rem;

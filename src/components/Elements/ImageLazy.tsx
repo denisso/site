@@ -1,7 +1,14 @@
 import React from "react";
 import { PagesContext } from "pages";
-import { Spinner } from "./Spinner";
+import styled from "styled-components";
 
+const Image = styled.img`
+    opacity: 0;
+    transition: opacity var(--transition);
+    &[src] {
+        opacity: 1;
+    }
+`;
 export const ImageLazy = ({ src, alt, width, height, ...props }: any) => {
     const { intersect } = React.useContext(PagesContext);
     const node = React.useRef<HTMLElement>();
@@ -9,17 +16,18 @@ export const ImageLazy = ({ src, alt, width, height, ...props }: any) => {
 
     const attrs = React.useMemo(() => {
         let attrs: any = {};
-        try {
-            if (alt) {
-                if (typeof alt == "object") {
+        if (alt && typeof alt == "string") {
+            if (alt.match(/^{.+}$/g)) {
+                try {
                     attrs = JSON.parse(alt);
-                } else {
-                    if (typeof alt == "string") attrs = { alt };
-                    if (Number.isInteger(width)) attrs.width = width;
-                    if (Number.isInteger(height)) attrs.height = height;
-                }
+                } catch (err: any) {}
+            } else {
+                attrs = { alt };
             }
-        } catch (err: any) {}
+        }
+        if (Number.isInteger(width)) attrs.width = width;
+        if (Number.isInteger(height)) attrs.height = height;
+
         return attrs;
     }, []);
     const trigger = React.useCallback(({ entity, unobserve }) => {
@@ -39,9 +47,11 @@ export const ImageLazy = ({ src, alt, width, height, ...props }: any) => {
         };
     }, []);
     return (
-        <>
-            {!loaded && <Spinner />}
-            <img ref={onLoad} src={loaded ? src : ""} {...props} {...attrs} />
-        </>
+        <Image
+            ref={onLoad}
+            {...(loaded ? { src } : {})}
+            {...props}
+            {...attrs}
+        />
     );
 };
