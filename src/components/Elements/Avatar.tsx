@@ -3,31 +3,32 @@
  * https://fontawesome.com/v5/docs/apis/javascript/get-started
  */
 import React from "react";
-// guest ava
-import { faGhost } from "@fortawesome/free-solid-svg-icons";
-// image cannot be loaded
-import { faImage } from "@fortawesome/free-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export const Avatar = ({ picture, className }: any) => {
-    const [error, setError] = React.useState(false);
+import { useSelector } from "react-redux";
+import { selectSignInState } from "features/accounts/reducer";
 
-    const Image =
-        picture && picture !== "guest" && error === false ? (
-            React.createElement("img", {
-                className,
-                src: picture,
-                alt: "user avatar",
-                onError: () => {
-                    setError(true);
-                },
-            })
-        ) : error ? (
-            // image url wrong or cannot be loaded
-            <FontAwesomeIcon {...{ className }} icon={faImage} />
-        ) : (
-            <FontAwesomeIcon {...{ className }} icon={faGhost} />
-        );
+const Image = ({ picture, ...props }: any) => {
+    const [src, setSrc] = React.useState(picture);
+    const errorLoading = React.useRef(false);
+    const onError = () => {
+        if (errorLoading.current) return;
+        setSrc("/asset/imageLoadingProblem.svg");
+        errorLoading.current = true;
+    };
+    return <img src={src} {...props} onError={onError} />;
+};
 
-    return Image;
+const AvatarByUser = (props: any) => {
+    const { currentUserID, credentials } = useSelector(selectSignInState);
+    if (currentUserID === "guest") {
+        return <img src={"/asset/guest.svg"} {...props} />;
+    }
+
+    return <Image picture={credentials.picture} {...props} />;
+};
+
+export const Avatar = ({ picture, ...props }: any) => {
+    if (typeof picture === "string")
+        return <Image picture={picture} {...props} />;
+    return <AvatarByUser props={props} />;
 };
