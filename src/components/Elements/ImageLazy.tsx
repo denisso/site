@@ -23,18 +23,18 @@ const Image = ({ src, alt, width, height, ...props }: any) => {
 
         return attrs;
     }, []);
-    const trigger = ({ entity, unobserve }: any) => {
+    const trigger = React.useCallback(({ entity, unobserve }: any) => {
         if (!node.current || !entity.isIntersecting) return;
         setIntersecting(true);
         unobserve();
-    };
+    }, []);
 
-    const onLoadRef = (nodeImg: any) => {
+    const onLoadRef = React.useCallback((nodeImg: any) => {
         if (nodeImg) {
             node.current = nodeImg;
             intersect.addNodes({ node: node.current, trigger });
         }
-    };
+    }, []);
     React.useEffect(() => {
         return () => {
             intersect.removeNodes(node.current);
