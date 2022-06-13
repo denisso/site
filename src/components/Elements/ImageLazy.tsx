@@ -5,7 +5,7 @@ import styled from "styled-components";
 const Image = ({ src, alt, width, height, ...props }: any) => {
     const { intersect } = React.useContext(PagesContext);
     const node = React.useRef<HTMLElement>();
-    const [loaded, setLoaded] = React.useState(false);
+    const [isIntersecting, setIntersecting] = React.useState(false);
 
     const attrs = React.useMemo(() => {
         let attrs: any = {};
@@ -25,7 +25,7 @@ const Image = ({ src, alt, width, height, ...props }: any) => {
     }, []);
     const trigger = ({ entity, unobserve }: any) => {
         if (!node.current || !entity.isIntersecting) return;
-        setLoaded(true);
+        setIntersecting(true);
         unobserve();
     };
 
@@ -49,7 +49,7 @@ const Image = ({ src, alt, width, height, ...props }: any) => {
     return (
         <img
             ref={onLoadRef}
-            {...(loaded ? { src } : {})}
+            {...(isIntersecting ? { src } : {})}
             {...props}
             {...attrs}
             onLoad={onLoad}
