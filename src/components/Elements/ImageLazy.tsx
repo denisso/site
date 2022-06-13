@@ -2,14 +2,7 @@ import React from "react";
 import { PagesContext } from "pages";
 import styled from "styled-components";
 
-const Image = styled.img`
-    opacity: 0;
-    transition: opacity var(--transition);
-    &[src] {
-        opacity: 1;
-    }
-`;
-export const ImageLazy = ({ src, alt, width, height, ...props }: any) => {
+const Image = ({ src, alt, width, height, ...props }: any) => {
     const { intersect } = React.useContext(PagesContext);
     const node = React.useRef<HTMLElement>();
     const [loaded, setLoaded] = React.useState(false);
@@ -30,28 +23,50 @@ export const ImageLazy = ({ src, alt, width, height, ...props }: any) => {
 
         return attrs;
     }, []);
-    const trigger = React.useCallback(({ entity, unobserve }) => {
+    const trigger = ({ entity, unobserve }: any) => {
         if (!node.current || !entity.isIntersecting) return;
         setLoaded(true);
         unobserve();
-    }, []);
-    const onLoad = React.useCallback((nodeImg) => {
+    };
+
+    const onLoadRef = (nodeImg: any) => {
         if (nodeImg) {
             node.current = nodeImg;
             intersect.addNodes({ node: node.current, trigger });
         }
-    }, []);
+    };
     React.useEffect(() => {
         return () => {
             intersect.removeNodes(node.current);
         };
     }, []);
+    const onError = React.useCallback(() => {
+        node.current?.classList.add("notloaded");
+    }, []);
+    const onLoad = React.useCallback(() => {
+        node.current?.classList.add("loaded");
+    }, []);
     return (
-        <Image
-            ref={onLoad}
+        <img
+            ref={onLoadRef}
             {...(loaded ? { src } : {})}
             {...props}
             {...attrs}
+            onLoad={onLoad}
+            onError={onError}
         />
     );
 };
+
+export const ImageLazy = styled(Image)`
+    opacity: 0;
+    transition: opacity var(--transition);
+    &.loaded {
+        opacity: 1;
+    }
+    &.notloaded {
+        opacity: 1;
+        border: solid;
+        background: no-repeat center url(/imageLoadingProblem.svg);
+    }
+`;

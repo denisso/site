@@ -3,7 +3,9 @@
  * https://fontawesome.com/v5/docs/apis/javascript/get-started
  */
 import React from "react";
+// guest ava
 import { faGhost } from "@fortawesome/free-solid-svg-icons";
+// image cannot be loaded
 import { faImage } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -21,6 +23,7 @@ export const Avatar = ({ picture, className }: any) => {
                 },
             })
         ) : error ? (
+            // image url wrong or cannot be loaded
             <FontAwesomeIcon {...{ className }} icon={faImage} />
         ) : (
             <FontAwesomeIcon {...{ className }} icon={faGhost} />
