@@ -79,21 +79,26 @@ export const CommentsHandler = (inputData: {
     return {
         insertReq: (commentData: CommentDataType) =>
             handleError(() => {
-                const { parentid, comment, userid } = commentData;
+                const { parentid, picture, name, comment, userid } = commentData;
                 return handleComment(parentid, ({ nodeParent, array }: any) => {
                     const reqid: string = createUIDReq();
 
                     const newComment = {
                         parentid,
+                        picture, 
                         comment,
+                        name,
                         userid,
                         commentid: reqid,
                         child: [],
                         processing: "new",
                     };
+                    
                     if (parentid) {
+                        // child comment
                         nodeParent.child.push(newComment);
                     } else {
+                        // root comment
                         array.push(newComment);
                     }
 

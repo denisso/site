@@ -51,16 +51,19 @@ export const CommentButtons = ({
     const { dispatch, currentComment, setCurrentComment }: any =
         React.useContext(Context);
     const { commentid, parentid } = comment || {};
-    const { currentUserID } = useSelector(selectSignInState);
+    const { currentUserID, credentials } = useSelector(selectSignInState);
     const refTypeAction = React.useRef<string | null>("");
     const [disable, setDisable] = React.useState(1);
     const disableRef = React.useRef<number>(disable);
     disableRef.current = disable;
+
     React.useEffect(() => {
         const disable: number =
             currentComment !== "" && currentComment !== commentid ? 1 : 0;
         setDisable(disable);
     }, [currentComment]);
+
+    // submit comment for insert or update
     const onSubmit = React.useCallback((values: any, actions: any) => {
         if (disableRef.current) return;
         actions.resetForm();
@@ -72,6 +75,9 @@ export const CommentButtons = ({
                 parentid: parentid || commentid,
                 commentid,
                 comment: values.message,
+                userid: currentUserID,
+                picture: credentials.picture,
+                name: credentials.name
             },
         });
     }, []);
@@ -99,7 +105,7 @@ export const CommentButtons = ({
         setShowReplyForm(true);
         setCurrentComment(commentid);
     }, []);
-    // reply and close
+    // open form for reply
     const onReply = React.useCallback(() => {
         if (disableRef.current) return;
         refTypeAction.current = "insert";
