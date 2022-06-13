@@ -67,6 +67,6 @@ export const ImageLazy = styled(Image)`
     &.notloaded {
         opacity: 1;
         border: solid;
-        background: no-repeat center url(/imageLoadingProblem.svg);
+        background: no-repeat center url(/asset/imageLoadingProblem.svg);
     }
 `;
