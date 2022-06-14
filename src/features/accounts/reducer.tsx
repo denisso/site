@@ -42,7 +42,13 @@ type initialStateType = {
 
 const initialState: initialStateType = {
     isSignIn: false,
-    users: {},
+    users: {
+        guest: {
+            name: "Ghost",
+            email: "guest@guestmail.com",
+            picture: "/asset/guest.svg",
+        },
+    },
     currentUserID: "guest",
     isServerVerifiedUser: false,
 };
@@ -83,7 +89,9 @@ const slice = createSlice({
         builder.addMatcher(
             apiQueryAccounts.endpoints.getUsers.matchRejected,
             () => {
-                console.error("apiQueryAccounts.endpoints.getUsers matchRejected:");
+                console.error(
+                    "apiQueryAccounts.endpoints.getUsers matchRejected:"
+                );
             }
         );
     },

@@ -2,7 +2,7 @@ const users: UsersType = {
     guest: {
         name: "Ghost",
         email: "guest@guestmail.com",
-        picture: "guest"
+        picture: "/asset/guest.svg"
     },
 };
 

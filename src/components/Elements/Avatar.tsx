@@ -19,16 +19,12 @@ const Image = ({ picture, ...props }: any) => {
 };
 
 const AvatarByUser = (props: any) => {
-    const { currentUserID, credentials } = useSelector(selectSignInState);
-    if (currentUserID === "guest") {
-        return <img src={"/asset/guest.svg"} {...props} />;
-    }
-
+    const { credentials } = useSelector(selectSignInState);
     return <Image picture={credentials.picture} {...props} />;
 };
 
 export const Avatar = ({ picture, ...props }: any) => {
     if (typeof picture === "string")
         return <Image picture={picture} {...props} />;
-    return <AvatarByUser props={props} />;
+    return <AvatarByUser {...props} />;
 };
