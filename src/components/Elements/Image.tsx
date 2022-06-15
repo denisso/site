@@ -1,5 +1,5 @@
 /**
- *
+ * Image without Lazy Loading
  */
 import React from "react";
 

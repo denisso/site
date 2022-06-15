@@ -50,7 +50,7 @@ export const themeLight = {
         },
         input: {
             border: `1px solid ${colors.firstLightMore}`,
-            boxShadow: `2px 2px 3px ${colors.firstLight}`
+            boxShadow: `-2px 2px 3px ${colors.firstLight}`
         },
         modal:{
             overlay: "rgba(255, 255, 255, 0.4)",
