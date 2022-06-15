@@ -9,7 +9,7 @@ const Image = ({ src, alt, width, height, ...props }: any) => {
 
     const attrs = React.useMemo(() => {
         let attrs: any = {};
-        if (alt && typeof alt == "string") {
+        if (typeof alt == "string") {
             if (alt.match(/^{.+}$/g)) {
                 try {
                     attrs = JSON.parse(alt);
@@ -18,8 +18,8 @@ const Image = ({ src, alt, width, height, ...props }: any) => {
                 attrs = { alt };
             }
         }
-        if (Number.isInteger(width)) attrs.width = width;
-        if (Number.isInteger(height)) attrs.height = height;
+        if (!isNaN(width)) attrs.width = width;
+        if (!isNaN(height)) attrs.height = height;
 
         return attrs;
     }, []);

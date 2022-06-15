@@ -161,11 +161,11 @@ export const BlockContent = ({
             <div className="articleTitle">{title}</div>
             <hr />
             {/* For demo */}
-            <img
+            <ImageLazy
                 src={`https://picsum.photos/id/${image.src.match(
                     /\d+/
                 )}/500/300`}
-                alt=""
+                alt="Hero image"
                 width="500"
                 height="300"
             />
