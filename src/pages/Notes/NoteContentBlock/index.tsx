@@ -64,7 +64,7 @@ export const NoteContent = withTheme(({ theme }: { theme: themeType }) => {
                 </>
             ) : isLoading ? (
                 <Spinner />
-            ) : data !== undefined ? (
+            ) : data instanceof Object ? (
                 <Container>
                     <ErrorBoundary name="Content">
                         <div className="ContainerContent">
