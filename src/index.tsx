@@ -1,7 +1,7 @@
 import { render } from "react-dom";
 import { Provider } from "react-redux";
 import { BrowserRouter, useRoutes } from "react-router-dom";
-
+import { NotFound404 } from "pages/NotFound404";
 import { store } from "./store";
 import App from "./App";
 import {
@@ -34,6 +34,7 @@ const SiteMap = [
             },
         ],
     },
+    { path: "*", element: <NotFound404 /> },
 ];
 
 const Routes = () => {

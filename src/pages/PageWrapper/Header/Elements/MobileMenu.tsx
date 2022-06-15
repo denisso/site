@@ -125,7 +125,7 @@ export const MobileMenu = ({
     }, [refContainer, toggleOpen]);
     return (
         <MenuWrapper isVisible={isOpen}>
-            <div className={"MenuContainer"} ref={refContainer}>
+            <div className="MenuContainer" ref={refContainer}>
                 <MenuItems />
                 <Link to="/" className="MenuAnchor">
                     <Logo size="150px" />
