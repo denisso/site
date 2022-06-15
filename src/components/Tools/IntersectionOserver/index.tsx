@@ -3,7 +3,7 @@ import React from "react";
 export const useIntersection = () => {
     const refArrayNodes = React.useRef(new Map());
     const refObserver = React.useRef<any>(null);
-
+    const [ready, setReady] = React.useState(false)
     React.useEffect(() => {
         const options = {
             root: null,
@@ -26,14 +26,15 @@ export const useIntersection = () => {
                 }
             }
         }, options);
-    }, [refObserver]);
+        setReady(true)
+    }, []);
 
     const addNodes = React.useCallback(
         ({ node, trigger }: { node: any; trigger: ({}) => any }) => {
             refObserver.current.observe(node);
             if (node !== null) refArrayNodes.current.set(node, trigger);
         },
-        [refArrayNodes, refObserver]
+        []
     );
 
     const removeNodes = React.useCallback(
@@ -43,9 +44,10 @@ export const useIntersection = () => {
                 refArrayNodes.current.delete(node);
             }
         },
-        [refArrayNodes]
+        []
     );
     return {
+        ready,
         addNodes,
         removeNodes,
     };

@@ -46,6 +46,9 @@ const Image = ({ src, alt, width, height, ...props }: any) => {
     const onLoad = React.useCallback(() => {
         node.current?.classList.add("loaded");
     }, []);
+    if(!intersect.ready){
+        return <></>
+    }
     return (
         <img
             ref={onLoadRef}
@@ -55,6 +58,7 @@ const Image = ({ src, alt, width, height, ...props }: any) => {
             onLoad={onLoad}
             onError={onError}
         />
+        
     );
 };
 
