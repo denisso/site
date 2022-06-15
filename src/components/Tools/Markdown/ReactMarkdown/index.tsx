@@ -1,5 +1,5 @@
 /**
- * 
+ * Adapter for ReactMarkdown
  */
 import React from "react";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";

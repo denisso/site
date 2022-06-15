@@ -1,6 +1,5 @@
 /**
- * Temporary solution use markdown-it
- * Problem is:
+ * Adapter for tmarkdown-it
  */
 import React from "react";
 import { md } from "./markdown-it";
