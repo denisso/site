@@ -120,7 +120,7 @@ export const Footer = () => {
         useFormModal("Send message");
     const onSubmit = (values: any, { setSubmitting }: any) => {
         setTimeout(() => {
-            console.log(JSON.stringify(values, null, 2));
+
             closeFormModal();
             setSubmitting(false);
         }, 400);

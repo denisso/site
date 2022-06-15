@@ -76,7 +76,11 @@ export const BoxAnimated = ({ children, className }: any) => {
     const refParentBox: any = React.useRef<any>(null);
     useAnimateBlocks(refParentBox);
     return (
-        <div {...{ className }} ref={refParentBox} style={{position: "relative"}}>
+        <div
+            {...{ className }}
+            ref={refParentBox}
+            style={{ position: "relative" }}
+        >
             {children}
         </div>
     );

@@ -90,7 +90,7 @@ const Comment = ({
                 <div className="CommentInfoData">
                     <Avatar
                         className="CommentAvatar"
-                        picture={comment.picture}
+                        src={comment.picture}
                     />
                     <div className="CommentUserName">
                         <b>{comment.name}</b>
