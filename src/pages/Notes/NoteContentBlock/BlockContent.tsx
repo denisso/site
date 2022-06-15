@@ -93,7 +93,7 @@ export const BlockContent = ({
     );
 
     // add nodes header to use intersect hook
-    const addHeaderNodeToIntersect = React.useCallback((node) => {
+    const addNodeToIntersect = React.useCallback((node) => {
         if (node) {
             intersect.addNodes({ node, trigger: handleHeader });
             refHeaders.current.push(node);
@@ -123,7 +123,7 @@ export const BlockContent = ({
 
             return (
                 <node.tagName
-                    ref={addHeaderNodeToIntersect}
+                    ref={addNodeToIntersect}
                     {...props}
                     {...{ className }}
                     id={`${id || ""} ${hrefId || ""}`.trim()}
