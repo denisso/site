@@ -66,7 +66,7 @@ export const BlockContent = ({
     const { setCurrentHeader, refHeaders } = React.useContext(ContextNotes);
     const { intersect } = React.useContext(PagesContext);
     const { state, dispatch } = useHeadersReducer();
-
+    const [contentReady, setReady] = React.useState(false);
     // changing the index current header when scrolling
     React.useEffect(() => {
         setCurrentHeader(state.value);
@@ -149,14 +149,25 @@ export const BlockContent = ({
     return (
         <ArticleBox
             className={className}
-            ref={(node) => {
-                if (node)
+            ref={(node: any) => {
+                if (node && !contentReady) {
                     dispatch({
                         type: "ready",
                         payload: {
                             countHeaders: refHeaders.current.length,
                         },
                     });
+                    setReady(true);
+                    const loation = window.location || document.location;
+                    if (loation.hash) {
+                        try {
+                            const $lement = document.querySelector(loation.hash);
+                            if ($lement) {
+                                scrollContent($lement.getBoundingClientRect().top)
+                            }
+                        } catch (e) {}
+                    }
+                }
             }}
         >
             <div className="articleTitle">{title}</div>
