@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { up, down, between } from "styled-breakpoints";
-import { scrollTo, AnimateItem } from "components/Tools";
+import { scrollContent, AnimateItem } from "components/Tools";
 import { themeType } from "features/theming";
 import {
     ItemAnimated,
@@ -144,7 +144,7 @@ export const HomePage = () => {
     const { data, error, isLoading } = useGetPageQuery("homepage");
     React.useEffect(() => {
         document.title = "Home page";
-        scrollTo(0);
+        scrollContent(0);
     }, []);
     return (
         <AnimateItem>

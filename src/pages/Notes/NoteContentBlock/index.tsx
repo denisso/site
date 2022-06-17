@@ -11,7 +11,7 @@ import { NavHeadersDesktop } from "./NavHeadersDesktop";
 import { useGetNoteQuery } from "api-query/";
 import { BlockContent } from "./BlockContent";
 import { Spinner } from "components/Elements/Spinner";
-import { AnimateItem, scrollTo } from "components/Tools";
+import { AnimateItem, scrollContent } from "components/Tools";
 import { CommentsComponent } from "../Comments";
 import { ErrorBoundary } from "components/Tools/ErrorBoundary";
 import { up, down } from "styled-breakpoints";
@@ -44,7 +44,7 @@ const Container = styled.div`
  */
 export const NoteContent = withTheme(({ theme }: { theme: themeType }) => {
     React.useEffect(() => {
-        scrollTo(0);
+        scrollContent(0);
     }, []);
     // Get param from URL string
     const { noteSlug } = useParams<{ noteSlug?: string }>();

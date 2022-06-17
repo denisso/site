@@ -12,6 +12,7 @@ import { ContextNotes } from "../ContextNotes";
 import { useHeadersReducer } from "./useHeadersReducer";
 import { PagesContext } from "pages";
 import { ImageLazy } from "components/Elements/ImageLazy";
+import { scrollContent } from "components/Tools";
 const ArticleBox = styled.div`
     line-height: 1.5rem;
     .articleTitle {

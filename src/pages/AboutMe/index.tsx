@@ -1,5 +1,5 @@
 import React from "react";
-import { scrollTo, AnimateItem } from "components/Tools";
+import { scrollContent, AnimateItem } from "components/Tools";
 import styled from "styled-components";
 import { faHand } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,13 +13,20 @@ const Content = styled.div`
             margin-right: 0.5rem;
         }
     }
+    & .HeroBlock {
+        width: 300px;
+        margin: 0 auto;
+        .HeroBlockImage {
+            width: 100%;
+            height: auto;
+        }
+    }
 `;
 
 export const AboutMe = () => {
-
     React.useEffect(() => {
         document.title = "About me";
-        scrollTo(0);
+        scrollContent(0);
     }, []);
 
     return (
@@ -30,8 +37,13 @@ export const AboutMe = () => {
                     About Me
                 </h1>
                 <div className="HeroBlock">
-
-                    <ImageLazy src="/asset/Face.jpg"  width="1080" height="1080" alt="hero of this site"/>
+                    <ImageLazy
+                        src="/asset/Face.jpg"
+                        className="HeroBlockImage"
+                        width="1080"
+                        height="1080"
+                        alt="hero of this site"
+                    />
                 </div>
             </Content>
         </AnimateItem>

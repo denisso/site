@@ -10,7 +10,7 @@ import { NoteDataType } from "mocks/db-notes";
 import { NavLink } from "react-router-dom";
 import { themeType } from "features/theming";
 import { Spinner } from "components/Elements/Spinner";
-import { scrollTo } from "components/Tools";
+import { scrollContent } from "components/Tools";
 import {
     ItemAnimated,
     BoxAnimated,
@@ -91,7 +91,7 @@ const NoteContainer = styled(ItemAnimated)<{ theme: themeType }>`
 
 const NotesList = ({ notes }: { notes: NoteDataType[] }) => {
     React.useEffect(() => {
-        scrollTo(0);
+        scrollContent(0);
         document.title = "Notes List";
     }, []);
     return (

@@ -4,7 +4,7 @@
 
 import React from "react";
 import styled from "styled-components";
-import { scrollTo } from "components/Tools/scrollTo";
+import { scrollContent } from "components/Tools/scrollContent";
 import { ContextNotes } from "../ContextNotes";
 import { AnchorBox } from "components/Elements/Anchor";
 import { AnimateItem } from "components/Tools";
@@ -42,7 +42,7 @@ export const NavHeadersDesktop = ({
 
     // handler for scroll to header
     const onClickAnchor = React.useCallback((e: any) => {
-        scrollTo(document.querySelector(e.target.hash).offsetTop);
+        scrollContent(document.querySelector(e.target.hash).offsetTop);
     }, []);
 
     // refs on elementa a[href] in table of content

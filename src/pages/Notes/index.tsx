@@ -1,13 +1,13 @@
 import { Outlet } from "react-router-dom";
 import React from "react";
 import { ContextNotes } from "./ContextNotes";
-import { AnimateItem, scrollTo } from "components/Tools";
+import { AnimateItem, scrollContent } from "components/Tools";
 
 export const Notes = () => {
     const [currentHeader, setCurrentHeader] = React.useState(-1);
     React.useEffect(() => {
         document.title = "Notes";
-        scrollTo(0);
+        scrollContent(0);
     }, []);
     const refHeaders = React.useRef<any[]>([]);
     return (

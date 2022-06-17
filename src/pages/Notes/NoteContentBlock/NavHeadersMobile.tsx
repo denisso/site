@@ -6,7 +6,7 @@ import { ContextNotes } from "../ContextNotes";
 import styled from "styled-components";
 import { themeType } from "features/theming";
 import { Button } from "components/Elements/Button";
-import { scrollTo } from "components/Tools";
+import { scrollContent } from "components/Tools";
 import { useModal } from "components/Elements/CModal";
 import { AnchorBox } from "components/Elements/Anchor";
 import { AnimateItem } from "components/Tools";
@@ -70,7 +70,7 @@ export const NavHeadersMobile = ({
                 break;
             default:
         }
-        scrollTo(refHeaders.current[indx].offsetTop);
+        scrollContent(refHeaders.current[indx].offsetTop);
     }, []);
     if (currentHeader < 0) {
         return <></>;
