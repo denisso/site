@@ -95,7 +95,9 @@ export const useModal = (title?: string) => {
     const Modal = React.useMemo(() => {
         const ComponentConstructor = ({ children }: { children?: any }) => {
             const [show, setShow] = React.useState(false);
+            const [ready, setReady] = React.useState(false);
             React.useEffect(() => {
+                if (!ready) return;
                 const handleSetNewState = function (event: any) {
                     event.stopPropagation();
                     setShow(event.showModal.value);
@@ -111,10 +113,17 @@ export const useModal = (title?: string) => {
                         handleSetNewState
                     );
                 };
-            }, []);
+            }, [ready]);
             return (
                 <>
-                    <div ref={refModal} />
+                    <div
+                        ref={(node) => {
+                            if (node && !ready) {
+                                refModal.current = node
+                                setReady(true);
+                            }
+                        }}
+                    />
                     <CModal {...{ show, title }}>{children}</CModal>
                 </>
             );
@@ -161,7 +170,6 @@ export const CModal = ({
                     fadeInOut={show}
                     className="modalOverlay"
                     {...{ onAnimationEnd }}
-                    
                 >
                     <div className="modalBox">
                         <header className="modalHeader">

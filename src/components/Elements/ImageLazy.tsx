@@ -30,7 +30,7 @@ const Image = ({ src, alt, width, height, ...props }: any) => {
     }, []);
 
     const onLoadRef = React.useCallback((nodeImg: any) => {
-        if (nodeImg) {
+        if (nodeImg && !node.current) {
             node.current = nodeImg;
             intersect.addNodes({ node: node.current, trigger });
         }
