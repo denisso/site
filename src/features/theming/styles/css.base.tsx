@@ -59,10 +59,10 @@ export const base = css<{ theme: themeType }>`
             border-radius: var(--borderRadiusBlock);
         }
         ${between("md", "lg")} {
-            width: 90%;
+            width: 95%;
         }
         ${between("lg", "xl")} {
-            width: 80%;
+            width: 90%;
         }
         ${up("xl")} {
             width: 1200px;
