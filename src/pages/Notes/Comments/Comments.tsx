@@ -18,13 +18,13 @@ const CommentStyled = styled.div.attrs({ className: "CommentContainer" })`
         & > * + * {
             margin-top: 1rem;
         }
-        & > .CommentContent {
+        .CommentContent {
             margin-left: 0.3rem;
             padding: 1rem;
             background: ${({ theme }) => theme.colors.colorRoot};
             border-radius: var(--borderRadiusBlock);
         }
-        & > .CommentInfoData {
+        .CommentInfoData {
             display: flex;
             align-items: center;
             a {
@@ -35,33 +35,37 @@ const CommentStyled = styled.div.attrs({ className: "CommentContainer" })`
             }
             .CommentHash {
             }
-            & > .CommentAvatar {
+            .CommentAvatar {
                 width: 2rem;
                 height: 2rem;
-                & > * {
+                * {
                     display: block;
                     width: 100%;
                     height: auto;
                 }
             }
         }
-
     }
 
-    & > .CommentsChild {
+    .CommentsChild {
         display: flex;
+        flex-wrap: wrap;
         margin-left: 0.2rem;
         margin-top: 0.5rem;
-        & > .CommentsChildOffsetLeft {
-            width: 0.3rem;
-            background: ${({ theme }) => theme.colors.third};
-        }
-        & > .CommentsChildContainer {
-            flex: 1;
-
-            & > .CommentContainer + .CommentContainer {
-                margin-top: 0.5rem;
+        .CommentsChildContainer {
+            flex-basis: 100%;
+            display: flex;
+            .CommentsChildOffsetLeft {
+                width: 0.3rem;
+                background: ${({ theme }) => theme.colors.third};
             }
+            .CommentContainer {
+                flex: 1;
+            }
+        }
+
+        .CommentsChildContainer + .CommentsChildContainer {
+            margin-top: 0.5rem;
         }
     }
 `;
@@ -88,10 +92,7 @@ const Comment = ({
                 </div>
                 <div className="CommentContent">{comment.comment}</div>
                 <div className="CommentInfoData">
-                    <Avatar
-                        className="CommentAvatar"
-                        src={comment.picture}
-                    />
+                    <Avatar className="CommentAvatar" src={comment.picture} />
                     <div className="CommentUserName">
                         <b>{comment.name}</b>
                     </div>
@@ -125,21 +126,23 @@ export const CommentsRender = ({
                             {comment.child instanceof Array &&
                                 comment.child.length > 0 && (
                                     <div className="CommentsChild">
-                                        <div className="CommentsChildOffsetLeft"></div>
-                                        <div className="CommentsChildContainer">
-                                            {comment.child.map(
-                                                (child: CommentDataType) => (
+                                        {comment.child.map(
+                                            (child: CommentDataType) => (
+                                                <div
+                                                    key={child.commentid}
+                                                    className="CommentsChildContainer"
+                                                >
+                                                    <div className="CommentsChildOffsetLeft"></div>
                                                     <Comment
-                                                        key={child.commentid}
                                                         comment={{
                                                             ...child,
                                                             parentid:
                                                                 comment.commentid,
                                                         }}
                                                     />
-                                                )
-                                            )}
-                                        </div>
+                                                </div>
+                                            )
+                                        )}
                                     </div>
                                 )}
                         </Comment>
