@@ -1,5 +1,5 @@
 import React from "react";
-export type contextType = {
+export type PagesContextType = {
     intersect: {
         addNodes: ({
             node,
@@ -18,4 +18,4 @@ export const PagesContext = React.createContext({
         removeNodes: (arg) => {},
         ready: false,
     },
-} as contextType);
+} as PagesContextType);
