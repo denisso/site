@@ -1,9 +1,8 @@
 import React from "react";
 
 const changeCurrentHeader = (state: any, action: any, localData: any) => {
-
-    if(action.type === "ready") {
-        localData.countHeaders = action.payload.countHeaders
+    if (action.type === "ready") {
+        localData.countHeaders = action.payload.countHeaders;
         return state;
     }
     let { indxTriggered, entity }: any = action.payload;
@@ -79,15 +78,10 @@ const reducer = (() => {
         indxBottom: 0,
         indxTopLastOutsid: -1,
         indxTopPrev: 0,
-        countHeaders:0
+        countHeaders: 0,
     };
-    let GlithAntiReRun: any = null;
-    let stateNew: any = null;
     return (state: any, action: any) => {
-        if (GlithAntiReRun !== action)
-            stateNew = changeCurrentHeader(state, action, localData);
-        GlithAntiReRun = action;
-        return stateNew;
+        return changeCurrentHeader(state, action, localData);
     };
 })();
 
