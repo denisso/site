@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
+import { ErrorBoundary } from "components/Tools/ErrorBoundary";
 const MainWrapper = styled.main`
     padding: 2rem 0;
 `;
@@ -11,11 +12,12 @@ const MainContainer = styled.div.attrs({ className: "container" })`
 `;
 
 export const Main = () => {
-    
     return (
         <MainWrapper>
             <MainContainer>
-                <Outlet />
+                <ErrorBoundary name="MainComponent">
+                    <Outlet />
+                </ErrorBoundary>
             </MainContainer>
         </MainWrapper>
     );
