@@ -26,46 +26,47 @@ export const data: any = [
     {
         name: "Languages",
         type: "Scores",
+        max: 10,
         children: [
             {
                 name: "Russian",
-                props: [
+                scores: [
                     {
                         name: "Read",
-                        value: 10,
+                        score: 10,
                     },
                     {
                         name: "Write",
-                        value: 10,
+                        score: 10,
                     },
                     {
                         name: "Listen",
-                        value: 10,
+                        score: 10,
                     },
                     {
                         name: "Speach",
-                        value: 10,
+                        score: 10,
                     },
                 ],
             },
             {
                 name: "English",
-                props: [
+                scores: [
                     {
                         name: "Read",
-                        value: 8,
+                        score: 8,
                     },
                     {
                         name: "Write",
-                        value: 7,
+                        score: 7,
                     },
                     {
                         name: "Listen",
-                        value: 6,
+                        score: 6,
                     },
                     {
                         name: "Speach",
-                        value: 5,
+                        score: 5,
                     },
                 ],
             },

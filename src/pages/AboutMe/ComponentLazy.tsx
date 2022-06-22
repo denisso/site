@@ -7,18 +7,18 @@ const Wrapper = styled.div`
     min-height: 150px;
     opacity: 0;
     transition: opacity var(--transition);
-    .LeftSide,
-    .RightSide {
+    > .LeftSide,
+    > .RightSide {
         width: 1rem;
         border: solid;
         border-color: transparent;
         transition: border-color var(--transition);
     }
-    .LeftSide {
+    > .LeftSide {
         border-right: none;
     }
 
-    .RightSide {
+    > .RightSide {
         border-left: none;
     }
 
@@ -29,8 +29,9 @@ const Wrapper = styled.div`
     &.visible {
         opacity: 1;
     }
-    .Children {
+    > .Children {
         padding: 1rem 0;
+        flex: 1;
     }
 `;
 

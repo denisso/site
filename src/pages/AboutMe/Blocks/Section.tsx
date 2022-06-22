@@ -10,10 +10,7 @@ const Container = styled.div`
     & > * + * {
         margin-top: 0.4rem;
     }
-    .CategoryAndName {
-    }
-    .Description {
-    }
+
     .Links,
     .Badgets,
     .Sandboxes {
@@ -41,7 +38,7 @@ const BlockSectionChildren = ({ section, data }: any) => {
     return (
         <ComponentLazy>
             <Container>
-                <h2 className="CategoryAndName">
+                <h2 className="Header">
                     {section} {">"} {name}
                 </h2>
                 <div className="Description">{desc}</div>
