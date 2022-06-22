@@ -6,7 +6,7 @@ import { Badge } from "components/Elements/Badge";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import { Anchor } from "components/Elements/Anchor";
-const Hero = styled.div`
+const Container = styled.div`
     display: flex;
     min-height: 150px;
     .HeroAvatar {
@@ -28,8 +28,11 @@ const Hero = styled.div`
         }
         .HeroName {
             display: flex;
-            font-size: 1.4rem;
-            font-weight: bold;
+            .Link{
+                font-size: 1.5rem;
+                font-weight: bold;
+            }
+            
             & > * + * {
                 margin-left: 1rem;
             }
@@ -53,7 +56,7 @@ const Hero = styled.div`
 export const BlockHero = ({ className, data }: any) => {
     return (
         <ComponentLazy className={className}>
-            <Hero>
+            <Container>
                 <div className="HeroAvatar">
                     <ImageLazy
                         src={data?.hero?.photo?.src}
@@ -65,10 +68,8 @@ export const BlockHero = ({ className, data }: any) => {
                 </div>
                 <div className="HeroAbout">
                     <div className="HeroName">
-                        <div className="Name">
-                        {data?.hero?.name}
-                        </div>
-                        
+                        <h2 className="Name">{data?.hero?.name}</h2>
+
                         <Anchor
                             href={"mailto: blackbrain2009@gmail.com"}
                             className="Link"
@@ -91,7 +92,7 @@ export const BlockHero = ({ className, data }: any) => {
                             ))}
                     </div>
                 </div>
-            </Hero>
+            </Container>
         </ComponentLazy>
     );
 };
