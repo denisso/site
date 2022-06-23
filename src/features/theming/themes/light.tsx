@@ -10,7 +10,7 @@ const colors = {
     third: "#f07e3c",
     thirdLight: "#fed196",
     thirdLightMore: "#ffedd2",
-    fourth: "blue",
+    fourth: "#0000FF",
     fourthLight: "#88beff"
 };
 

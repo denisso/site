@@ -2,7 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
+import { faSun } from "@fortawesome/free-regular-svg-icons";
+import { faMoon } from "@fortawesome/free-solid-svg-icons";
 import { themeType } from "features/theming";
 
 const Component = styled.div<{
@@ -20,18 +21,18 @@ const Component = styled.div<{
     cursor: pointer;
     &[data-isOn="true"] {
         justify-content: flex-end;
-        .Icon.Day {
+        .Icon.Light {
             opacity: 1;
         }
-        .Icon.Night {
+        .Icon.Dark {
             opacity: 0;
         }
     }
     &[data-isOn="false"] {
-        .Icon.Day {
+        .Icon.Light {
             opacity: 0;
         }
-        .Icon.Night {
+        .Icon.Dark {
             opacity: 1;
         }
     }
@@ -62,8 +63,8 @@ export const ThemeSwitcher = ({ trigger, size }: any) => {
     return (
         <Component data-ison={isOn} onClick={toggleSwitch} size={size}>
             <motion.div className="handle" layout transition={spring}>
-                <FontAwesomeIcon className="Icon Day" icon={faMoon} />
-                <FontAwesomeIcon className="Icon Night" icon={faSun} />
+                <FontAwesomeIcon className="Icon Light" icon={faMoon} />
+                <FontAwesomeIcon className="Icon Dark" icon={faSun} />
             </motion.div>
         </Component>
     );
