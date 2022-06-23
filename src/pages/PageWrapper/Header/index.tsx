@@ -11,7 +11,7 @@ import { AnimateItem } from "components/Tools/Animation";
 
 import { MobileMenu } from "./Elements/MobileMenu";
 import { MainMenu } from "./Elements/MainMenu";
-import { Button } from "components/Elements/Button";
+import { ThemeSwitcher } from "./Elements/Switcher";
 import { ButtonHamburger } from "./Elements/ButtonHamburger";
 import { AccountComponent } from "features/accounts/Component";
 
@@ -45,7 +45,7 @@ const HeaderLeftSide = styled.div`
 `;
 const HeaderRightSide = styled.div`
     ${flex}
-    & > * +*{
+    & > * +* {
         margin-left: 1rem;
     }
 `;
@@ -84,10 +84,12 @@ export const Header = withTheme(({ theme }: { theme: themeType }) => {
                         <MainMenu key={"DesktopMenu"} />
                     </HeaderLeftSide>
                     <HeaderRightSide>
-                        <Button onClick={() => dispatch(switchTheme())}>
-                            Switch
-                        </Button>
-                        <AccountComponent/>
+                        <ThemeSwitcher
+                            size={"1.6rem"}
+                            trigger={() => dispatch(switchTheme())}
+                        />
+
+                        <AccountComponent />
                     </HeaderRightSide>
                 </HeaderLine>
             </HeaderWrapper>
