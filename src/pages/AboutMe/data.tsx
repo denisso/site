@@ -1,103 +1,120 @@
-export const data = [
+export const data: any = [
     {
-        component: "Hero",
-        Photo: "/asset/Face.jpg",
-        Name: "Denis",
-        Role: "React web programmer",
-        SkillsMain: [
-            "Javasciprts & Typescript",
-            "HTML & Markdown",
-            "CSS & SCSS",
-            "Web API",
-            "NodeJS",
-            "React",
-            "Redux",
-            "Styled-components",
-        ],
-    },
-    {
-        component: "EcoSystem",
-        type: "type0",
-        ecosystem: [
-            {
-                name: "State Management",
-                desc: "",
-                libs: [
-                    {
-                        name: "Redux",
-                        desc: 'Redux is a pattern and library for managing and updating application state, using events called "actions". It serves as a centralized store for state that needs to be used across your entire application, with rules ensuring that the state can only be updated in a predictable fashion.',
-                        link: "https://redux.js.org/",
-                        badgets: [""],
-                        sandboxes: [
-                            {
-                                name: "Redux",
-                                link: "https://codesandbox.io/s/redux-21hrj",
-                            },
-                            {
-                                name: "React Redux",
-                                link: "https://codesandbox.io/s/react-redux-s084g",
-                            },
-                            {
-                                name: "React Redux Toolkit",
-                                link: "https://codesandbox.io/s/react-redux-toolkit-iq1zp",
-                            },
-                            {
-                                name: "React Redux Toolkit extraReducer",
-                                link: "https://codesandbox.io/s/react-redux-toolkit-extrareducers-j17tb",
-                            },
-                        ],
-                    },
-                ],
+        type: "Hero",
+        name: "Hero Block",
+        hero: {
+            photo: {
+                src: "/asset/Face.jpg",
+                height: 1080,
+                width: 1080,
+                alt: "hero of this site",
             },
-        ],
+            name: "Denis",
+            role: "React Web Developer",
+            skills: [
+                "Javasciprts & Typescript",
+                "HTML & Markdown",
+                "CSS & SCSS",
+                "Web API",
+                "NodeJS",
+                "React",
+                "Redux",
+                "Styled-components",
+            ],
+        },
     },
     {
         name: "Languages",
-        type: "type1",
-        list: [
+        type: "Scores",
+        max: 10,
+        children: [
             {
                 name: "Russian",
-                props: [
+                scores: [
                     {
-                        name: "read",
-                        value: 10,
+                        name: "Read",
+                        score: 10,
                     },
                     {
-                        name: "write",
-                        value: 10,
+                        name: "Write",
+                        score: 10,
                     },
                     {
-                        name: "listen",
-                        value: 10,
+                        name: "Listen",
+                        score: 10,
                     },
                     {
-                        name: "speach",
-                        value: 10,
+                        name: "Speach",
+                        score: 10,
                     },
                 ],
             },
             {
                 name: "English",
-                props: [
+                scores: [
                     {
-                        name: "read",
-                        value: 8,
+                        name: "Read",
+                        score: 8,
                     },
                     {
-                        name: "write",
-                        value: 7,
+                        name: "Write",
+                        score: 7,
                     },
                     {
-                        name: "listen",
-                        value: 6,
+                        name: "Listen",
+                        score: 6,
                     },
                     {
-                        name: "speach",
-                        value: 5,
+                        name: "Speach",
+                        score: 5,
                     },
                 ],
             },
         ],
     },
-    { component: "Achevements", type: "type2",  },
+    {
+        name: "React EcoSystem",
+        type: "Section",
+        children: [
+            {
+                name: "Redux",
+                category: "State Management",
+                desc: 'Redux is a pattern and library for managing and updating application state, using events called "actions". It serves as a centralized store for state that needs to be used across your entire application, with rules ensuring that the state can only be updated in a predictable fashion.',
+                links: [
+                    { name: "Redux", link: "https://redux.js.org/" },
+                    {
+                        name: "Redux Toolkit",
+                        link: "https://redux-toolkit.js.org/",
+                    },
+                ],
+                badgets: [
+                    "Actions",
+                    "Reducers",
+                    "Store",
+                    "Selectors",
+                    "EntityAdapter",
+                    "Query API",
+                ],
+                sandboxes: [
+                    {
+                        name: "Redux",
+                        link: "https://codesandbox.io/s/redux-21hrj",
+                    },
+                    {
+                        name: "React Redux",
+                        link: "https://codesandbox.io/s/react-redux-s084g",
+                    },
+                    {
+                        name: "React Redux Toolkit",
+                        link: "https://codesandbox.io/s/react-redux-toolkit-iq1zp",
+                    },
+                    {
+                        name: "React Redux Toolkit extraReducer",
+                        link: "https://codesandbox.io/s/react-redux-toolkit-extrareducers-j17tb",
+                    },
+                ],
+            },
+        ],
+    },
+
 ];
