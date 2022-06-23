@@ -91,11 +91,9 @@ export const data: any = [
                     "Actions",
                     "Reducers",
                     "Store",
-                    "Dispatch",
                     "Selectors",
-                    "Toolkit",
                     "EntityAdapter",
-                    "rtkQuery",
+                    "Query API",
                 ],
                 sandboxes: [
                     {

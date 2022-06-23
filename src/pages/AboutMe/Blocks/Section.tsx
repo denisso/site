@@ -52,7 +52,7 @@ const BlockSectionChildren = ({ section, data }: any) => {
                                 href={link}
                                 className="Link"
                                 target="_blank"
-                                title="Go to sandbox"
+                                title="Go to page"
                             >
                                 <span className="Icon">
                                     <FontAwesomeIcon icon={faLink} />

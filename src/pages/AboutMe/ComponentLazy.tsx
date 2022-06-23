@@ -6,7 +6,6 @@ const Wrapper = styled.div`
     display: flex;
     min-height: 150px;
     opacity: 0;
-    transition: opacity var(--transition);
     > .LeftSide,
     > .RightSide {
         width: 1rem;
@@ -27,11 +26,22 @@ const Wrapper = styled.div`
         border-color: ${({ theme }) => theme.colors.third};
     }
     &.visible {
-        opacity: 1;
+        animation: fade-in-bottom 1s ease-in-out both;
     }
     > .Children {
         padding: 1rem 0;
         flex: 1;
+    }
+    @keyframes fade-in-bottom {
+        0% {
+            transform: translateY(50px);
+            opacity: 0;
+        }
+
+        100% {
+            transform: translateY(0);
+            opacity: 1;
+        }
     }
 `;
 
