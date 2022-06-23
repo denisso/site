@@ -5,7 +5,9 @@ import { PagesContext, PagesContextType } from "pages";
 const Wrapper = styled.div`
     display: flex;
     min-height: 150px;
+    transform: translateY(50px);
     opacity: 0;
+    transition: transform 1s, opacity 1s;
     > .LeftSide,
     > .RightSide {
         width: 1rem;
@@ -26,22 +28,12 @@ const Wrapper = styled.div`
         border-color: ${({ theme }) => theme.colors.third};
     }
     &.visible {
-        animation: fade-in-bottom 1s ease-in-out both;
+        transform: translateY(0px);
+        opacity: 1;
     }
     > .Children {
         padding: 1rem 0;
         flex: 1;
-    }
-    @keyframes fade-in-bottom {
-        0% {
-            transform: translateY(50px);
-            opacity: 0;
-        }
-
-        100% {
-            transform: translateY(0);
-            opacity: 1;
-        }
     }
 `;
 
