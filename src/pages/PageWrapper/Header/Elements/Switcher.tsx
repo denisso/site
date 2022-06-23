@@ -16,6 +16,7 @@ const Component = styled.div<{
     border-radius: calc(var(--size) / 4 + var(--size) / 8);
     border: solid;
     padding: calc(var(--size) / 16);
+    user-select: none;
     cursor: pointer;
     &[data-isOn="true"] {
         justify-content: flex-end;
