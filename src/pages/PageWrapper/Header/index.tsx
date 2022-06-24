@@ -1,5 +1,5 @@
 import React from "react";
-import { up } from "styled-breakpoints";
+import { up,down } from "styled-breakpoints";
 import styled, { withTheme, css } from "styled-components";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
@@ -33,10 +33,11 @@ const HeaderWrapper = styled.header`
     z-index: 9999;
     top: 0px;
     background-color: white;
-    ${up("sm")} {
+    ${up("md")} {
         border-top-left-radius: var(--borderRadiusBlock);
         border-top-right-radius: var(--borderRadiusBlock);
     }
+
     box-shadow: var(--boxShadowHorizontal)
         ${({ theme }) => theme.colorBoxShadow};
 `;
@@ -86,7 +87,9 @@ export const Header = withTheme(({ theme }: { theme: themeType }) => {
                     <HeaderRightSide>
                         <ThemeSwitcher
                             size={"1.6rem"}
-                            trigger={() => dispatch(switchTheme())}
+                            trigger={(name: string) =>
+                                dispatch(switchTheme({ themeName: name }))
+                            }
                         />
 
                         <AccountComponent />

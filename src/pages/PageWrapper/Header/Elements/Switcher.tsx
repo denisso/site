@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { motion } from "framer-motion";
+import { motion, useCycle } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSun } from "@fortawesome/free-regular-svg-icons";
 import { faMoon } from "@fortawesome/free-solid-svg-icons";
@@ -19,8 +19,7 @@ const Component = styled.div<{
     padding: calc(var(--size) / 16);
     user-select: none;
     cursor: pointer;
-    &[data-isOn="true"] {
-        justify-content: flex-end;
+    &[data-isOn="Light"] {
         .Icon.Light {
             opacity: 1;
         }
@@ -28,7 +27,8 @@ const Component = styled.div<{
             opacity: 0;
         }
     }
-    &[data-isOn="false"] {
+    &[data-isOn="Dark"] {
+        justify-content: flex-end;
         .Icon.Light {
             opacity: 0;
         }
@@ -55,16 +55,18 @@ const spring = {
     damping: 30,
 };
 export const ThemeSwitcher = ({ trigger, size }: any) => {
-    const [isOn, setOn] = React.useState(false);
+    const [theme, toggleTheme] = useCycle("Light", "Dark");
     const toggleSwitch = () => {
-        setOn(!isOn);
-        trigger();
+        toggleTheme();
     };
+    React.useEffect(() => {
+        trigger(theme);
+    }, [theme]);
     return (
-        <Component data-ison={isOn} onClick={toggleSwitch} size={size}>
+        <Component data-ison={theme} onClick={toggleSwitch} size={size}>
             <motion.div className="handle" layout transition={spring}>
-                <FontAwesomeIcon className="Icon Light" icon={faMoon} />
-                <FontAwesomeIcon className="Icon Dark" icon={faSun} />
+                <FontAwesomeIcon className="Icon Light" icon={faSun} />
+                <FontAwesomeIcon className="Icon Dark" icon={faMoon} />
             </motion.div>
         </Component>
     );

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import { themeDark } from "./themes/dark";
+import { themeDark } from "./themes/dark";
 import { themeLight } from "./themes/light";
 import { themeType } from "./themes/themeType";
 
@@ -11,27 +11,30 @@ const initialState: iState = {
     current: themeLight,
 };
 
+const Themes: {[key:string]:themeType} = {
+    "Light": themeLight,
+    "Dark": themeDark,
+};
+
 const slice = createSlice({
     name: "themes",
     initialState,
     reducers: {
-        // toLight: (state) => {
-        //     state.current = {
-        //         ...themeLight,
-        //         breakpoint: state.current.breakpoint,
-        //     };
-        // },
-        // toDark: (state) => {
-        //     state.current = {
-        //         ...themeDark,
-        //         breakpoint: state.current.breakpoint,
-        //     };
-        // },
-        switchTheme: (state) => {
-            state.current = {
-                ...themeLight,
-                breakpoint: state.current.breakpoint,
-            };
+        /**
+         * 
+         * @param state 
+         * @param action { payload: { themeName: "Light" | "Dark" } }
+         */
+        switchTheme: (
+            state,
+            action: { payload: { themeName: string } }
+        ) => {
+            if(Themes[action?.payload?.themeName]){
+                state.current = {
+                    ...Themes[action?.payload?.themeName],
+                    breakpoint: state.current.breakpoint,
+                };
+            }
         },
         switchBreakpoint: (state, action) => {
             state.current.breakpoint = action.payload;
