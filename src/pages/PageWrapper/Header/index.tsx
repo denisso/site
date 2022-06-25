@@ -1,5 +1,5 @@
 import React from "react";
-import { up } from "styled-breakpoints";
+import { up,down } from "styled-breakpoints";
 import styled, { withTheme, css } from "styled-components";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
@@ -11,7 +11,7 @@ import { AnimateItem } from "components/Tools/Animation";
 
 import { MobileMenu } from "./Elements/MobileMenu";
 import { MainMenu } from "./Elements/MainMenu";
-import { Button } from "components/Elements/Button";
+import { ThemeSwitcher } from "./Elements/Switcher";
 import { ButtonHamburger } from "./Elements/ButtonHamburger";
 import { AccountComponent } from "features/accounts/Component";
 
@@ -30,13 +30,15 @@ const flex = css`
 const HeaderWrapper = styled.header`
     ${flex};
     position: sticky;
-    z-index: 9999;
+    z-index: 9998;
     top: 0px;
-    background-color: white;
-    ${up("sm")} {
+    background-color: ${({ theme }) => theme.colors.colorRoot};
+    transition: background-color var(--transition);
+    ${up("md")} {
         border-top-left-radius: var(--borderRadiusBlock);
         border-top-right-radius: var(--borderRadiusBlock);
     }
+
     box-shadow: var(--boxShadowHorizontal)
         ${({ theme }) => theme.colorBoxShadow};
 `;
@@ -45,7 +47,7 @@ const HeaderLeftSide = styled.div`
 `;
 const HeaderRightSide = styled.div`
     ${flex}
-    & > * +*{
+    & > * +* {
         margin-left: 1rem;
     }
 `;
@@ -84,10 +86,14 @@ export const Header = withTheme(({ theme }: { theme: themeType }) => {
                         <MainMenu key={"DesktopMenu"} />
                     </HeaderLeftSide>
                     <HeaderRightSide>
-                        <Button onClick={() => dispatch(switchTheme())}>
-                            Switch
-                        </Button>
-                        <AccountComponent/>
+                        <ThemeSwitcher
+                            size={"1.6rem"}
+                            trigger={(name: string) =>
+                                dispatch(switchTheme({ themeName: name }))
+                            }
+                        />
+
+                        <AccountComponent />
                     </HeaderRightSide>
                 </HeaderLine>
             </HeaderWrapper>

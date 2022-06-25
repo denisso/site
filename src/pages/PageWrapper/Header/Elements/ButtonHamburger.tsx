@@ -6,7 +6,6 @@ const Path = (props: any) => (
     <motion.path
         fill="transparent "
         strokeWidth="3"
-        stroke="hsl(0, 0%, 18%)"
         strokeLinecap="round"
         {...props}
     />
@@ -31,6 +30,9 @@ const Button = styled.button`
     &:hover {
         opacity: var(--opacityFadeOut);
     }
+    .Path{
+        stroke: ${({ theme }) => theme.colors.first};
+    }
 `;
 
 export const ButtonHamburger = ({
@@ -50,20 +52,20 @@ export const ButtonHamburger = ({
         >
             <Button onClick={() => toggleOpen()}>
                 <svg width="30" height="30" viewBox="0 0 30 30">
-                    <Path
+                    <Path className="Path"
                         variants={{
                             closed: { d: "M 0 4 L 30 4" },
                             open: { d: "M 4.39 4.39 L 25.61 25.6 " },
                         }}
                     />
-                    <Path
+                    <Path className="Path"
                         d="M 0 15 L 30 15"
                         variants={{
                             closed: { opacity: 1 },
                             open: { opacity: 0 },
                         }}
                     />
-                    <Path
+                    <Path className="Path"
                         variants={{
                             closed: { d: "M 0 26 L 30 26" },
                             open: { d: "M 25.57 4.39 L 4.36 25.6" },

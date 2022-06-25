@@ -50,7 +50,6 @@ const CommentStyled = styled.div.attrs({ className: "CommentContainer" })`
     .CommentsChild {
         display: flex;
         flex-wrap: wrap;
-        margin-left: 0.2rem;
         margin-top: 0.5rem;
         .CommentsChildContainer {
             flex-basis: 100%;

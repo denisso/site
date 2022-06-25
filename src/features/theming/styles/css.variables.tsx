@@ -3,7 +3,7 @@ import { css } from "styled-components";
 export const variables = css`
     :root {
         --gap: 1rem;
-        --zIndexModal: 600;
+        --zIndexModal: 9999;
         --zIndexContentOverBlocks: 100;
         --padding: 1rem;
         --transition: 0.4s;

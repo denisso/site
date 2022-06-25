@@ -16,20 +16,14 @@ const Svg = styled.svg.attrs({
 
 export const Icon = () => {
     return (
-        <Svg viewBox="0 0 100.18 100.18">
-            <path
-                fill="#fff"
-                strokeMiterlimit="10"
-                strokeWidth="8.178"
-                d="M4.09 4.09H96.09V96.09H4.09z"
-            ></path>
+        <Svg viewBox="0 0 100 100">
             <path
                 fill="none"
-                strokeLinecap="square"
                 strokeMiterlimit="10"
                 strokeWidth="8"
-                d="M22.44 46.61l20.7 20.78 34.6-34.6"
+                d="M22.35,46.52,43.05,67.3l34.6-34.6M96,96H4V4H96Z"
             ></path>
+
         </Svg>
     );
 };

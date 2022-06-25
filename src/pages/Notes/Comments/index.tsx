@@ -21,6 +21,9 @@ const Container = styled.div`
     & a {
         user-select: auto;
     }
+    .Comments{
+        margin-top: 1rem;
+    }
 `;
 
 export const CommentsComponent = ({ noteSlug }: any) => {
