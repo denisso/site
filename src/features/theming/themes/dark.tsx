@@ -8,7 +8,7 @@ const colors: colorsType = {
     second: "#fdbfbf",
     secondLight: "#fd4242",
     secondLightMore: "#980000",
-    third: "#ff9900",
+    third: "#f07e3c",
     thirdLight: "#ffb657",
     thirdLightMore: "#ff5d1c",
     fourth: "#6d6dff",
