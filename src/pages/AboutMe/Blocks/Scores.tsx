@@ -1,3 +1,4 @@
+import React from "react"
 import styled from "styled-components";
 import { ComponentLazy } from "../ComponentLazy";
 import { up, down } from "styled-breakpoints";
@@ -54,7 +55,7 @@ const Container = styled.div`
     }
 `;
 
-export const BlockScores = ({ data, className }: any) => {
+export const BlockScores = React.memo(({ data, className }: any) => {
     return (
         <ComponentLazy className={className}>
             <Container>
@@ -92,4 +93,4 @@ export const BlockScores = ({ data, className }: any) => {
             </Container>
         </ComponentLazy>
     );
-};
+});

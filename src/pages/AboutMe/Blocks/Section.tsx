@@ -95,7 +95,7 @@ const BlockSectionChildren = ({ section, data }: any) => {
     );
 };
 
-export const BlockSection = ({ data, className }: any) => {
+export const BlockSection = React.memo(({ data, className }: any) => {
     return (
         <div className={className}>
             {data &&
@@ -109,4 +109,4 @@ export const BlockSection = ({ data, className }: any) => {
                 ))}
         </div>
     );
-};
+});

@@ -1,5 +1,9 @@
 import { createThemeSchema, colorsType } from "./themeSchema";
 
+/**
+ * Light is short for lightness
+ */
+
 const colors: colorsType = {
     colorRoot: "#5a5a5a",
     first: "#ffffff",
@@ -8,7 +12,7 @@ const colors: colorsType = {
     second: "#fdbfbf",
     secondLight: "#fd4242",
     secondLightMore: "#980000",
-    third: "#f07e3c",
+    third: "#a24c1a",
     thirdLight: "#ffb657",
     thirdLightMore: "#ff5d1c",
     fourth: "#6d6dff",

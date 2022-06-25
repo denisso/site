@@ -53,7 +53,7 @@ const Container = styled.div`
     }
 `;
 
-export const BlockHero = ({ className, data }: any) => {
+export const BlockHero = React.memo(({ className, data }: any) => {
     return (
         <ComponentLazy className={className}>
             <Container>
@@ -95,4 +95,4 @@ export const BlockHero = ({ className, data }: any) => {
             </Container>
         </ComponentLazy>
     );
-};
+});

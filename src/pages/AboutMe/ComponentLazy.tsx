@@ -37,18 +37,16 @@ const Wrapper = styled.div`
     }
 `;
 
-export const ComponentLazy = ({ className, children }: any) => {
+export const ComponentLazy = React.memo(({ className, children }: any) => {
     const { intersect }: PagesContextType = React.useContext(PagesContext);
     const componentRef = React.useRef<HTMLElement>();
-    const visible = React.useRef<boolean>(false);
+    const [visible, setVisible] = React.useState(false);
     const trigger = React.useCallback(({ entity, unobserve }: any) => {
         if (!componentRef.current) return;
         if (entity.isIntersecting) {
-            visible.current = true;
-            entity.target.classList.add("visible");
+            setVisible(true);
         } else {
-            visible.current = false;
-            entity.target.classList.remove("visible");
+            setVisible(false);
         }
     }, []);
     const componentRefCb = React.useCallback((node: any) => {
@@ -60,11 +58,15 @@ export const ComponentLazy = ({ className, children }: any) => {
     if (!intersect.ready) {
         return <></>;
     }
+
     return (
-        <Wrapper className={className} ref={componentRefCb}>
+        <Wrapper
+            className={(visible ? "visible": "") + (className ? " " +  className : "")}
+            ref={componentRefCb}
+        >
             <div className="LeftSide"></div>
             <div className="Children">{children}</div>
             <div className="RightSide"></div>
         </Wrapper>
     );
-};
+});
