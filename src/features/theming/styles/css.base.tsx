@@ -17,7 +17,7 @@ export const base = css<{ theme: themeType }>`
     body {
         background-color: ${({ theme }) => theme.colorBackground};
         color: ${({ theme }) => theme.colorText};
-        transition: var(--transition) background-color;
+        transition: color var(--transition), background-color var(--transition);
         font-size: 16px;
         font-family: ${({ theme }) => theme.fontFamily};
         /* for position sticky */

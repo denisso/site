@@ -15,7 +15,9 @@ const Component = styled.div<{
     display: flex;
     justify-content: flex-start;
     border-radius: calc(var(--size) / 4 + var(--size) / 8);
-    border: solid;
+    border: solid ${({ theme }) => theme.colors.first};
+    color: ${({ theme }) => theme.colors.first};
+    transition: color var(--transition), border-color var(--transition);
     padding: calc(var(--size) / 16);
     user-select: none;
     cursor: pointer;

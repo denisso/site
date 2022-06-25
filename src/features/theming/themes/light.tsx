@@ -1,5 +1,8 @@
 import { createThemeSchema, colorsType } from "./themeSchema";
 
+/**
+ * Light is short for lightness
+ */
 const colors: colorsType = {
     colorRoot: "#fff",
     first: "#222222",

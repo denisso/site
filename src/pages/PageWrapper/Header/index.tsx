@@ -30,9 +30,10 @@ const flex = css`
 const HeaderWrapper = styled.header`
     ${flex};
     position: sticky;
-    z-index: 9999;
+    z-index: 9998;
     top: 0px;
-    background-color: white;
+    background-color: ${({ theme }) => theme.colors.colorRoot};
+    transition: background-color var(--transition);
     ${up("md")} {
         border-top-left-radius: var(--borderRadiusBlock);
         border-top-right-radius: var(--borderRadiusBlock);

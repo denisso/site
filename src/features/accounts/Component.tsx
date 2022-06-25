@@ -1,12 +1,17 @@
 import { useSelector } from "react-redux";
 import { selectSignInState } from "./reducer";
 import { GoogleButton } from "./Google/GoogleButton";
-import { Avatar } from "components/Elements/Avatar";
 import styled from "styled-components";
-
-const AvatarStyled = styled(Avatar)`
-    /* width: 2rem; */
+import { ReactComponent as LogoGuest } from "assets/guest.svg";
+const AvatarStyled = styled.div`
+    width: 2rem;
     height: 2rem;
+    .Icon {
+        width: 100%;
+        height: auto;
+        fill: ${({ theme }) => theme.colors.first};
+        transition: fill var(--transition);
+    }
 `;
 
 export const AccountComponent = () => {
@@ -16,7 +21,11 @@ export const AccountComponent = () => {
         <>
             {currentUserID && (
                 <>
-                    {!isSignIn && <AvatarStyled className="Avatar" />}
+                    {!isSignIn && (
+                        <AvatarStyled>
+                            <LogoGuest className="Icon"/>
+                        </AvatarStyled>
+                    )}
                     <GoogleButton />
                 </>
             )}
