@@ -1,7 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { breaksNumber } from "./themes/breakpoints";
 import { themeDark } from "./themes/dark";
 import { themeLight } from "./themes/light";
 import { themeType } from "./themes/themeType";
+
+
 
 type iState = {
     current: themeType;
@@ -14,6 +17,15 @@ const initialState: iState = {
 const Themes: {[key:string]:themeType} = {
     "Light": themeLight,
     "Dark": themeDark,
+};
+
+const getMedia = () => {
+    const entries = Object.entries(breaksNumber);
+    const width:number = window.innerWidth
+    for (let i = 0; i < entries.length - 1; i++) {
+        if (width < entries[i + 1][1]) return entries[i][0];
+    }
+    return entries[entries.length - 1][0];
 };
 
 const slice = createSlice({
@@ -36,8 +48,11 @@ const slice = createSlice({
                 };
             }
         },
-        switchBreakpoint: (state, action) => {
-            state.current.breakpoint = action.payload;
+        toggleModal: (state, action) => {
+
+        },
+        switchBreakpoint: (state) => {
+            state.current.breakpoint = getMedia();
         },
     },
 });
