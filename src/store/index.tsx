@@ -1,3 +1,9 @@
+/**
+ * 
+ * @author Denis Kurochkin (mr_dramm) <blackbrain2009@gmail.com>
+ * @copyright Denis Kurochkin 2022
+ */
+
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { reducerTheming } from "features/theming/reducer";
 import { reducerAccount } from "features/accounts/reducer";

@@ -1,6 +1,9 @@
 /**
- * Modal with fadeIn/Out effect
+ * @description Modal with fadeIn/Out effect
+ * @author Denis Kurochkin (mr_dramm) <blackbrain2009@gmail.com>
+ * @copyright Denis Kurochkin 2022
  */
+
 import React from "react";
 import styled from "styled-components";
 import { up, only, down } from "styled-breakpoints";

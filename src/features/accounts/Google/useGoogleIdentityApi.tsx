@@ -6,6 +6,8 @@
  * email - The user's email address
  * name
  * picture - url image
+ * @author Denis Kurochkin (mr_dramm) <blackbrain2009@gmail.com>
+ * @copyright Denis Kurochkin 2022
  */
 import React from "react";
 import { parseJwt } from "tools/parseJWT";

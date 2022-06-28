@@ -1,7 +1,8 @@
 /**
- * For queries with cache
+ * @description For queries with cache
+ * @author Denis Kurochkin (mr_dramm) <blackbrain2009@gmail.com>
+ * @copyright Denis Kurochkin 2022
  */
-
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const apiQuery = createApi({

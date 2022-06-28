@@ -1,3 +1,9 @@
+/**
+ * 
+ * @author Denis Kurochkin (mr_dramm) <blackbrain2009@gmail.com>
+ * @copyright Denis Kurochkin 2022
+ */
+
 import styled from "styled-components";
 import { down, up } from "styled-breakpoints";
 import { Button } from "components/Elements/Button";

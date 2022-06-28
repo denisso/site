@@ -1,3 +1,9 @@
+/**
+ *
+ * @author Denis Kurochkin (mr_dramm) <blackbrain2009@gmail.com>
+ * @copyright Denis Kurochkin 2022
+ */
+
 import React from "react";
 
 const changeCurrentHeader = (state: any, action: any, localData: any) => {

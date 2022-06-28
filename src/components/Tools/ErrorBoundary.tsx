@@ -1,3 +1,9 @@
+/**
+ * @description
+ * @author Denis Kurochkin (mr_dramm) <blackbrain2009@gmail.com>
+ * @copyright Denis Kurochkin 2022
+ */
+
 import React from "react";
 
 export class ErrorBoundary extends React.Component<any, any> {

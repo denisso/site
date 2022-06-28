@@ -1,3 +1,9 @@
+/**
+ * 
+ * @author Denis Kurochkin (mr_dramm) <blackbrain2009@gmail.com>
+ * @copyright Denis Kurochkin 2022
+ */
+
 export { HomePage } from "./HomePage";
 export { AboutMe } from "./AboutMe";
 export { Notes } from "./Notes";

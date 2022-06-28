@@ -1,3 +1,9 @@
+/**
+ * @description 
+ * @author Denis Kurochkin (mr_dramm) <blackbrain2009@gmail.com>
+ * @copyright Denis Kurochkin 2022
+ */
+
 const countCategories = 3;
 const countNotes = 10;
 

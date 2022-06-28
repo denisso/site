@@ -1,3 +1,9 @@
+/**
+ * 
+ * @author Denis Kurochkin (mr_dramm) <blackbrain2009@gmail.com>
+ * @copyright Denis Kurochkin 2022
+ */
+
 import {decode as atob, encode as btoa} from 'base-64'
 
 export const parseJwt = (token: string) => {

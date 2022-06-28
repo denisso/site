@@ -1,3 +1,9 @@
+/**
+ * @description 
+ * @author Denis Kurochkin (mr_dramm) <blackbrain2009@gmail.com>
+ * @copyright Denis Kurochkin 2022
+ */
+
 import { rest } from "msw";
 import { notes, NoteDataType } from "./db-notes";
 import { dataHomepage } from "./db-page-home";

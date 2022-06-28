@@ -1,3 +1,9 @@
+/**
+ * @description 
+ * @author Denis Kurochkin (mr_dramm) <blackbrain2009@gmail.com>
+ * @copyright Denis Kurochkin 2022
+ */
+
 import React from "react";
 import styled from "styled-components";
 import { up, down, between } from "styled-breakpoints";

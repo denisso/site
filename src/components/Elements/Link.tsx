@@ -1,5 +1,7 @@
 /**
- * Wrapper for styled anchor a[href]
+ * @description Wrapper for styled anchor a[href]
+ * @author Denis Kurochkin (mr_dramm) <blackbrain2009@gmail.com>
+ * @copyright Denis Kurochkin 2022
  */
 import { Link } from "react-router-dom";
 import styled from "styled-components";

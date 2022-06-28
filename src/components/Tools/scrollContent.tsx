@@ -1,7 +1,9 @@
 /**
+ * @description
  * sandbox: https://codesandbox.io/s/smooth-scroll-vanila-js-i0usik
+ * @author Denis Kurochkin (mr_dramm) <blackbrain2009@gmail.com>
+ * @copyright Denis Kurochkin 2022
  */
-
 export const scrollContent = (scrollTopNext: number) => {
     const $doc = document.documentElement;
     let scrollTopPrev: number = $doc.scrollTop;

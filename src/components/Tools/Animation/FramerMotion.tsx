@@ -1,8 +1,14 @@
+/**
+ * @description
+ * @author Denis Kurochkin (mr_dramm) <blackbrain2009@gmail.com>
+ * @copyright Denis Kurochkin 2022
+ */
+
 import { motion, AnimatePresence } from "framer-motion";
 
-/* 
-    Type animation used in AnimateItem
-*/
+/**
+ * Type animation used in AnimateItem
+ */
 const animations = {
     initial: { x: 50, opacity: 0 },
     animate: { x: 0, opacity: 1 },

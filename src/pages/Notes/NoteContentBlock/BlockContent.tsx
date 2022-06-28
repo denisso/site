@@ -2,6 +2,8 @@
  * Component for displays only content post
  * additional feature: this component source of truth for the currently displayed header
  * current header stored in context "ContextNotes" as number
+ * @author Denis Kurochkin (mr_dramm) <blackbrain2009@gmail.com>
+ * @copyright Denis Kurochkin 2022
  */
 
 import React from "react";

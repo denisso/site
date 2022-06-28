@@ -4,7 +4,10 @@
  * Reply - create parent comment, create child comment
  * Delete comment
  * Edit comment
+ * @author Denis Kurochkin (mr_dramm) <blackbrain2009@gmail.com>
+ * @copyright Denis Kurochkin 2022
  */
+
 import React from "react";
 import { AnimateItem } from "components/Tools";
 import { schemaForm, CForm } from "components/Elements/CForm";

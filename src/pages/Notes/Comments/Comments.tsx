@@ -1,3 +1,9 @@
+/**
+ * @description 
+ * @author Denis Kurochkin (mr_dramm) <blackbrain2009@gmail.com>
+ * @copyright Denis Kurochkin 2022
+ */
+
 import { Avatar } from "components/Elements/Avatar";
 import styled from "styled-components";
 import { CommentButtons } from "./CommentButtons";

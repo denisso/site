@@ -1,3 +1,9 @@
+/**
+ * @description 
+ * @author Denis Kurochkin (mr_dramm) <blackbrain2009@gmail.com>
+ * @copyright Denis Kurochkin 2022
+ */
+
 export const data: any = [
     {
         type: "Hero",
@@ -116,5 +122,92 @@ export const data: any = [
             },
         ],
     },
-
+    {
+        name: "React Styled-components",
+        type: "Section",
+        children: [
+            {
+                name: "Redux",
+                category: "State Management",
+                desc: 'Redux is a pattern and library for managing and updating application state, using events called "actions". It serves as a centralized store for state that needs to be used across your entire application, with rules ensuring that the state can only be updated in a predictable fashion.',
+                links: [
+                    { name: "Redux", link: "https://redux.js.org/" },
+                    {
+                        name: "Redux Toolkit",
+                        link: "https://redux-toolkit.js.org/",
+                    },
+                ],
+                badgets: [
+                    "Actions",
+                    "Reducers",
+                    "Store",
+                    "Selectors",
+                    "EntityAdapter",
+                    "Query API",
+                ],
+                sandboxes: [
+                    {
+                        name: "Redux",
+                        link: "https://codesandbox.io/s/redux-21hrj",
+                    },
+                    {
+                        name: "React Redux",
+                        link: "https://codesandbox.io/s/react-redux-s084g",
+                    },
+                    {
+                        name: "React Redux Toolkit",
+                        link: "https://codesandbox.io/s/react-redux-toolkit-iq1zp",
+                    },
+                    {
+                        name: "React Redux Toolkit extraReducer",
+                        link: "https://codesandbox.io/s/react-redux-toolkit-extrareducers-j17tb",
+                    },
+                ],
+            },
+        ],
+    },
+    {
+        name: "React router",
+        type: "Section",
+        children: [
+            {
+                name: "Redux",
+                category: "State Management",
+                desc: 'Redux is a pattern and library for managing and updating application state, using events called "actions". It serves as a centralized store for state that needs to be used across your entire application, with rules ensuring that the state can only be updated in a predictable fashion.',
+                links: [
+                    { name: "Redux", link: "https://redux.js.org/" },
+                    {
+                        name: "Redux Toolkit",
+                        link: "https://redux-toolkit.js.org/",
+                    },
+                ],
+                badgets: [
+                    "Actions",
+                    "Reducers",
+                    "Store",
+                    "Selectors",
+                    "EntityAdapter",
+                    "Query API",
+                ],
+                sandboxes: [
+                    {
+                        name: "Redux",
+                        link: "https://codesandbox.io/s/redux-21hrj",
+                    },
+                    {
+                        name: "React Redux",
+                        link: "https://codesandbox.io/s/react-redux-s084g",
+                    },
+                    {
+                        name: "React Redux Toolkit",
+                        link: "https://codesandbox.io/s/react-redux-toolkit-iq1zp",
+                    },
+                    {
+                        name: "React Redux Toolkit extraReducer",
+                        link: "https://codesandbox.io/s/react-redux-toolkit-extrareducers-j17tb",
+                    },
+                ],
+            },
+        ],
+    },
 ];

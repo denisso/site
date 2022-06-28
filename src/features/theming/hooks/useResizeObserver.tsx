@@ -1,3 +1,9 @@
+/**
+ * @description 
+ * @author Denis Kurochkin (mr_dramm) <blackbrain2009@gmail.com>
+ * @copyright Denis Kurochkin 2022
+ */
+
 import React from "react";
 import { useDispatch } from "react-redux";
 import { applyResizeObserver } from "../reducer";

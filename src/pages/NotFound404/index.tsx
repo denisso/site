@@ -1,3 +1,9 @@
+/**
+ * 
+ * @author Denis Kurochkin (mr_dramm) <blackbrain2009@gmail.com>
+ * @copyright Denis Kurochkin 2022
+ */
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLinkSlash, faReply } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";

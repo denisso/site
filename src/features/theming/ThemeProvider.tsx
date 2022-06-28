@@ -1,3 +1,9 @@
+/**
+ * @description 
+ * @author Denis Kurochkin (mr_dramm) <blackbrain2009@gmail.com>
+ * @copyright Denis Kurochkin 2022
+ */
+
 import { useSelector } from "react-redux";
 import { ThemeProvider as Tp } from "styled-components";
 import { selectTheme } from "./reducer";

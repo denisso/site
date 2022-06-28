@@ -1,3 +1,9 @@
+/**
+ * 
+ * @author Denis Kurochkin (mr_dramm) <blackbrain2009@gmail.com>
+ * @copyright Denis Kurochkin 2022
+ */
+
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 import { ErrorBoundary } from "components/Tools/ErrorBoundary";

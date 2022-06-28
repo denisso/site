@@ -1,3 +1,9 @@
+/**
+ * 
+ * @author Denis Kurochkin (mr_dramm) <blackbrain2009@gmail.com>
+ * @copyright Denis Kurochkin 2022
+ */
+
 import { LinkStyled } from "components/Elements/Link";
 import styled, { withTheme } from "styled-components";
 import { themeType, mUp } from "features/theming";

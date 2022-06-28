@@ -1,5 +1,7 @@
 /**
- * Image without Lazy Loading
+ * @description Image without Lazy Loading
+ * @author Denis Kurochkin (mr_dramm) <blackbrain2009@gmail.com>
+ * @copyright Denis Kurochkin 2022
  */
 import React from "react";
 

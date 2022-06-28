@@ -1,7 +1,8 @@
 /**
  * Displays post with mobile friendly panel table of contents
+ * @author Denis Kurochkin (mr_dramm) <blackbrain2009@gmail.com>
+ * @copyright Denis Kurochkin 2022
  */
-
 import React from "react";
 import { useParams } from "react-router-dom";
 import styled, { withTheme } from "styled-components";
