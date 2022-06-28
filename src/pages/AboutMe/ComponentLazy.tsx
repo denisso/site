@@ -49,6 +49,13 @@ export const ComponentLazy = React.memo(({ className, children }: any) => {
             setVisible(false);
         }
     }, []);
+    React.useEffect(() => {
+        return () => {
+            if (componentRef.current) {
+                intersect.removeNodes(componentRef.current);
+            }
+        };
+    }, []);
     const componentRefCb = React.useCallback((node: any) => {
         if (node) {
             componentRef.current = node;
@@ -61,7 +68,9 @@ export const ComponentLazy = React.memo(({ className, children }: any) => {
 
     return (
         <Wrapper
-            className={(visible ? "visible": "") + (className ? " " +  className : "")}
+            className={
+                (visible ? "visible" : "") + (className ? " " + className : "")
+            }
             ref={componentRefCb}
         >
             <div className="LeftSide"></div>

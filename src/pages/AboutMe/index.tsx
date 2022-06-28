@@ -3,7 +3,8 @@ import { scrollContent, AnimateItem } from "components/Tools";
 import styled from "styled-components";
 import { faHand } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { BlocksList } from "./BlocksList";
+import { Blocks } from "./Blocks";
+
 const Content = styled.div`
     h1 {
         text-align: center;
@@ -14,7 +15,6 @@ const Content = styled.div`
     }
 `;
 
-const arr = new Array(40).fill(0);
 export const AboutMe = () => {
     React.useEffect(() => {
         document.title = "About me";
@@ -29,7 +29,7 @@ export const AboutMe = () => {
                     <span>About Me</span>
                 </h1>
             </AnimateItem>
-            <BlocksList/>
+            <Blocks className="Blocks"/>
         </Content>
     );
 };
