@@ -2,7 +2,7 @@ export {
     reducerTheming,
     selectTheme,
     switchTheme,
-    switchBreakpoint,
+    applyResizeObserver,
 } from "./reducer";
 
 export { ThemeProvider } from "./ThemeProvider";
