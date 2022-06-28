@@ -42,7 +42,7 @@ const NoteContainer = styled(ItemAnimated)<{ theme: themeType }>`
         border-radius: var(--borderRadiusBlock);
         overflow: hidden;
         outline: solid transparent;
-        transition: outline-color var(--transition);
+        transition: outline-color var(--transition), background-color var(--transition), color var(--transition);
         &:hover {
             outline: solid ${({ theme }) => theme.colors.third};
         }
