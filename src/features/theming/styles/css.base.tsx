@@ -15,6 +15,7 @@ export const base = css<{ theme: themeType }>`
     }
 
     body {
+        width: var(--width);
         background-color: ${({ theme }) => theme.colorBackground};
         color: ${({ theme }) => theme.colorText};
         transition: color var(--transition), background-color var(--transition);

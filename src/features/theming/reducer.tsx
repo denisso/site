@@ -71,7 +71,7 @@ const slice = createSlice({
                     if (isShowModal) {
                         width -= scrollBarWidth || 0;
                     }
-                    document.body.style.width = width + "px";
+                    document.documentElement.style.setProperty('--width', width + "px");
                 },
                 0,
                 {

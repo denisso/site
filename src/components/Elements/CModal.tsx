@@ -6,7 +6,8 @@ import styled from "styled-components";
 import { up, only, down } from "styled-breakpoints";
 import { useDispatch } from "react-redux";
 import { toggleModal } from "features/theming/reducer";
-const ModalStyled = styled.div<{ fadeInOut: boolean }>`
+
+const ModalStyled = styled.div<{ show: boolean; scrollbarwidth: number}>`
     position: fixed;
     top: 0;
     left: 0;
@@ -16,20 +17,19 @@ const ModalStyled = styled.div<{ fadeInOut: boolean }>`
     display: grid;
     place-items: center;
     background-color: ${({ theme }) => theme.ui.modal.overlay};
-    animation: ${({ fadeInOut }) => (fadeInOut ? "fadeIn" : "fadeOut")}
-        var(--transition);
-
+    animation: ${({ show }) => (show ? "fadeIn" : "fadeOut")} var(--transition);
+    padding-left: ${({ show, scrollbarwidth }) => (show ? "0px" : `${scrollbarwidth}px`)};
     .modalBox {
         display: flex;
         flex-direction: column;
         ${down("xm")} {
-            width: 100%;
+            width: calc(var(--width) * 9 / 10)
         }
         ${only("xm")} {
-            width: 90%;
+            width: calc(var(--width) * 9 / 10);
         }
         ${only("sm")} {
-            width: 80%;
+            width: calc(var(--width) * 8 / 10);
         }
         ${down("sm")} {
             padding: 1rem;
@@ -112,7 +112,6 @@ export const useModal = (title?: string) => {
                                 window.innerWidth - document.body.clientWidth,
                         })
                     );
-
                 };
                 refModal.current.addEventListener(
                     "showModal",
@@ -163,6 +162,7 @@ export const CModal = ({
     const [display, setDisplay] = React.useState(false);
     const clickedClose = React.useRef(false);
 
+    // hide modal after end animation fadeout
     const onAnimationEnd = () => {
         if (!show) setDisplay(false);
     };
@@ -179,7 +179,10 @@ export const CModal = ({
         <>
             {display && (
                 <ModalStyled
-                    fadeInOut={show}
+                    show={show}
+                    scrollbarwidth={
+                        window.innerWidth - document.body.clientWidth
+                    }
                     className="modalOverlay"
                     {...{ onAnimationEnd }}
                 >
