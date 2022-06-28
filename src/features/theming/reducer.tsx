@@ -4,24 +4,25 @@ import { themeDark } from "./themes/dark";
 import { themeLight } from "./themes/light";
 import { themeType } from "./themes/themeType";
 
-
-
 type iState = {
     current: themeType;
+    isShowModal?: boolean;
+    scrollBarWidth?: number;
+    scrollTop?: number;
 };
 
 const initialState: iState = {
     current: themeLight,
 };
 
-const Themes: {[key:string]:themeType} = {
-    "Light": themeLight,
-    "Dark": themeDark,
+const Themes: { [key: string]: themeType } = {
+    Light: themeLight,
+    Dark: themeDark,
 };
 
 const getMedia = () => {
     const entries = Object.entries(breaksNumber);
-    const width:number = window.innerWidth
+    const width: number = window.innerWidth;
     for (let i = 0; i < entries.length - 1; i++) {
         if (width < entries[i + 1][1]) return entries[i][0];
     }
@@ -33,15 +34,12 @@ const slice = createSlice({
     initialState,
     reducers: {
         /**
-         * 
-         * @param state 
+         *
+         * @param state
          * @param action { payload: { themeName: "Light" | "Dark" } }
          */
-        switchTheme: (
-            state,
-            action: { payload: { themeName: string } }
-        ) => {
-            if(Themes[action?.payload?.themeName]){
+        switchTheme: (state, action: { payload: { themeName: string } }) => {
+            if (Themes[action?.payload?.themeName]) {
                 state.current = {
                     ...Themes[action?.payload?.themeName],
                     breakpoint: state.current.breakpoint,
@@ -49,10 +47,38 @@ const slice = createSlice({
             }
         },
         toggleModal: (state, action) => {
-
+            const { isShowModal, scrollBarWidth } = action.payload;
+            state.isShowModal = isShowModal;
+            state.scrollBarWidth = scrollBarWidth;
+            if (isShowModal) {
+                state.scrollTop = document.documentElement.scrollTop;
+                const body = document.body;
+                body.style.position = "fixed";
+                body.style.top = `-${state.scrollTop}px`;
+            } else {
+                const body = document.body;
+                body.style.position = "";
+                body.style.top = "";
+                document.documentElement.scrollTop = state.scrollTop || 0;
+            }
         },
-        switchBreakpoint: (state) => {
+        applyResizeObserver: (state: iState) => {
             state.current.breakpoint = getMedia();
+            setTimeout(
+                ({ isShowModal, scrollBarWidth }) => {
+                    let width =
+                        document.documentElement.getBoundingClientRect().width;
+                    if (isShowModal) {
+                        width -= scrollBarWidth || 0;
+                    }
+                    document.body.style.width = width + "px";
+                },
+                0,
+                {
+                    isShowModal: state.isShowModal,
+                    scrollBarWidth: state.scrollBarWidth,
+                }
+            );
         },
     },
 });
@@ -65,4 +91,4 @@ export const reducerTheming = slice.reducer;
 export const selectTheme = (state: StateThemes): themeType => {
     return state.themes.current;
 };
-export const { switchTheme, switchBreakpoint } = slice.actions;
+export const { switchTheme, applyResizeObserver, toggleModal } = slice.actions;

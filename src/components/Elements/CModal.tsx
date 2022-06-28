@@ -4,7 +4,8 @@
 import React from "react";
 import styled from "styled-components";
 import { up, only, down } from "styled-breakpoints";
-
+import { useDispatch } from "react-redux";
+import { toggleModal } from "features/theming/reducer";
 const ModalStyled = styled.div<{ fadeInOut: boolean }>`
     position: fixed;
     top: 0;
@@ -79,6 +80,8 @@ const ModalStyled = styled.div<{ fadeInOut: boolean }>`
 export const useModal = (title?: string) => {
     const [show, setShow] = React.useState(false);
     const refModal = React.useRef<any>(null);
+    const dispatch = useDispatch();
+
     const openModal = React.useCallback((e?: any) => {
         if (e) e.preventDefault();
         setShow(true);
@@ -96,11 +99,20 @@ export const useModal = (title?: string) => {
         const ComponentConstructor = ({ children }: { children?: any }) => {
             const [show, setShow] = React.useState(false);
             const [ready, setReady] = React.useState(false);
+
             React.useEffect(() => {
                 if (!ready) return;
                 const handleSetNewState = function (event: any) {
                     event.stopPropagation();
                     setShow(event.showModal.value);
+                    dispatch(
+                        toggleModal({
+                            isShowModal: event.showModal.value,
+                            scrollBarWidth:
+                                window.innerWidth - document.body.clientWidth,
+                        })
+                    );
+
                 };
                 refModal.current.addEventListener(
                     "showModal",
@@ -119,7 +131,7 @@ export const useModal = (title?: string) => {
                     <div
                         ref={(node) => {
                             if (node && !ready) {
-                                refModal.current = node
+                                refModal.current = node;
                                 setReady(true);
                             }
                         }}
