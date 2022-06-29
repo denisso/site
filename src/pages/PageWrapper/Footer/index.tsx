@@ -1,5 +1,5 @@
 /**
- * 
+ *
  * @author Denis Kurochkin (mr_dramm) <blackbrain2009@gmail.com>
  * @copyright Denis Kurochkin 2022
  */
@@ -8,13 +8,13 @@ import styled from "styled-components";
 import { down, up } from "styled-breakpoints";
 import { Button } from "components/Elements/Button";
 import { useFormModal, schemaForm } from "components/Elements/CForm";
-import {
-    faGithub,
-} from "@fortawesome/free-brands-svg-icons";
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Anchor } from "components/Elements/Anchor";
 
 const FooterWrapper = styled.footer.attrs({ className: "container" })`
+    display: flex;
+    flex-direction: column;
     padding-top: 1rem;
     padding-bottom: 1rem;
     min-height: 200px;
@@ -126,7 +126,6 @@ export const Footer = () => {
         useFormModal("Send message");
     const onSubmit = (values: any, { setSubmitting }: any) => {
         setTimeout(() => {
-
             closeFormModal();
             setSubmitting(false);
         }, 400);
@@ -149,8 +148,12 @@ export const Footer = () => {
                 <span>Created by mr_dramm</span>
             </div>
             <div className="contactsAndSocial">
-                <Anchor href="https://github.com/denisso?tab=repositories&type=source" className="socialIcon" target="_blank">
-                    <FontAwesomeIcon icon={faGithub} className="Icon"  />
+                <Anchor
+                    href="https://github.com/denisso?tab=repositories&type=source"
+                    className="socialIcon"
+                    target="_blank"
+                >
+                    <FontAwesomeIcon icon={faGithub} className="Icon" />
                 </Anchor>
             </div>
             <CFormModal {...{ schema, onSubmit }} />
