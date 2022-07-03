@@ -15,8 +15,7 @@ import { Anchor } from "components/Elements/Anchor";
 const FooterWrapper = styled.footer.attrs({ className: "container" })`
     display: flex;
     flex-direction: column;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    justify-content: center;
     min-height: 200px;
     position: relative;
     margin-top: 4rem;
@@ -30,6 +29,8 @@ const FooterWrapper = styled.footer.attrs({ className: "container" })`
             width: 385px;
             transform: translateX(-50%);
             position: absolute;
+            display: flex;
+            justify-content: center;
         }
         ${down("xm")} {
             width: 100%;
@@ -45,6 +46,16 @@ const FooterWrapper = styled.footer.attrs({ className: "container" })`
             color: ${({ theme }) => theme.colors.first};
             box-shadow: -4px 8px 7px -1px ${({ theme }) => theme.colorBoxShadow};
         }
+        ${up("sm")} {
+            .sendMesage {
+                width: 300px;
+            }
+        }
+        ${down("sm")} {
+            .sendMesage {
+                width: 100%;
+            }
+        }
         ${up("xm")} {
             .sendMesage::after {
                 content: "";
@@ -58,7 +69,10 @@ const FooterWrapper = styled.footer.attrs({ className: "container" })`
                 clip-path: polygon(100% 0, 100% 100%, 0 100%);
             }
         }
-
+        .headerSendMesage {
+            text-align: center;
+            font-weight: bold;
+        }
         .btnSendMesage {
             margin-top: 1rem;
             text-align: center;
@@ -134,9 +148,7 @@ export const Footer = () => {
         <FooterWrapper>
             <div className="sendMessageContainer">
                 <div className="sendMesage">
-                    <p className="headerSendMesage">
-                        Lorem ipsum dolor sit amet consectetur .
-                    </p>
+                    <div className="headerSendMesage">Denis in touch</div>
                     <div className="btnSendMesage">
                         <Button onClick={() => openFormModal()}>
                             Send message
@@ -145,7 +157,9 @@ export const Footer = () => {
                 </div>
             </div>
             <div className="createdBy">
-                <span>Created by mr_dramm</span>
+                <span>
+                    Created by <b>Denis Kurochkin</b> aka <b>mr_dramm</b>
+                </span>
             </div>
             <div className="contactsAndSocial">
                 <Anchor
