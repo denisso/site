@@ -5,7 +5,6 @@
  */
 
 import React from "react";
-import { data } from "./data";
 import { BlockHero } from "./Blocks/Hero";
 import { BlockSection } from "./Blocks/Section";
 import { BlockScores } from "./Blocks/Scores";
@@ -16,14 +15,20 @@ const Components: any = {
     Scores: BlockScores,
 };
 
-export const Blocks = ({ className }: any) => {
+const Dummy = () => <></>;
+
+export const Blocks = ({ className, data }: any) => {
     return (
         <div className={className}>
             {data.map((blockData: any, i: number) =>
-                React.createElement(Components[blockData.type] || "div", {
-                    data: blockData,
-                    key: i,
-                })
+                Components[blockData.type] ? (
+                    React.createElement(Components[blockData.type], {
+                        data: blockData,
+                        key: i,
+                    })
+                ) : (
+                    <Dummy />
+                )
             )}
         </div>
     );

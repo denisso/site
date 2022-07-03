@@ -1,9 +1,9 @@
 /**
- * 
+ *
  * @author Denis Kurochkin (mr_dramm) <blackbrain2009@gmail.com>
  * @copyright Denis Kurochkin 2022
  */
-
+import { StrictMode } from "react";
 import { render } from "react-dom";
 import { Provider } from "react-redux";
 import { BrowserRouter, useRoutes } from "react-router-dom";
@@ -47,7 +47,11 @@ const Routes = () => {
     let routes = useRoutes([
         {
             path: "/",
-            element: <App />,
+            element: (
+                <StrictMode>
+                    <App />
+                </StrictMode>
+            ),
             children: [...SiteMap],
         },
     ]);

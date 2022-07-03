@@ -4,7 +4,7 @@
  * @copyright Denis Kurochkin 2022
  */
 
-import { CommentDataType } from "mocks/db-comments";
+import { CommentDataType } from "mocks/data/notes-comments";
 
 function createUIDReq() {
     return "Req" + Date.now();

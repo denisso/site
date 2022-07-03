@@ -67,8 +67,8 @@ export const BlockHero = React.memo(({ className, data }: any) => {
                     <ImageLazy
                         src={data?.hero?.photo?.src}
                         className="HeroImage"
-                        width={data?.hero?.photo?.width}
-                        height={data?.hero?.photo?.height}
+                        width={170}
+                        height={170}
                         alt={data?.hero?.photo?.alt}
                     />
                 </div>

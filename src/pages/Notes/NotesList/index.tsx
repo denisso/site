@@ -8,7 +8,7 @@ import React from "react";
 import styled from "styled-components";
 import { useGetNoteQuery } from "api-query/";
 import { up } from "styled-breakpoints";
-import { NoteDataType } from "mocks/db-notes";
+import { NoteDataType } from "mocks/data/notes";
 import { NavLink } from "react-router-dom";
 import { themeType } from "features/theming";
 import { Spinner } from "components/Elements/Spinner";

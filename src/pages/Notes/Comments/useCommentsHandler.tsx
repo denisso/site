@@ -5,7 +5,7 @@
  */
 import React from "react";
 import { CommentsHandler } from "./CommentsHandler";
-import { CommentDataType } from "mocks/db-comments";
+import { CommentDataType } from "mocks/data/notes-comments";
 
 type ReqResData = { error: any; payload?: any };
 

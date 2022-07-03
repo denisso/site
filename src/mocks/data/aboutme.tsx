@@ -4,7 +4,7 @@
  * @copyright Denis Kurochkin 2022
  */
 
-export const data: any = [
+export const aboutme: any = [
     {
         type: "Hero",
         name: "Hero Block",

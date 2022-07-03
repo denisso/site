@@ -7,7 +7,7 @@
 import { Avatar } from "components/Elements/Avatar";
 import styled from "styled-components";
 import { CommentButtons } from "./CommentButtons";
-import { CommentDataType } from "mocks/db-comments";
+import { CommentDataType } from "mocks/data/notes-comments";
 import { Context } from "./Context";
 import React from "react";
 

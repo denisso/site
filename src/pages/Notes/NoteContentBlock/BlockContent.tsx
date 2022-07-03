@@ -7,7 +7,7 @@
  */
 
 import React from "react";
-import { NoteDataType } from "mocks/db-notes";
+import { NoteDataType } from "mocks/data/notes";
 import styled from "styled-components";
 import { Markdown } from "components/Tools/Markdown";
 import { ContextNotes } from "../ContextNotes";

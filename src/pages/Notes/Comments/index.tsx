@@ -7,7 +7,7 @@
 import React from "react";
 import styled from "styled-components";
 import { CommentsRender } from "./Comments";
-import { CommentDataType } from "mocks/db-comments";
+import { CommentDataType } from "mocks/data/notes-comments";
 import { useCommentsHandler } from "./useCommentsHandler";
 import { AnimateItem } from "components/Tools";
 import { Spinner } from "components/Elements/Spinner";

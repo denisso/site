@@ -5,15 +5,16 @@
  */
 
 import { rest } from "msw";
-import { notes, NoteDataType } from "./db-notes";
-import { dataHomepage } from "./db-page-home";
+import { notes, NoteDataType } from "./data/notes";
+import { dataHomepage } from "./data/home";
+import {aboutme} from "./data/aboutme"
 import {
     comments,
     CommentsHandlerServer,
     CommentDataType,
     CommentsSlugType,
-} from "./db-comments";
-import { users, UsersType } from "./db-users";
+} from "./data/notes-comments";
+import { users, UsersType } from "./data/users";
 
 let currentUserID: string | null | undefined = "guest";
 
@@ -24,7 +25,7 @@ export const handlers = [
             case "homepage":
                 return res(ctx.json(dataHomepage), ctx.delay(400));
             case "aboutme":
-                return res(ctx.json({}), ctx.delay(400));
+                return res(ctx.json(aboutme), ctx.delay(400));
         }
         return res(ctx.json({}), ctx.delay(400));
     }),

@@ -1,5 +1,5 @@
 /**
- * @description 
+ * @description
  * @author Denis Kurochkin (mr_dramm) <blackbrain2009@gmail.com>
  * @copyright Denis Kurochkin 2022
  */
@@ -23,6 +23,11 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useGetPageQuery } from "api-query/";
 import { Spinner } from "components/Elements/Spinner";
+import {
+    ContentLoadingProblemNotFound,
+    ContentLoadingProblemError,
+} from "components/Elements/ContentLoadingProblem";
+
 const BoxStyled = styled(BoxAnimated)`
     --gap: 10px;
     display: flex;
@@ -80,20 +85,28 @@ const ComponentInfo = ({ className, data }: any) => {
             <div className="Content">{desc}</div>
             <div className="Footer">
                 {link && (
-                    <Anchor href={link} className="Link" target="_blank" title="Go to page for more info">
+                    <Anchor
+                        href={link}
+                        className="Link"
+                        target="_blank"
+                        title="Go to page for more info"
+                    >
                         <span className="Icon">
                             <FontAwesomeIcon icon={faLink} />
                         </span>
-                        
                     </Anchor>
                 )}
 
                 {sandbox && (
-                    <Anchor href={sandbox} className="Link" target="_blank" title="Go to sandbox">
+                    <Anchor
+                        href={sandbox}
+                        className="Link"
+                        target="_blank"
+                        title="Go to sandbox"
+                    >
                         <span className="Icon">
                             <FontAwesomeIcon icon={faCode} />
                         </span>
-                        
                     </Anchor>
                 )}
             </div>
@@ -160,11 +173,9 @@ export const HomePage = () => {
                 </h1>
 
                 {error ? (
-                    <>Oh no, there was an error loading </>
+                    <ContentLoadingProblemError />
                 ) : isLoading ? (
-                    <>
-                        <Spinner />
-                    </>
+                    <Spinner />
                 ) : data !== undefined ? (
                     <BoxStyled>
                         {data.arrComponents.map((data: any, i: any) => (
@@ -174,7 +185,7 @@ export const HomePage = () => {
                         ))}
                     </BoxStyled>
                 ) : (
-                    <>Emty data</>
+                    <ContentLoadingProblemNotFound />
                 )}
             </Content>
         </AnimateItem>

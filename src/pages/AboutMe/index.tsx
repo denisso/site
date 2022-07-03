@@ -1,5 +1,5 @@
 /**
- * @description 
+ * @description
  * @author Denis Kurochkin (mr_dramm) <blackbrain2009@gmail.com>
  * @copyright Denis Kurochkin 2022
  */
@@ -10,6 +10,12 @@ import styled from "styled-components";
 import { faHand } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Blocks } from "./Blocks";
+import { useGetPageQuery } from "api-query";
+import { Spinner } from "components/Elements/Spinner";
+import {
+    ContentLoadingProblemNotFound,
+    ContentLoadingProblemError,
+} from "components/Elements/ContentLoadingProblem";
 
 const Content = styled.div`
     h1 {
@@ -22,11 +28,12 @@ const Content = styled.div`
 `;
 
 export const AboutMe = () => {
+    const { data, error, isLoading } = useGetPageQuery("aboutme");
+
     React.useEffect(() => {
         document.title = "About me";
-        scrollContent(0);
+        setTimeout(() => scrollContent(0), 200);
     }, []);
-
     return (
         <Content>
             <AnimateItem>
@@ -35,7 +42,15 @@ export const AboutMe = () => {
                     <span>About Me</span>
                 </h1>
             </AnimateItem>
-            <Blocks className="Blocks"/>
+            {error ? (
+                <ContentLoadingProblemError />
+            ) : isLoading ? (
+                <Spinner />
+            ) : data !== undefined ? (
+                <Blocks className="Blocks" data={data} />
+            ) : (
+                <ContentLoadingProblemNotFound />
+            )}
         </Content>
     );
 };

@@ -16,7 +16,7 @@ import { Button } from "components/Elements/Button";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { selectSignInState } from "features/accounts/reducer";
-import { CommentDataType } from "mocks/db-comments";
+import { CommentDataType } from "mocks/data/notes-comments";
 const CommentButtonsStyled = styled.div`
     display: flex;
     .CommentControlButtons {
