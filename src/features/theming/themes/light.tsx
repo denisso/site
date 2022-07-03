@@ -1,11 +1,11 @@
 /**
- * @description 
+ * @description
  * @author Denis Kurochkin (mr_dramm) <blackbrain2009@gmail.com>
  * @copyright Denis Kurochkin 2022
  */
 
 import { createThemeSchema, colorsType } from "./themeSchema";
-
+import { themeType } from "./themeType";
 /**
  * Light is short for lightness
  */
@@ -27,4 +27,4 @@ const colors: colorsType = {
     overlay: "rgba(255, 255, 255, 0.4)",
 };
 
-export const themeLight = createThemeSchema({ colors });
+export const themeLight: themeType = createThemeSchema({ colors });
