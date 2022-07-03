@@ -16,7 +16,10 @@ import { AnimateItem, scrollContent } from "components/Tools";
 import { CommentsComponent } from "../Comments";
 import { ErrorBoundary } from "components/Tools/ErrorBoundary";
 import { up, down } from "styled-breakpoints";
-
+import {
+    ContentLoadingProblemNotFound,
+    ContentLoadingProblemError,
+} from "components/Elements/ContentLoadingProblem";
 const Container = styled.div`
     .ContainerContent {
         display: flex;
@@ -55,14 +58,7 @@ export const NoteContent = withTheme(({ theme }: { theme: themeType }) => {
     return (
         <AnimateItem>
             {error ? (
-                <>
-                    <div>
-                        <span>Oh no, there was an error loading</span>
-                    </div>
-                    <div>
-                        <Spinner />
-                    </div>{" "}
-                </>
+                <ContentLoadingProblemError />
             ) : isLoading ? (
                 <Spinner />
             ) : data instanceof Object ? (
@@ -88,7 +84,7 @@ export const NoteContent = withTheme(({ theme }: { theme: themeType }) => {
                     </ErrorBoundary>
                 </Container>
             ) : (
-                <>Emty data</>
+                <ContentLoadingProblemNotFound />
             )}
         </AnimateItem>
     );

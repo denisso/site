@@ -1,5 +1,5 @@
 /**
- * 
+ *
  * @author Denis Kurochkin (mr_dramm) <blackbrain2009@gmail.com>
  * @copyright Denis Kurochkin 2022
  */
@@ -20,6 +20,10 @@ import {
 import { faComment } from "@fortawesome/free-regular-svg-icons";
 import { faBookOpenReader } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    ContentLoadingProblemNotFound,
+    ContentLoadingProblemError,
+} from "components/Elements/ContentLoadingProblem";
 
 const NotesListElement = styled(BoxAnimated)<{ theme: themeType }>`
     display: grid;
@@ -42,7 +46,8 @@ const NoteContainer = styled(ItemAnimated)<{ theme: themeType }>`
         border-radius: var(--borderRadiusBlock);
         overflow: hidden;
         outline: solid transparent;
-        transition: outline-color var(--transition), background-color var(--transition), color var(--transition);
+        transition: outline-color var(--transition),
+            background-color var(--transition), color var(--transition);
         &:hover {
             outline: solid ${({ theme }) => theme.colors.third};
         }
@@ -159,17 +164,13 @@ export const NotesListWithFilter = () => {
                 Notes
             </h1>
             {error ? (
-                <>Oh no, there was an error loading</>
+                <ContentLoadingProblemError />
             ) : isLoading ? (
-                <>
-                    <Spinner />
-                </>
+                <Spinner />
             ) : data ? (
-                <>
-                    <NoteListMemo notes={[...data]} />
-                </>
+                <NoteListMemo notes={[...data]} />
             ) : (
-                <>Emty data</>
+                <ContentLoadingProblemNotFound />
             )}
         </Content>
     );

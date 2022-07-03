@@ -7,7 +7,7 @@
 import { faFaceSadCry } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
-
+import { Spinner } from "./Spinner";
 const Container = styled.div`
     display: flex;
     align-items: center;
@@ -37,10 +37,18 @@ export const ContentLoadingProblem = ({ message }: { message: string }) => {
 
 export const ContentLoadingProblemNotFound = () => {
     return (
-        <ContentLoadingProblem message="Could not find data for such a query..." />
+        <>
+            <ContentLoadingProblem message="Could not find data for such a query..." />
+            <Spinner />
+        </>
     );
 };
 
 export const ContentLoadingProblemError = () => {
-    return <ContentLoadingProblem message="An error occurred during loading..." />;
+    return (
+        <>
+            <ContentLoadingProblem message="An error occurred during loading..." />
+            <Spinner />
+        </>
+    );
 };

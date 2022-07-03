@@ -1,5 +1,5 @@
 /**
- * @description 
+ * @description
  * @author Denis Kurochkin (mr_dramm) <blackbrain2009@gmail.com>
  * @copyright Denis Kurochkin 2022
  */
@@ -14,6 +14,10 @@ import { Spinner } from "components/Elements/Spinner";
 
 import { Context } from "./Context";
 import { ReplyButton } from "./CommentButtons";
+import {
+    ContentLoadingProblemNotFound,
+    ContentLoadingProblemError,
+} from "components/Elements/ContentLoadingProblem";
 const Container = styled.div`
     margin-top: 2rem;
     .CommentsHeader {
@@ -27,7 +31,7 @@ const Container = styled.div`
     & a {
         user-select: auto;
     }
-    .Comments{
+    .Comments {
         margin-top: 1rem;
     }
 `;
@@ -52,14 +56,7 @@ export const CommentsComponent = ({ noteSlug }: any) => {
         >
             <AnimateItem>
                 {error ? (
-                    <>
-                        <div>
-                            <span>Oh no, there was an error loading</span>
-                        </div>
-                        <div>
-                            <Spinner />
-                        </div>
-                    </>
+                    <ContentLoadingProblemError />
                 ) : isLoading ? (
                     <div>
                         <Spinner />
@@ -79,7 +76,7 @@ export const CommentsComponent = ({ noteSlug }: any) => {
                         </div>
                     </Container>
                 ) : (
-                    <>Emty data</>
+                    <ContentLoadingProblemNotFound />
                 )}
             </AnimateItem>
         </Context.Provider>
