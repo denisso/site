@@ -9,9 +9,9 @@ import styled from "styled-components";
 
 const Image = ({ src, alt, width, height, ...props }: any) => {
     const { intersect } = React.useContext(PagesContext);
-    const node = React.useRef<HTMLElement>();
+    const node = React.useRef<HTMLImageElement>();
     const [isIntersecting, setIntersecting] = React.useState(false);
-
+    const error = React.useRef<boolean>(false);
     const attrs = React.useMemo(() => {
         let attrs: any = {};
         if (typeof alt == "string") {
@@ -46,13 +46,17 @@ const Image = ({ src, alt, width, height, ...props }: any) => {
         };
     }, []);
     const onError = React.useCallback(() => {
+        if (!node.current) return;
+        node.current.src = "/asset/imageLoadingProblem2.svg";
         node.current?.classList.add("notloaded");
+        error.current = true;
     }, []);
     const onLoad = React.useCallback(() => {
-        node.current?.classList.add("loaded");
+        if (!node.current) return;
+        if (!error.current) node.current?.classList.add("loaded");
     }, []);
-    if(!intersect.ready){
-        return <></>
+    if (!intersect.ready) {
+        return <></>;
     }
     return (
         <img
@@ -63,7 +67,6 @@ const Image = ({ src, alt, width, height, ...props }: any) => {
             onLoad={onLoad}
             onError={onError}
         />
-        
     );
 };
 
@@ -76,6 +79,5 @@ export const ImageLazy = styled(Image)`
     &.notloaded {
         opacity: 1;
         border: solid;
-        background: no-repeat center url(/asset/imageLoadingProblem.svg);
     }
 `;
