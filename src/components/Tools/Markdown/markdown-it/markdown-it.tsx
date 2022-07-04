@@ -7,8 +7,9 @@
  * https://markdown-it.github.io/
  * https://github.com/markdown-it/markdown-it
  * https://markdown-it.github.io/markdown-it/
+ * @author Denis Kurochkin (mr_dramm) <blackbrain2009@gmail.com>
+ * @copyright Denis Kurochkin 2022
  */
-
 const { XMLParser } = require("fast-xml-parser");
 export const md = require("markdown-it")()
     .set({ html: true, breaks: true })
@@ -55,18 +56,15 @@ const parseContent = (tokens: any[]) => {
                 const arr: Array<string> = ["img", "iframe"];
                 const readyForSwap: boolean = arr.includes(tagName);
                 if (readyForSwap) {
-                    
                     token.content = `<${tagName}`;
                     for (const [attr, value] of Object.entries(
                         elemDOMParsed[tagName]
-                    )){
-                        if(attr === "src"){
-                            token.content += ` src="#" data-src="${value}"`
-                        }
-                        else
-                        token.content += ` ${attr}="${value}"`;
+                    )) {
+                        if (attr === "src") {
+                            token.content += ` src="#" data-src="${value}"`;
+                        } else token.content += ` ${attr}="${value}"`;
                     }
-                        
+
                     token.content += ` lazy="true">`;
                 }
                 break;

@@ -1,5 +1,7 @@
 /**
- * Adapter for tmarkdown-it
+ * @description Adapter for tmarkdown-it
+ * @author Denis Kurochkin (mr_dramm) <blackbrain2009@gmail.com>
+ * @copyright Denis Kurochkin 2022
  */
 import React from "react";
 import { md } from "./markdown-it";
