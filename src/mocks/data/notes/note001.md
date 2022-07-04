@@ -1,4 +1,4 @@
-[original article on digitalocean ](https://www.digitalocean.com/community/conceptual_articles/an-introduction-to-document-oriented-databases) by  [Mateusz Papiernik](https://www.digitalocean.com/community/users/mati)
+[original article on digitalocean.com](https://www.digitalocean.com/community/conceptual_articles/an-introduction-to-document-oriented-databases) by  [Mateusz Papiernik](https://www.digitalocean.com/community/users/mati)
 
 ## Introduction
 
