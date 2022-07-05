@@ -6,15 +6,7 @@
 
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { apiQueryAccounts } from "./apiQuery";
-
-const fetchWrapper = (url: string, options: any = {}) => {
-    return new Promise((resolve, reject) => {
-        fetch(url, options)
-            .then((response) => response.json())
-            .then((json) => resolve(json))
-            .catch((err) => reject(err));
-    });
-};
+import { fetchWrapper } from "tools/fetchWrapper";
 
 export const postUserCredentials = createAsyncThunk(
     "account",
