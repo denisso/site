@@ -64,7 +64,7 @@ export const BlockContent = ({
     data: NoteDataType;
     className: string;
 }) => {
-    const { title, description, createdAt, image } = data;
+    const { title, content, createdAt, image } = data;
     const { setCurrentHeader, refHeaders } = React.useContext(ContextNotes);
     const { intersect } = React.useContext(PagesContext);
     const { state, dispatch } = useHeadersReducer();
@@ -107,7 +107,7 @@ export const BlockContent = ({
     const markdownComponents = React.useMemo(() => {
         const headerParser = ({ node, className, children, ...props }: any) => {
             const a = node.children.find(
-                (e: any) => e.tagName.toUpperCase() === "a".toUpperCase()
+                (e: any) => e.tagName && e.tagName.toUpperCase() === "a".toUpperCase()
             );
 
             if (!a) {
@@ -185,13 +185,13 @@ export const BlockContent = ({
             />
 
             <Markdown
-                markdown={description}
+                markdown={content}
                 className="articleContent"
                 components={markdownComponents}
             />
 
             <hr />
-            <div className="articlePublishedAt">Published at: {createdAt}</div>
+            <div className="articlePublishedAt">Create at: {new Date(createdAt).toUTCString()}</div>
         </ArticleBox>
     );
 };

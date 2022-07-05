@@ -1,52 +1,120 @@
 /**
- * @description 
+ * @description
  * @author Denis Kurochkin (mr_dramm) <blackbrain2009@gmail.com>
  * @copyright Denis Kurochkin 2022
  */
 
-const countCategories = 3;
-const countNotes = 10;
+import noteLink001 from "./notes/note001.md";
+import noteLink002 from "./notes/note002.md";
+import noteLink003 from "./notes/note003.md";
+import noteLink004 from "./notes/note004.md";
+import noteLink005 from "./notes/note005.md";
+
+const links = [noteLink001, noteLink002, noteLink003, noteLink004, noteLink005];
+
+import { createSlug } from "tools/createSlug";
 
 export type NoteDataType = {
     id: number;
     slug: string;
     title: string;
-    category: number;
     image: {
         src: string;
         alt: string;
     };
     excerpt: string;
-    description: string;
-    createdAt: string;
+    content: string;
+    createdAt: number;
     numComments?: number; // get this number from comments when note will be requested
 };
 
-export const notes = [
-    ...Array.from(Array(countNotes), (_, i) => ({
-        id: i,
-        slug: `note-${i}`,
-        title: `Note ${i}`,
-        category: i % countCategories,
+const notes: NoteDataType[] = [
+    {
+        id: 0,
+        slug: "",
+        title: "An Introduction to Document-Oriented Databases",
+        excerpt: "",
+        content: "",
         image: {
-            src: `https://picsum.photos/id/${i * 16}/300/300`,
-            alt: `image ${i}`,
+            src: "https://community-cdn-digitalocean-com.global.ssl.fastly.net/FoqMLpAxDfEr9YeRNaDmJTaE",
+            alt: "",
         },
-        excerpt:
-            "Welcome to Biscotte restaurant! Restaurant Biscotte offers a cuisine based on fresh, quality products, often local, organic when possible, and always produced by passionate producers.",
-        description: `Welcome to Biscotte restaurant! Restaurant Biscotte offers a cuisine based on fresh, quality products, often local, organic when possible, and always produced by passionate producers.Welcome to Biscotte restaurant! Restaurant Biscotte offers a cuisine based on fresh, quality products, often local, organic when possible, and always produced by passionate producers. \n\n## [Header 1](#anchor-for-url-1)\n\n ![{"alt": "some alt", "width": 200, "height": 300}](https://picsum.photos/id/1/200/300) \n\n Welcome to Biscotte restaurant! Restaurant Biscotte offers a cuisine based on fresh, quality products, often local, organic when possible, and always produced by passionate producers.Welcome to Biscotte restaurant! Restaurant Biscotte offers a cuisine based on fresh, quality products, often local, organic when possible, and always produced by passionate producers. Welcome to Biscotte restaurant! Restaurant Biscotte offers a cuisine based on fresh, quality products, often local, organic when possible, and always produced by passionate producers. Welcome to Biscotte restaurant!  Restaurant Biscotte offers a cuisine based on fresh, quality products, often local, organic when possible, and always produced by passionate producers.Welcome to Biscotte restaurant! Restaurant Biscotte offers a cuisine based on fresh, quality products, often local, organic when possible, and always produced by passionate producers.Welcome to Biscotte restaurant! Restaurant Biscotte offers a cuisine based on fresh, quality products, often local, organic when possible, and always produced by passionate producers.Welcome to Biscotte restaurant! Restaurant Biscotte offers a cuisine based on fresh, quality products, often local, organic when possible, and always produced by passionate producers.\n\n## [Header 2](#anchor-for-url-2)\n\nWelcome to Biscotte restaurant! Restaurant Biscotte offers a cuisine based on fresh, quality products, often local, organic when possible, and always produced by passionate producers.Welcome to Biscotte restaurant! Restaurant Biscotte offers a cuisine based on fresh, quality products, often local, organic when possible, and always produced by passionate producers.Welcome to Biscotte restaurant! Restaurant Biscotte offers a cuisine based on fresh, quality products, often local, organic when possible, and always produced by passionate producers.Welcome to Biscotte restaurant! Restaurant Biscotte offers a cuisine based on fresh, quality products, often local, organic when possible, and always produced by passionate producers.Welcome to Biscotte restaurant! Restaurant Biscotte offers a cuisine based on fresh, quality products, often local, organic when possible, and always produced by passionate producers.Welcome to Biscotte restaurant! Restaurant Biscotte offers a cuisine based on fresh, quality products, often local, organic when possible, and always produced by passionate producers.Welcome to Biscotte restaurant! Restaurant Biscotte offers a cuisine based on fresh, quality products, often local, organic when possible, and always produced by passionate producers.Welcome to Biscotte restaurant! Restaurant Biscotte offers a cuisine based on fresh, quality products, often local, organic when possible, and always produced by passionate producers.Welcome to Biscotte restaurant! Restaurant Biscotte offers a cuisine based on fresh, quality products, often local, organic when possible, and always produced by passionate producers.Welcome to Biscotte restaurant! Restaurant Biscotte offers a cuisine based on fresh, quality products, often local, organic when possible, and always produced by passionate producers. Welcome to Biscotte restaurant! Restaurant Biscotte offers a cuisine based on fresh, quality products, often local, organic when possible, and always produced by passionate producers.Welcome to Biscotte restaurant! Restaurant Biscotte offers a cuisine based on fresh, quality products, often local, organic when possible, and always produced by passionate producers.These are the elements outlined in John Gruber’s original design document. All Markdown applications support these elements.\n\n## [Header 3](#anchor-for-url-3)\n\nThis Markdown cheat sheet provides a quick overview of all the Markdown syntax elements. It can’t cover every edge case, so if you need more information about any of these elements, refer to the reference guides for basic syntax and extended syntax.Welcome to Biscotte restaurant! Restaurant Biscotte offers a cuisine based on fresh, quality products, often local, organic when possible, and always produced by passionate producers.Welcome to Biscotte restaurant! Restaurant Biscotte offers a cuisine based on fresh, quality products, often local, organic when possible, and always produced by passionate producers. ![{"alt": "some alt", "width": 200, "height": 300}](https://picsum.photos/id/9/200/300) These are the elements outlined in John Gruber’s original design document. All Markdown applications support these elements. This Markdown cheat sheet provides a quick overview of all the Markdown syntax elements. It can’t cover every edge case, so if you need more information about any of these elements, refer to the reference guides for basic syntax and extended syntax.\n\n### [Header 4](#anchor-for-url-4)\n\nContent Welcome to Biscotte restaurant! Restaurant Biscotte offers a cuisine based on fresh, quality products, often local, organic when possible, and always produced by passionate producers.Welcome to Biscotte restaurant! Restaurant Biscotte offers a cuisine based on fresh, quality products, often local, organic when possible, and always produced by passionate producers.These are the elements outlined in John Gruber’s original design document. All Markdown applications support these elements.This Markdown cheat sheet provides a quick overview of all the Markdown syntax elements. It can’t cover every edge case, so if you need more information about any of these elements, refer to the reference guides for basic syntax and extended syntax.`,
-        createdAt: new Date().toUTCString(),
-    })),
+        createdAt: 0,
+    },
+    {
+        id: 0,
+        slug: "",
+        title: "The S.O.L.I.D Principles in Pictures",
+        excerpt: "",
+        content: "",
+        image: {
+            src: "https://miro.medium.com/max/875/1*wrxj0oBKpA_GXb8LPhXOeg.png",
+            alt: "",
+        },
+        createdAt: 0,
+    },
+    {
+        id: 0,
+        slug: "",
+        title: "Flux In-Depth",
+        excerpt: "",
+        content: "",
+        image: {
+            src: "https://www.codeproject.com/KB/scripting/1179395/flux-architecture.jpg",
+            alt: "",
+        },
+        createdAt: 0,
+    },
+    {
+        id: 0,
+        slug: "",
+        title: "How JavaScript works: Service Workers, their lifecycle and use cases",
+        excerpt: "",
+        content: "",
+        image: {
+            src: "https://www.codeproject.com/KB/scripting/1179395/flux-architecture.jpg",
+            alt: "",
+        },
+        createdAt: 0,
+    },
+    {
+        id: 0,
+        slug: "",
+        title: "How JavaScript works: an overview of the engine, the runtime, and the call stack",
+        excerpt: "",
+        content: "",
+        image: {
+            src: "https://www.codeproject.com/KB/scripting/1179395/flux-architecture.jpg",
+            alt: "",
+        },
+        createdAt: 0,
+    },
 ];
 
-export type CategoriesProps = {
-    id: any;
-    name: any;
-};
-
-export const categories = [
-    ...Array.from(Array(countCategories), (_, i) => ({
-        id: i,
-        name: `Category ${i}`,
-    })),
-];
+export const NotesModule = ((notes) => {
+    const _notes = Array.from(notes);
+    let _ready = false
+    const _load = async () => {
+        for (let i = 0; i < links.length; i++) {
+            const response = await fetch(links[i]);
+            const text = await response.text();
+            _notes[i].content = text;
+        }
+        const notesLength = _notes.length;
+        for (let i = 1; i < 20; i++) {
+            _notes.push({ ..._notes[i % notesLength] });
+        }
+        _notes.forEach((e, i) => {
+            e.id = i;
+            e.slug = `${createSlug(e.title)}-${i}`;
+            e.createdAt = Date.now();
+        });
+        _ready = true
+    };
+    _load();
+    const getReady = () => _ready
+    const data = () => {
+        return _notes;
+    };
+    return { data, getReady };
+})(notes);

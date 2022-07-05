@@ -93,7 +93,7 @@ export const NavHeadersMobile = ({
                         isModalOpen.current = true;
                     }}
                 >
-                    Current: {refHeaders.current[currentHeader].innerText}
+                    Current: {refHeaders.current[currentHeader]?.innerText}
                 </Button>
                 <Button onClick={() => onClickAnchor({ type: "Next" })}>
                     Next
