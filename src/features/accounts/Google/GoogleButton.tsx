@@ -30,12 +30,14 @@ const ButtonWrapper = styled.div`
             border: solid;
             border-radius: 50%;
             overflow: hidden;
-        }
-        svg,
-        img {
-            display: block;
-            width: 100%;
-            height: auto;
+            width: 2rem;
+            height: 2rem;
+            svg,
+            img {
+                display: block;
+                width: 100%;
+                height: auto;
+            }
         }
     }
     .Icon + .Icon {
@@ -79,7 +81,8 @@ declare global {
 }
 
 export const GoogleButton = ({ className }: { className?: string }) => {
-    const { isSignIn, credentials, currentUserID } = useSelector(selectSignInState);
+    const { isSignIn, credentials, currentUserID } =
+        useSelector(selectSignInState);
     const dispatch = useDispatch();
     const stateGoogle = useGoogleIdentityApi();
 
@@ -175,12 +178,16 @@ export const GoogleButton = ({ className }: { className?: string }) => {
                                         !window.google
                                     )
                                         return;
-                                        
+
                                     window.google.accounts.id.revoke(
                                         currentUserID,
                                         () => {
                                             dispatch(signOut());
-                                            dispatch(postUserCredentials({id: "guest"}))
+                                            dispatch(
+                                                postUserCredentials({
+                                                    id: "guest",
+                                                })
+                                            );
                                         }
                                     );
                                     closeModal(e);
