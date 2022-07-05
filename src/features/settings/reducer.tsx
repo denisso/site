@@ -1,16 +1,23 @@
 /**
- * @description 
+ * @description Global settings site
  * @author Denis Kurochkin (mr_dramm) <blackbrain2009@gmail.com>
  * @copyright Denis Kurochkin 2022
  */
-import { createSlice, createEntityAdapter } from "@reduxjs/toolkit";
+import {
+    createSlice,
+    createEntityAdapter,
+    createAsyncThunk,
+} from "@reduxjs/toolkit";
+import { fetchWrapper } from "tools/fetchWrapper";
 
-type Settings = {
+export type SettingsEntity = {
     id: string;
     value: any;
 };
-
-const settings: Settings[] = [{ id: "setting1", value: "value 1" }];
+export const fetchGetReady = createAsyncThunk("settings", async () => {
+    return await fetchWrapper("/api/getready");
+});
+const settings: SettingsEntity[] = [{ id: "isReady", value: undefined }];
 
 export const settingsAdapter = createEntityAdapter();
 const settingsInitialState = settingsAdapter.getInitialState();
@@ -20,10 +27,32 @@ const slice = createSlice({
     name: "settings",
     initialState: filledState,
     reducers: {
-        setSiteProp: settingsAdapter.setOne,
+        setProp: settingsAdapter.setOne,
+    },
+    extraReducers(builder) {
+        builder.addCase(fetchGetReady.fulfilled, (state, action: any) => {
+            if (action.payload.ready)
+                slice.caseReducers.setProp(state, {
+                    id: "isReady",
+                    value: true,
+                });
+            else
+                slice.caseReducers.setProp(state, {
+                    id: "isReady",
+                    value: false,
+                });
+        });
+        builder.addCase(fetchGetReady.rejected, (state) => {
+            slice.caseReducers.setProp(state, {
+                id: "isReady",
+                value: false,
+            });
+        });
     },
 });
 
 export const reducerSettings = slice.reducer;
-export const selectorsSettings = settingsAdapter.getSelectors();
-export const { setSiteProp } = slice.actions;
+export const selectorsSettings = settingsAdapter.getSelectors(
+    (state: any) => state.settings
+);
+export const { setProp } = slice.actions;

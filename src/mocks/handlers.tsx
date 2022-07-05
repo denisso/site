@@ -5,7 +5,7 @@
  */
 
 import { rest } from "msw";
-import { notes, NoteDataType } from "./data/notes";
+import { NotesModule, NoteDataType } from "./data/notes";
 import { dataHomepage } from "./data/home";
 import {aboutme} from "./data/aboutme"
 import {
@@ -31,7 +31,7 @@ export const handlers = [
     }),
     // get all notea for NotesList, need use chache data
     rest.get("/api/notes", (req, res, ctx) => {
-        const resData = notes.map(
+        const resData = NotesModule.data().map(
             ({ id, excerpt, title, slug, image }: NoteDataType) => ({
                 id,
                 excerpt,
@@ -46,7 +46,8 @@ export const handlers = [
     //
     rest.get("/api/notes/:noteslug", (req, res, ctx) => {
         const { noteslug } = req.params as { noteslug: string };
-        const noteData: NoteDataType | undefined = notes.find(
+        const data = NotesModule.data()
+        const noteData: NoteDataType | undefined = NotesModule.data().find(
             (e) => e.slug === noteslug
         );
         if (noteData === undefined)
@@ -55,6 +56,10 @@ export const handlers = [
             ? comments[noteData.slug].numComments
             : 0;
         return res(ctx.json(noteData), ctx.delay(400));
+    }),
+    rest.get("/api/getready", (req, res, ctx) => {
+        const notesReady = NotesModule.getReady()
+        return res(ctx.json({ready: notesReady}), ctx.delay(400));
     }),
     rest.get("/api/comments/:noteslug", (req, res, ctx) => {
         // Get all comment by note slug

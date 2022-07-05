@@ -4,8 +4,8 @@
  * @copyright Denis Kurochkin 2022
  */
 
-import { apiQueryAccounts } from "features/accounts/apiQuery"
+import { fetchGetReady } from "features/settings/reducer";
 
 export const initStore = (store:any) => {
-    // store.dispatch(apiQueryAccounts.endpoints.getUsers.initiate())
+    store.dispatch(fetchGetReady())
 }
