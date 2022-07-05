@@ -10,7 +10,7 @@ import { up, only, down } from "styled-breakpoints";
 import { useDispatch } from "react-redux";
 import { toggleModal } from "features/theming/reducer";
 
-const ModalStyled = styled.div<{ show: boolean; scrollbarwidth: number}>`
+const ModalStyled = styled.div<{ show: boolean; scrollbarwidth: number }>`
     position: fixed;
     top: 0;
     left: 0;
@@ -21,12 +21,13 @@ const ModalStyled = styled.div<{ show: boolean; scrollbarwidth: number}>`
     place-items: center;
     background-color: ${({ theme }) => theme.ui.modal.overlay};
     animation: ${({ show }) => (show ? "fadeIn" : "fadeOut")} var(--transition);
-    padding-left: ${({ show, scrollbarwidth }) => (show ? "0px" : `${scrollbarwidth}px`)};
+    padding-left: ${({ show, scrollbarwidth }) =>
+        show ? "0px" : `${scrollbarwidth}px`};
     .modalBox {
         display: flex;
         flex-direction: column;
         ${down("xm")} {
-            width: calc(var(--width) * 9 / 10)
+            width: calc(var(--width) * 9 / 10);
         }
         ${only("xm")} {
             width: calc(var(--width) * 9 / 10);
@@ -81,66 +82,53 @@ const ModalStyled = styled.div<{ show: boolean; scrollbarwidth: number}>`
     }
 `;
 export const useModal = (title?: string) => {
-    const [show, setShow] = React.useState(false);
     const refModal = React.useRef<any>(null);
     const dispatch = useDispatch();
 
+    const refShowHide = React.useRef(
+        (() => {
+            let _handler: (arg?: any) => void = () => {};
+            let addHandler = (handler: (arg?: any) => void) => {
+                _handler = handler;
+            };
+            const setShow = (show: boolean) => {
+                if (_handler) _handler(show);
+            };
+            return {
+                addHandler,
+                setShow,
+            };
+        })()
+    );
+
     const openModal = React.useCallback((e?: any) => {
         if (e) e.preventDefault();
-        setShow(true);
+        refShowHide.current.setShow(true);
     }, []);
     const closeModal = React.useCallback((e?: any) => {
         if (e) e.preventDefault();
-        setShow(false);
+        refShowHide.current.setShow(false);
     }, []);
-    React.useEffect(() => {
-        const event: any = new Event("showModal");
-        event.showModal = { value: show };
-        if (refModal.current) refModal.current.dispatchEvent(event);
-    }, [show]);
+
     const Modal = React.useMemo(() => {
         const ComponentConstructor = ({ children }: { children?: any }) => {
             const [show, setShow] = React.useState(false);
-            const [ready, setReady] = React.useState(false);
 
             React.useEffect(() => {
-                if (!ready) return;
-                const handleSetNewState = function (event: any) {
-                    event.stopPropagation();
-                    setShow(event.showModal.value);
+                const handleSetNewState = function (show: boolean) {
+                    setShow(show);
+                    // Processing no scroll
                     dispatch(
                         toggleModal({
-                            isShowModal: event.showModal.value,
+                            isShowModal: show,
                             scrollBarWidth:
                                 window.innerWidth - document.body.clientWidth,
                         })
                     );
                 };
-                refModal.current.addEventListener(
-                    "showModal",
-                    handleSetNewState
-                );
-                return () => {
-                    if (!refModal.current) return;
-                    refModal.current.removeEventListener(
-                        "showModal",
-                        handleSetNewState
-                    );
-                };
-            }, [ready]);
-            return (
-                <>
-                    <div
-                        ref={(node) => {
-                            if (node && !ready) {
-                                refModal.current = node;
-                                setReady(true);
-                            }
-                        }}
-                    />
-                    <CModal {...{ show, title }}>{children}</CModal>
-                </>
-            );
+                refShowHide.current.addHandler(handleSetNewState);
+            }, []);
+            return <CModal {...{ show, title }}>{children}</CModal>;
         };
         return ComponentConstructor;
     }, []);
