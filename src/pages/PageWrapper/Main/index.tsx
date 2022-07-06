@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { ErrorBoundary } from "components/Tools/ErrorBoundary";
 import { PreLoader } from "features/settings/PreLoader";
 import { selectorsSettings } from "features/settings/reducer";
+import { AnimateItem } from "components/Tools";
 
 const MainWrapper = styled.main`
     padding: 2rem 0;
@@ -29,7 +30,12 @@ export const Main = () => {
         <MainWrapper>
             <MainContainer>
                 <ErrorBoundary name="MainComponent">
-                    {!isReady.value ? <PreLoader /> : <Outlet />}
+                    <AnimateItem isVisible={!isReady.value}>
+                        <PreLoader />
+                    </AnimateItem>
+                    <AnimateItem isVisible={isReady.value}>
+                        <Outlet />
+                    </AnimateItem>
                 </ErrorBoundary>
             </MainContainer>
         </MainWrapper>
