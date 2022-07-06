@@ -8,6 +8,7 @@ import {
     createEntityAdapter,
     createAsyncThunk,
 } from "@reduxjs/toolkit";
+import { useSelector } from "react-redux";
 import { fetchWrapper } from "tools/fetchWrapper";
 
 export type SettingsEntity = {
@@ -55,4 +56,14 @@ export const reducerSettings = slice.reducer;
 export const selectorsSettings = settingsAdapter.getSelectors(
     (state: any) => state.settings
 );
+export const useGetReady = () => {
+    const isReady: any = useSelector((state) =>
+        selectorsSettings.selectById(state, "isReady")
+    );
+    let value = false;
+    if (isReady instanceof Object && isReady.hasOwnProperty("value")) {
+        value = isReady.value ? true : false;
+    }
+    return value;
+};
 export const { setProp } = slice.actions;

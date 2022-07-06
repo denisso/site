@@ -3,13 +3,11 @@
  * @author Denis Kurochkin (mr_dramm) <blackbrain2009@gmail.com>
  * @copyright Denis Kurochkin 2022
  */
-
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
 import { ErrorBoundary } from "components/Tools/ErrorBoundary";
 import { PreLoader } from "features/settings/PreLoader";
-import { selectorsSettings } from "features/settings/reducer";
+import { useGetReady } from "features/settings/reducer";
 import { AnimateItem } from "components/Tools";
 
 const MainWrapper = styled.main`
@@ -23,17 +21,15 @@ const MainContainer = styled.div.attrs({ className: "container" })`
 `;
 
 export const Main = () => {
-    const isReady: any = useSelector((state) =>
-        selectorsSettings.selectById(state, "isReady")
-    );
+    const isReady = useGetReady()
     return (
         <MainWrapper>
             <MainContainer>
                 <ErrorBoundary name="MainComponent">
-                    <AnimateItem isVisible={!isReady.value}>
+                    <AnimateItem isVisible={!isReady}>
                         <PreLoader />
                     </AnimateItem>
-                    <AnimateItem isVisible={isReady.value}>
+                    <AnimateItem isVisible={isReady}>
                         <Outlet />
                     </AnimateItem>
                 </ErrorBoundary>

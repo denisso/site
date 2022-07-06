@@ -9,6 +9,9 @@ import { selectSignInState } from "./reducer";
 import { GoogleButton } from "./Google/GoogleButton";
 import styled from "styled-components";
 import { ReactComponent as LogoGuest } from "assets/guest.svg";
+import { AnimateItem } from "components/Tools";
+import { useGetReady } from "features/settings/reducer";
+
 const AvatarStyled = styled.div`
     width: 2rem;
     height: 2rem;
@@ -22,9 +25,9 @@ const AvatarStyled = styled.div`
 
 export const AccountComponent = () => {
     const { isSignIn, currentUserID } = useSelector(selectSignInState);
-
+    const isReady = useGetReady()
     return (
-        <>
+        <AnimateItem isVisible={isReady}>
             {currentUserID && (
                 <>
                     {!isSignIn && (
@@ -35,6 +38,6 @@ export const AccountComponent = () => {
                     <GoogleButton />
                 </>
             )}
-        </>
+        </AnimateItem>
     );
 };

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { useSelector, useDispatch } from "react-redux";
-import { selectorsSettings, fetchGetReady } from "./reducer";
+import { useDispatch } from "react-redux";
+import { useGetReady, fetchGetReady } from "./reducer";
 import { useModal } from "components/Elements/CModal";
 import { Spinner } from "components/Elements/Spinner";
 
@@ -17,17 +17,15 @@ const Container = styled.div`
 export const PreLoader = () => {
     const dispatch = useDispatch();
     const { Modal, openModal, closeModal } = useModal("Welocome!");
-    const isReady: any = useSelector((state) =>
-        selectorsSettings.selectById(state, "isReady")
-    );
+    const isReady = useGetReady()
     React.useEffect(() => {
         openModal();
     }, []);
     React.useEffect(() => {
         // first request in src\store\initStore.tsx
-        if (isReady.value === false)
+        if (isReady === false)
             setTimeout(() => dispatch(fetchGetReady()), 1000);
-        if (isReady.value === true) closeModal();
+        if (isReady === true) closeModal();
     }, [isReady]);
     return (
         <Modal>
