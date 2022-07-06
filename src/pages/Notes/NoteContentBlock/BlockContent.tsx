@@ -15,6 +15,8 @@ import { useHeadersReducer } from "./useHeadersReducer";
 import { PagesContext } from "pages";
 import { ImageLazy } from "components/Elements/ImageLazy";
 import { scrollContent } from "components/Tools";
+import { createSlug } from "tools/createSlug";
+import { uid } from "tools/uid";
 const ArticleBox = styled.div`
     line-height: 1.5rem;
     .articleTitle {
@@ -38,6 +40,9 @@ const ArticleBox = styled.div`
         margin: 0.5rem auto;
     }
     .articleContent {
+        & > ul{
+            margin-left: 2rem;
+        }
         h1,
         h2,
         h3,
@@ -64,7 +69,7 @@ export const BlockContent = ({
     data: NoteDataType;
     className: string;
 }) => {
-    const { title, content, createdAt, image } = data;
+    const { title, content, createdAt, image } = React.useMemo(() => data, []);
     const { setCurrentHeader, refHeaders } = React.useContext(ContextNotes);
     const { intersect } = React.useContext(PagesContext);
     const { state, dispatch } = useHeadersReducer();
@@ -105,35 +110,58 @@ export const BlockContent = ({
 
     // components for markdown
     const markdownComponents = React.useMemo(() => {
-        const headerParser = ({ node, className, children, ...props }: any) => {
-            const a = node.children.find(
-                (e: any) => e.tagName && e.tagName.toUpperCase() === "a".toUpperCase()
-            );
+        const setSlugs = new Set();
 
-            if (!a) {
-                return (
-                    <node.tagName {...props} {...{ className }}>
-                        {children}
-                    </node.tagName>
-                );
+        // case ## header (default)
+        const childrenText = ({ node, className, children, props }: any) => {
+            let slug = createSlug(node.children[0].value);
+            if (setSlugs.has(slug)) {
+                slug += `-${uid()}`;
             }
-
-            const hrefId =
-                a.properties["href"][0] === "#"
-                    ? a.properties["href"].slice(1)
-                    : a.properties["href"];
-            const { id } = props;
-
+            setSlugs.add(slug);
+            console.log("Add headers: ", slug, node.children[0].value)
             return (
                 <node.tagName
                     ref={addNodeToIntersect}
                     {...props}
                     {...{ className }}
-                    id={`${id || ""} ${hrefId || ""}`.trim()}
+                    id={slug}
                 >
-                    {children}
+                    <a href={`#${slug}`}>{node.children[0].value}</a>
                 </node.tagName>
             );
+        };
+        const childrenAHREF = ({ node, className, children, props }: any) => {
+            let text = node.children[0]?.props?.children[0];
+            let href = node.children[0]?.props?.href;
+            let id = href === "#" ? href.slice(1) : href;
+            if (setSlugs.has(id)) {
+                id += `-${uid()}`;
+            }
+            setSlugs.add(id);
+            return (
+                <node.tagName
+                    ref={addNodeToIntersect}
+                    {...props}
+                    {...{ className }}
+                    id={id}
+                >
+                    <a href={href}>{text}</a>
+                </node.tagName>
+            );
+        };
+        const headerParser = ({ node, className, children, ...props }: any) => {
+            if(node.children.length === 0)
+                // case ##
+                return <></>;
+            // case ## header (default)
+            if (node.children[0].type === "text")
+                return childrenText({ node, className, children, props });
+            // case ## [Header 1](#anchor-for-url-1)
+            if (node.children[0].type === "a")
+                return childrenAHREF({ node, className, children, props });
+            // for other case
+            return <></>;
         };
         return {
             h1: headerParser,
@@ -163,9 +191,13 @@ export const BlockContent = ({
                     const loation = window.location || document.location;
                     if (loation.hash) {
                         try {
-                            const $lement = document.querySelector(loation.hash);
+                            const $lement = document.querySelector(
+                                loation.hash
+                            );
                             if ($lement) {
-                                scrollContent($lement.getBoundingClientRect().top)
+                                scrollContent(
+                                    $lement.getBoundingClientRect().top
+                                );
                             }
                         } catch (e) {}
                     }
@@ -191,7 +223,9 @@ export const BlockContent = ({
             />
 
             <hr />
-            <div className="articlePublishedAt">Create at: {new Date(createdAt).toUTCString()}</div>
+            <div className="articlePublishedAt">
+                Create at: {new Date(createdAt).toUTCString()}
+            </div>
         </ArticleBox>
     );
 };

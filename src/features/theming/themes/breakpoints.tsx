@@ -13,9 +13,9 @@ type breaksNumberType = {
 export const breaksNumber: breaksNumberType = {
     xs: 0,    
     xm: 400,
-    sm: 580,
-    md: 768,
-    lg: 992,
+    sm: 600,
+    md: 820,
+    lg: 1040,
     xl: 1300,
 };
 

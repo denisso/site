@@ -26,7 +26,8 @@ const Container = styled.div`
         flex-wrap: wrap;
         .BlockContent {
             ${up("md")} {
-                flex-basis: 70%;
+                flex-basis: 69%;
+                max-width: 69%;
             }
             ${down("md")} {
                 flex-basis: 100%;
@@ -35,7 +36,7 @@ const Container = styled.div`
         }
         .NavHeadersDesctop {
             flex-basis: 30%;
-            min-width: 200px;
+            max-width: 30%;
         }
         .NavHeadersMobile {
             flex-basis: 100%;
