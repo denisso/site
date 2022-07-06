@@ -40,7 +40,7 @@ const ArticleBox = styled.div`
         margin: 0.5rem auto;
     }
     .articleContent {
-        & > ul{
+        ul {
             margin-left: 2rem;
         }
         h1,
@@ -119,7 +119,7 @@ export const BlockContent = ({
                 slug += `-${uid()}`;
             }
             setSlugs.add(slug);
-            console.log("Add headers: ", slug, node.children[0].value)
+            console.log("Add headers: ", slug, node.children[0].value);
             return (
                 <node.tagName
                     ref={addNodeToIntersect}
@@ -151,15 +151,16 @@ export const BlockContent = ({
             );
         };
         const headerParser = ({ node, className, children, ...props }: any) => {
-            if(node.children.length === 0)
+            try {
                 // case ##
-                return <></>;
-            // case ## header (default)
-            if (node.children[0].type === "text")
-                return childrenText({ node, className, children, props });
-            // case ## [Header 1](#anchor-for-url-1)
-            if (node.children[0].type === "a")
-                return childrenAHREF({ node, className, children, props });
+                if (node.children.length === 0) return <></>;
+                // case ## header (default)
+                if (node.children[0].type === "text")
+                    return childrenText({ node, className, children, props });
+                // case ## [Header 1](#anchor-for-url-1)
+                if (node.children[0].type === "a")
+                    return childrenAHREF({ node, className, children, props });
+            } catch (err) {}
             // for other case
             return <></>;
         };
