@@ -12,32 +12,36 @@ import { ReactComponent as LogoGuest } from "assets/guest.svg";
 import { AnimateItem } from "components/Tools";
 import { useGetReady } from "features/settings/reducer";
 
-const AvatarStyled = styled.div`
-    width: 2rem;
-    height: 2rem;
-    .Icon {
-        width: 100%;
-        height: auto;
-        fill: ${({ theme }) => theme.colors.first};
-        transition: fill var(--transition);
+const Container = styled(AnimateItem)`
+    display: flex;
+    align-items: center;
+    .AvatarBox {
+        width: 2rem;
+        height: 2rem;
+        .Icon {
+            width: 100%;
+            height: auto;
+            fill: ${({ theme }) => theme.colors.first};
+            transition: fill var(--transition);
+        }
     }
 `;
 
 export const AccountComponent = () => {
     const { isSignIn, currentUserID } = useSelector(selectSignInState);
-    const isReady = useGetReady()
+    const isReady = useGetReady();
     return (
-        <AnimateItem isVisible={isReady}>
+        <Container isVisible={isReady}>
             {currentUserID && (
                 <>
                     {!isSignIn && (
-                        <AvatarStyled>
-                            <LogoGuest className="Icon"/>
-                        </AvatarStyled>
+                        <div className="AvatarBox">
+                            <LogoGuest className="Icon" />
+                        </div>
                     )}
                     <GoogleButton />
                 </>
             )}
-        </AnimateItem>
+        </Container>
     );
 };
