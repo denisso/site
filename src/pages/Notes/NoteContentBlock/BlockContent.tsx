@@ -119,7 +119,7 @@ export const BlockContent = ({
                 slug += `-${uid()}`;
             }
             setSlugs.add(slug);
-            console.log("Add headers: ", slug, node.children[0].value);
+
             return (
                 <node.tagName
                     ref={addNodeToIntersect}
