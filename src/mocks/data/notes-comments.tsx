@@ -167,36 +167,6 @@ export type CommentsSlugType = {
     comments: CommentDataType[];
     numComments: number;
 };
-const comments: { [key: string]: CommentsSlugType } = {
-    "note-1": {
-        numComments: 3,
-        comments: [
-            {
-                commentid: "1650458$470440df5",
-                userid: "guest",
-                comment: "test comment2",
-                date: "1651855746215",
-                child: [
-                    {
-                        commentid: "165045847$0440df6",
-                        parentid: "1650458$470440df5",
-                        userid: "guest",
-                        comment: "test comment",
-                        date: "1651855746215",
-                        child: [],
-                    },
-                    {
-                        commentid: "165045847$0440df7",
-                        parentid: "1650458$470440df5",
-                        userid: "guest",
-                        comment: "test comment",
-                        date: "1651855746215",
-                        child: [],
-                    },
-                ],
-            },
-        ],
-    },
-};
+const comments: { [key: string]: CommentsSlugType } = {};
 
 export { comments };
