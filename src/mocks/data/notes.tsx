@@ -9,10 +9,9 @@ import noteLink002 from "./notes/note002.md";
 import noteLink003 from "./notes/note003.md";
 import noteLink004 from "./notes/note004.md";
 import noteLink005 from "./notes/note005.md";
+import { createSlug } from "tools/createSlug";
 
 const links = [noteLink001, noteLink002, noteLink003, noteLink004, noteLink005];
-
-import { createSlug } from "tools/createSlug";
 
 export type NoteDataType = {
     id: number;

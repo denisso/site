@@ -48,12 +48,15 @@ const ArticleBox = styled.div`
         border: solid ${({ theme }) => theme.colors.firstLight};
         border-radius: var(--borderRadiusInput);
         padding: 0 1rem;
+        margin: 1rem auto;
         align-items: center;
         & > * + * {
             margin-left: 1rem;
         }
     }
     .ArticleContent {
+        display: flex;
+        flex-direction: column;
         ul {
             margin-left: 2rem;
         }
@@ -71,6 +74,17 @@ const ArticleBox = styled.div`
         }
         p {
             text-indent: 2rem;
+            margin: 0.5rem auto;
+        }
+        pre {
+            word-wrap: break-word;
+            white-space: pre-wrap;
+            margin: 1rem auto;
+        }
+        img {
+            max-width: 90%;
+            display: block;
+            margin: 1rem auto;
         }
     }
 `;
