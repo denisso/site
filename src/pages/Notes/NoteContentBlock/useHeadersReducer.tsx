@@ -40,7 +40,6 @@ const changeCurrentHeader = (state: any, action: any, localData: any) => {
                 localData.headers[indxPrevHeader].getBoundingClientRect().top >
                 0
             ) {
-                console.log("leave below && scroll to up", indxPrevHeader)
                 localData.indxTop = indxPrevHeader;
             }
         } else {
@@ -59,9 +58,7 @@ const changeCurrentHeader = (state: any, action: any, localData: any) => {
         }
     }
 
-    let stateNew = { value: localData.indxTop };
-
-    return stateNew;
+    return { value: localData.indxTop };
 };
 
 const reducer = (() => {
