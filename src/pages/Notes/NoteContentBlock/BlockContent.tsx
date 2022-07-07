@@ -105,6 +105,7 @@ export const BlockContent = ({
         if (node) {
             intersect.addNodes({ node, trigger: handleHeader });
             refHeaders.current.push(node);
+
         }
     }, []);
 
@@ -185,7 +186,7 @@ export const BlockContent = ({
                     dispatch({
                         type: "ready",
                         payload: {
-                            countHeaders: refHeaders.current.length,
+                            headers: refHeaders,
                         },
                     });
                     setReady(true);
