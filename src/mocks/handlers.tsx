@@ -32,11 +32,12 @@ export const handlers = [
     // get all notea for NotesList, need use chache data
     rest.get("/api/notes", (req, res, ctx) => {
         const resData = NotesModule.data().map(
-            ({ id, excerpt, title, slug, image }: NoteDataType) => ({
+            ({ id, excerpt, title, slug, image, icon }: NoteDataType) => ({
                 id,
                 excerpt,
                 title,
                 image,
+                icon,
                 slug,
                 numComments: comments[slug] ? comments[slug].numComments : 0,
             })

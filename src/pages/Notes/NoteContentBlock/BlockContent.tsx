@@ -16,10 +16,14 @@ import { PagesContext } from "pages";
 import { ImageLazy } from "components/Elements/ImageLazy";
 import { scrollContent } from "components/Tools";
 import { createSlug } from "tools/createSlug";
+import { Anchor } from "components/Elements/Anchor";
 
 const ArticleBox = styled.div`
     line-height: 1.5rem;
-    .articleTitle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .ArticleTitle {
         font-size: 2rem;
         text-align: center;
         margin: 1rem 0;
@@ -39,7 +43,18 @@ const ArticleBox = styled.div`
         height: auto;
         margin: 0.5rem auto;
     }
-    .articleContent {
+    .ArticleMeta {
+        display: inline-flex;
+
+        border: solid ${({ theme }) => theme.colors.firstLight};
+        border-radius: var(--borderRadiusInput);
+        padding: 0 1rem;
+        align-items: center;
+        & > * + * {
+            margin-left: 1rem;
+        }
+    }
+    .ArticleContent {
         ul {
             margin-left: 2rem;
         }
@@ -55,6 +70,9 @@ const ArticleBox = styled.div`
         a:hover:after {
             content: "#";
         }
+        p{
+            text-indent: 2rem;
+        }
     }
 `;
 
@@ -69,7 +87,6 @@ export const BlockContent = ({
     data: NoteDataType;
     className: string;
 }) => {
-    const { title, content, createdAt, image } = React.useMemo(() => data, []);
     const { setCurrentHeader, refHeaders } = React.useContext(ContextNotes);
     const { intersect } = React.useContext(PagesContext);
     const { state, dispatch } = useHeadersReducer();
@@ -196,28 +213,41 @@ export const BlockContent = ({
                 }
             }}
         >
-            <div className="articleTitle">{title}</div>
+            <div className="ArticleTitle">{data.title}</div>
             <hr />
-            {/* For demo */}
+
             <ImageLazy
-                src={`https://picsum.photos/id/${image.src.match(
-                    /\d+/
-                )}/500/300`}
-                alt="Hero image"
+                src={data.image.src}
+                alt="Article image"
                 width="500"
                 height="300"
             />
-
+            <div className="ArticleMeta">
+                <div className="Original">
+                    <span>Original article: </span>
+                    <Anchor href={data?.original?.ref} target="_blank">
+                        {data?.original?.name}
+                    </Anchor>
+                </div>
+                <div className="Author">
+                    <span>written by: </span>
+                    <Anchor href={data.author.ref} target="_blank">
+                        {data.author.name}
+                    </Anchor>
+                </div>
+                <div className="WriteAt">
+                    {`${new Date(data.createdAt).getFullYear()} /
+                        ${new Date(data.createdAt).getMonth() + 1} /
+                        ${new Date(data.createdAt).getDate()}`}
+                </div>
+            </div>
             <Markdown
-                markdown={content}
-                className="articleContent"
+                markdown={data.content}
+                className="ArticleContent"
                 components={markdownComponents}
             />
 
             <hr />
-            <div className="articlePublishedAt">
-                Create at: {new Date(createdAt).toUTCString()}
-            </div>
         </ArticleBox>
     );
 };

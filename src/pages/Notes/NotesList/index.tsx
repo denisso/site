@@ -45,11 +45,11 @@ const NoteContainer = styled(ItemAnimated)<{ theme: themeType }>`
         height: 100%;
         border-radius: var(--borderRadiusBlock);
         overflow: hidden;
-        outline: solid transparent;
-        transition: outline-color var(--transition),
+        border: solid transparent;
+        transition: border-color var(--transition),
             background-color var(--transition), color var(--transition);
         &:hover {
-            outline: solid ${({ theme }) => theme.colors.third};
+            border: solid ${({ theme }) => theme.colors.third};
         }
         .NoteBlock {
             display: flex;
@@ -58,6 +58,8 @@ const NoteContainer = styled(ItemAnimated)<{ theme: themeType }>`
             .NoteImage {
                 min-width: 150px;
                 max-width: 150px;
+                display: flex;
+                align-items: center;
                 /* border-radius: var(--borderRadiusBlock); */
                 /* overflow: hidden; */
                 img {
@@ -113,8 +115,8 @@ const NotesList = ({ notes }: { notes: NoteDataType[] }) => {
                             <div className="NoteBlock">
                                 <div className="NoteImage">
                                     <img
-                                        src={noteData.image.src}
-                                        alt={noteData.image.alt}
+                                        src={noteData.icon}
+                                        alt={"icon"}
                                     />
                                 </div>
                                 <div className="NoteContent">

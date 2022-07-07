@@ -1,5 +1,3 @@
-[original article on digitalocean.com](https://www.digitalocean.com/community/conceptual_articles/an-introduction-to-document-oriented-databases) by  [Mateusz Papiernik](https://www.digitalocean.com/community/users/mati)
-
 ## Introduction
 
 Although they were first invented decades ago, computer-based databases have become ubiquitous on today’s internet. More and more commonly, websites and applications involve collecting, storing, and retrieving data from a database. For many years the database landscape was dominated by  [relational databases](https://www.digitalocean.com/community/tutorials/understanding-relational-databases), which organize data in tables made up of rows. To break free from the rigid structure imposed by the relational model, though, a number of different database types have emerged in recent years.

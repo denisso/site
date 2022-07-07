@@ -1,5 +1,4 @@
-[original article on blog.sessionstack.com](https://blog.sessionstack.com/how-javascript-works-service-workers-their-life-cycle-and-use-cases-52b19ad98b58) by  [Alexander Zlatkov](https://medium.com/@zlatkov)
-
+## Introduction
 
 This is post # 8 of the series dedicated to exploring JavaScript and its building components. In the process of identifying and describing the core elements, we also share some best practice we use when building  [SessionStack](https://www.sessionstack.com/?utm_source=medium&utm_medium=source&utm_content=javascript-series-web-workers-intro), a JavaScript application that has to be robust and highly-performant in order to show you real-time exactly how your users ran into a technical or UX issue in your web app.
 

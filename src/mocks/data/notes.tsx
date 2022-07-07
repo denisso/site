@@ -18,10 +18,19 @@ export type NoteDataType = {
     id: number;
     slug: string;
     title: string;
+    icon: string;
     image: {
         src: string;
         alt: string;
     };
+    author: {
+        name: string;
+        ref: string;
+    }
+    original?: {
+        name: string;
+        ref: string;
+    }
     excerpt: string;
     content: string;
     createdAt: number;
@@ -35,11 +44,20 @@ const notes: NoteDataType[] = [
         title: "An Introduction to Document-Oriented Databases",
         excerpt: "",
         content: "",
+        icon: "/asset/notes/note001_icon.png",
         image: {
-            src: "https://community-cdn-digitalocean-com.global.ssl.fastly.net/FoqMLpAxDfEr9YeRNaDmJTaE",
+            src: "/asset/notes/note001.png",
             alt: "",
         },
-        createdAt: 0,
+        author: {
+            name: "Mateusz Papiernik",
+            ref: "https://www.digitalocean.com/community/users/mati",
+        },
+        original: {
+            name: "digitalocean.com",
+            ref: "https://www.digitalocean.com/community/conceptual_articles/an-introduction-to-document-oriented-databases",
+        },
+        createdAt: Number(new Date(2021, 6, 20, 0, 0, 0, 0)),
     },
     {
         id: 0,
@@ -47,11 +65,20 @@ const notes: NoteDataType[] = [
         title: "The S.O.L.I.D Principles in Pictures",
         excerpt: "",
         content: "",
+        icon: "/asset/notes/note002_icon.png",
         image: {
-            src: "https://miro.medium.com/max/875/1*wrxj0oBKpA_GXb8LPhXOeg.png",
+            src: "/asset/notes/note002.png",
             alt: "",
         },
-        createdAt: 0,
+        author: {
+            name: "Ugonna Thelma",
+            ref: "https://medium.com/@ugonnat",
+        },
+        original: {
+            name: "medium.com",
+            ref: "https://medium.com/backticks-tildes/the-s-o-l-i-d-principles-in-pictures-b34ce2f1e898",
+        },
+        createdAt: Number(new Date(2020, 4, 18, 0, 0, 0, 0)),
     },
     {
         id: 0,
@@ -59,11 +86,20 @@ const notes: NoteDataType[] = [
         title: "Flux In-Depth",
         excerpt: "",
         content: "",
+        icon: "/asset/notes/note003_icon.png",
         image: {
-            src: "https://www.codeproject.com/KB/scripting/1179395/flux-architecture.jpg",
+            src: "/asset/notes/note003.png",
             alt: "",
         },
-        createdAt: 0,
+        author: {
+            name: "Yangshun Tay",
+            ref: "https://yangshuntay.com/",
+        },
+        original: {
+            name: "facebook.github.io",
+            ref: "https://facebook.github.io/flux/docs/in-depth-overview",
+        },
+        createdAt: Number(new Date(2022, 2, 6, 0, 0, 0, 0)),
     },
     {
         id: 0,
@@ -71,11 +107,20 @@ const notes: NoteDataType[] = [
         title: "How JavaScript works: Service Workers, their lifecycle and use cases",
         excerpt: "",
         content: "",
+        icon: "/asset/notes/note004_icon.png",
         image: {
-            src: "https://www.codeproject.com/KB/scripting/1179395/flux-architecture.jpg",
+            src: "/asset/notes/note004.png",
             alt: "",
         },
-        createdAt: 0,
+        author: {
+            name: "Alexander Zlatkov",
+            ref: "https://medium.com/@zlatkov",
+        },
+        original: {
+            name: "blog.sessionstack.com",
+            ref: "https://blog.sessionstack.com/how-javascript-works-service-workers-their-life-cycle-and-use-cases-52b19ad98b58",
+        },
+        createdAt: Number(new Date(2017, 7, 10, 0, 0, 0, 0)),
     },
     {
         id: 0,
@@ -83,11 +128,20 @@ const notes: NoteDataType[] = [
         title: "How JavaScript works: an overview of the engine, the runtime, and the call stack",
         excerpt: "",
         content: "",
+        icon: "/asset/notes/note005_icon.png",
         image: {
-            src: "https://www.codeproject.com/KB/scripting/1179395/flux-architecture.jpg",
+            src: "/asset/notes/note005.png",
             alt: "",
         },
-        createdAt: 0,
+        author: {
+            name: "Alexander Zlatkov",
+            ref: "https://medium.com/@zlatkov",
+        },
+        original: {
+            name: "blog.sessionstack.com",
+            ref: "https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf",
+        },
+        createdAt: Number(new Date(2022, 1, 5, 0, 0, 0, 0)),
     },
 ];
 
@@ -107,7 +161,6 @@ export const NotesModule = ((notes) => {
         _notes.forEach((e, i) => {
             e.id = i;
             e.slug = `${createSlug(e.title)}-${i}`;
-            e.createdAt = Date.now();
         });
         _ready = true
     };

@@ -1,7 +1,4 @@
-[original article on medium.com](https://medium.com/backticks-tildes/the-s-o-l-i-d-principles-in-pictures-b34ce2f1e898) by  [Ugonna Thelma](https://medium.com/@ugonnat)
-
-
-## The S.O.L.I.D Principles in Pictures
+## Introduction
 
 ![](https://miro.medium.com/max/875/1*wrxj0oBKpA_GXb8LPhXOeg.png)
 
