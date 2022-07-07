@@ -45,7 +45,6 @@ const ArticleBox = styled.div`
     }
     .ArticleMeta {
         display: inline-flex;
-
         border: solid ${({ theme }) => theme.colors.firstLight};
         border-radius: var(--borderRadiusInput);
         padding: 0 1rem;
@@ -70,7 +69,7 @@ const ArticleBox = styled.div`
         a:hover:after {
             content: "#";
         }
-        p{
+        p {
             text-indent: 2rem;
         }
     }
