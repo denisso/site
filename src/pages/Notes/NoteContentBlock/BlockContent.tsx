@@ -16,7 +16,7 @@ import { PagesContext } from "pages";
 import { ImageLazy } from "components/Elements/ImageLazy";
 import { scrollContent } from "components/Tools";
 import { createSlug } from "tools/createSlug";
-import { uid } from "tools/uid";
+
 const ArticleBox = styled.div`
     line-height: 1.5rem;
     .articleTitle {
@@ -105,21 +105,14 @@ export const BlockContent = ({
         if (node) {
             intersect.addNodes({ node, trigger: handleHeader });
             refHeaders.current.push(node);
-
         }
     }, []);
 
     // components for markdown
     const markdownComponents = React.useMemo(() => {
-        const setSlugs = new Set();
-
         // case ## header (default)
         const childrenText = ({ node, className, children, props }: any) => {
             let slug = createSlug(node.children[0].value);
-            if (setSlugs.has(slug)) {
-                slug += `-${uid()}`;
-            }
-            setSlugs.add(slug);
 
             return (
                 <node.tagName
@@ -136,10 +129,7 @@ export const BlockContent = ({
             let text = node.children[0]?.props?.children[0];
             let href = node.children[0]?.props?.href;
             let id = href === "#" ? href.slice(1) : href;
-            if (setSlugs.has(id)) {
-                id += `-${uid()}`;
-            }
-            setSlugs.add(id);
+
             return (
                 <node.tagName
                     ref={addNodeToIntersect}
