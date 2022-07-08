@@ -72,7 +72,7 @@ export const base = css<{ theme: themeType }>`
             width: 90%;
         }
         ${up("xl")} {
-            width: 1200px;
+            width: 1400px;
         }
     }
 `;

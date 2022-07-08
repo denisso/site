@@ -17,6 +17,8 @@ const Nav = styled.nav`
     position: sticky;
     display: flex;
     flex-direction: column;
+    height: 70vh;
+    overflow-y: auto;
 `;
 
 const AnchorBoxStyled = styled(AnchorBox)`

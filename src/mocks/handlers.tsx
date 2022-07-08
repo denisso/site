@@ -1,5 +1,5 @@
 /**
- * @description 
+ * @description
  * @author Denis Kurochkin (mr_dramm) <blackbrain2009@gmail.com>
  * @copyright Denis Kurochkin 2022
  */
@@ -7,7 +7,7 @@
 import { rest } from "msw";
 import { NotesModule, NoteDataType } from "./data/notes";
 import { dataHomepage } from "./data/home";
-import {aboutme} from "./data/aboutme"
+import { aboutme } from "./data/aboutme";
 import {
     comments,
     CommentsHandlerServer,
@@ -32,13 +32,24 @@ export const handlers = [
     // get all notea for NotesList, need use chache data
     rest.get("/api/notes", (req, res, ctx) => {
         const resData = NotesModule.data().map(
-            ({ id, excerpt, title, slug, image, icon }: NoteDataType) => ({
+            ({
+                id,
+                excerpt,
+                title,
+                slug,
+                image,
+                icon,
+                author,
+                createdAt,
+            }: NoteDataType) => ({
                 id,
                 excerpt,
                 title,
                 image,
                 icon,
                 slug,
+                author,
+                createdAt,
                 numComments: comments[slug] ? comments[slug].numComments : 0,
             })
         );
@@ -47,7 +58,7 @@ export const handlers = [
     //
     rest.get("/api/notes/:noteslug", (req, res, ctx) => {
         const { noteslug } = req.params as { noteslug: string };
-        const data = NotesModule.data()
+        const data = NotesModule.data();
         const noteData: NoteDataType | undefined = NotesModule.data().find(
             (e) => e.slug === noteslug
         );
@@ -59,8 +70,8 @@ export const handlers = [
         return res(ctx.json(noteData), ctx.delay(400));
     }),
     rest.get("/api/getready", (req, res, ctx) => {
-        const notesReady = NotesModule.getReady()
-        return res(ctx.json({ready: notesReady}), ctx.delay(400));
+        const notesReady = NotesModule.getReady();
+        return res(ctx.json({ ready: notesReady }), ctx.delay(400));
     }),
     rest.get("/api/comments/:noteslug", (req, res, ctx) => {
         // Get all comment by note slug
@@ -127,9 +138,10 @@ export const handlers = [
             const { id, email, name, picture }: any = JSON.parse(
                 req.body as string
             );
-            if(id === undefined) throw new Error("Server response: user id not defined.")
+            if (id === undefined)
+                throw new Error("Server response: user id not defined.");
             currentUserID = id;
-            
+
             users[id] = { email, name, picture };
         } catch (err: any) {
             return res(ctx.json({ error: err.message }));

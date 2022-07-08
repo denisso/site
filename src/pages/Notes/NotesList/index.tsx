@@ -29,7 +29,7 @@ const NotesListElement = styled(BoxAnimated)<{ theme: themeType }>`
     display: grid;
     gap: var(--gap);
     place-items: center;
-    ${up("xl")} {
+    ${up("lg")} {
         grid-template-columns: repeat(2, 1fr);
     }
 `;
@@ -90,8 +90,14 @@ const NoteContainer = styled(ItemAnimated)<{ theme: themeType }>`
                     overflow: hidden;
                     max-height: 75px;
                 }
-                .NoteStat {
-                    justify-content: right;
+                .NoteMeta {
+                    justify-content: space-between;
+                    .WrittenBy {
+                        display: flex;
+                        .Author {
+                            margin-right: 1rem;
+                        }
+                    }
                 }
             }
         }
@@ -116,7 +122,7 @@ const NotesList = ({ notes }: { notes: NoteDataType[] }) => {
                                 <div className="NoteImage">
                                     <img
                                         src={noteData.icon}
-                                        alt={"icon"}
+                                        alt={"article image"}
                                     />
                                 </div>
                                 <div className="NoteContent">
@@ -126,12 +132,34 @@ const NotesList = ({ notes }: { notes: NoteDataType[] }) => {
                                     <div className="NoteExcerpt">
                                         {noteData.excerpt}
                                     </div>
-                                    <div className="NoteStat">
-                                        <FontAwesomeIcon
-                                            icon={faComment}
-                                            className="Icon"
-                                        />{" "}
-                                        {noteData.numComments}
+                                    <div className="NoteMeta">
+                                        <div className="WrittenBy">
+                                            <div className="Author">
+                                                <span>
+                                                    {noteData.author.name}
+                                                </span>
+                                            </div>
+                                            <div className="WriteAt">
+                                                {`${new Date(
+                                                    noteData.createdAt
+                                                ).getFullYear()} /
+                                                ${
+                                                    new Date(
+                                                        noteData.createdAt
+                                                    ).getMonth() + 1
+                                                } /
+                                                ${new Date(
+                                                    noteData.createdAt
+                                                ).getDate()}`}
+                                            </div>
+                                        </div>
+                                        <div className="Coments">
+                                            <FontAwesomeIcon
+                                                icon={faComment}
+                                                className="Icon"
+                                            />{" "}
+                                            {noteData.numComments}
+                                        </div>
                                     </div>
                                 </div>
                             </div>

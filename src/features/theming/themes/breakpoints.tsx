@@ -16,7 +16,7 @@ export const breaksNumber: breaksNumberType = {
     sm: 600,
     md: 820,
     lg: 1040,
-    xl: 1300,
+    xl: 1500,
 };
 
 type breaksNumberPXType = {

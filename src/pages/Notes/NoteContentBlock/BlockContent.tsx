@@ -74,7 +74,7 @@ const ArticleBox = styled.div`
         }
         p {
             text-indent: 2rem;
-            margin: 0.5rem auto;
+            margin: 0.5rem 0;
         }
         pre {
             word-wrap: break-word;

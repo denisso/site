@@ -14,13 +14,12 @@ import { useModal } from "components/Elements/CModal";
 import { AnchorBox } from "components/Elements/Anchor";
 import { AnimateItem } from "components/Tools";
 
-const Wrapper = styled(AnimateItem)<{ theme: themeType }>`
+const Container = styled(AnimateItem)<{ theme: themeType }>`
     position: sticky;
     left: 0;
     bottom: 0;
     right: 0;
     background-color: ${({ theme }) => theme.colorRoot};
-    height: 3rem;
     padding: 0.5rem 0;
     z-index: 200;
     .NavPanel {
@@ -33,6 +32,8 @@ const Wrapper = styled(AnimateItem)<{ theme: themeType }>`
 const NavBox = styled.div`
     .NavContent {
         margin-bottom: 1rem;
+        height: 70vh;
+        overflow-y: auto;
         .NavigationAnchor {
             text-align: center;
         }
@@ -75,31 +76,34 @@ export const NavHeadersMobile = ({
             default:
         }
         closeModal();
-        if(isModalOpen.current) 
-        scrollContent(refHeaders.current[indx].offsetTop);
+        if (isModalOpen.current)
+            scrollContent(refHeaders.current[indx].offsetTop);
     }, []);
     if (currentHeader < 0) {
         return <></>;
     }
     return (
-        <Wrapper {...{ className: className + " NavHeadersMobile", isVisible }}>
-            <div className="NavPanel">
-                <Button onClick={() => onClickAnchor({ type: "Prev" })}>
-                    Prev
-                </Button>
-                <Button
-                    onClick={(e: any) => {
-                        openModal(e);
-                        isModalOpen.current = true;
-                    }}
-                >
-                    Current: {refHeaders.current[currentHeader]?.innerText}
-                </Button>
-                <Button onClick={() => onClickAnchor({ type: "Next" })}>
-                    Next
-                </Button>
-            </div>
-
+        <>
+            <Container
+                {...{ className: className + " NavHeadersMobile", isVisible }}
+            >
+                <div className="NavPanel">
+                    <Button onClick={() => onClickAnchor({ type: "Prev" })}>
+                        Prev
+                    </Button>
+                    <Button
+                        onClick={(e: any) => {
+                            openModal(e);
+                            isModalOpen.current = true;
+                        }}
+                    >
+                        Current: {refHeaders.current[currentHeader]?.innerText}
+                    </Button>
+                    <Button onClick={() => onClickAnchor({ type: "Next" })}>
+                        Next
+                    </Button>
+                </div>
+            </Container>
             <Modal>
                 <NavBox>
                     <div className="NavContent">
@@ -123,7 +127,7 @@ export const NavHeadersMobile = ({
                         <Button
                             onClick={(e: any) => {
                                 closeModal(e);
-                                isModalOpen.current = false
+                                isModalOpen.current = false;
                             }}
                         >
                             Close
@@ -131,6 +135,6 @@ export const NavHeadersMobile = ({
                     </div>
                 </NavBox>
             </Modal>
-        </Wrapper>
+        </>
     );
 };

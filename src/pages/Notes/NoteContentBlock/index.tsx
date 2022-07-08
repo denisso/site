@@ -25,11 +25,11 @@ const Container = styled.div`
         display: flex;
         flex-wrap: wrap;
         .BlockContent {
-            ${up("md")} {
+            ${up("lg")} {
                 flex-basis: 69%;
                 max-width: 69%;
             }
-            ${down("md")} {
+            ${down("lg")} {
                 flex-basis: 100%;
             }
             transition: flex-basis var(--transition);
@@ -72,11 +72,11 @@ export const NoteContent = withTheme(({ theme }: { theme: themeType }) => {
                             />
                             <NavHeadersMobile
                                 className={"NavHeadersMobile"}
-                                isVisible={mDown("md", theme.breakpoint)}
+                                isVisible={mDown("lg", theme.breakpoint)}
                             />
                             <NavHeadersDesktop
                                 className={"NavHeadersDesctop"}
-                                isVisible={mUp("md", theme.breakpoint)}
+                                isVisible={mUp("lg", theme.breakpoint)}
                             />
                         </div>
                     </ErrorBoundary>
