@@ -11,6 +11,7 @@ import { useFormModal, schemaForm } from "components/Elements/CForm";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Anchor } from "components/Elements/Anchor";
+import { ReactComponent as LogoGuest } from "assets/codesandbox.svg";
 
 const FooterWrapper = styled.footer.attrs({ className: "container" })`
     display: flex;
@@ -168,6 +169,13 @@ export const Footer = () => {
                     target="_blank"
                 >
                     <FontAwesomeIcon icon={faGithub} className="Icon" />
+                </Anchor>
+                <Anchor
+                    href="https://codesandbox.io/u/blackbrain2009"
+                    className="socialIcon"
+                    target="_blank"
+                >
+                    <LogoGuest className="Icon" />
                 </Anchor>
             </div>
             <CFormModal {...{ schema, onSubmit }} />
