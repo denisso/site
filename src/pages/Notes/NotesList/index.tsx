@@ -91,7 +91,7 @@ const NoteContainer = styled(ItemAnimated)<{ theme: themeType }>`
                     max-height: 75px;
                 }
                 .NoteMeta {
-                    justify-content: space-between;
+                    display: flex;
                     .WrittenBy {
                         display: flex;
                         .Author {
@@ -129,9 +129,6 @@ const NotesList = ({ notes }: { notes: NoteDataType[] }) => {
                                     <div className="NoteTitle">
                                         {noteData.title}
                                     </div>
-                                    <div className="NoteExcerpt">
-                                        {noteData.excerpt}
-                                    </div>
                                     <div className="NoteMeta">
                                         <div className="WrittenBy">
                                             <div className="Author">
@@ -153,6 +150,8 @@ const NotesList = ({ notes }: { notes: NoteDataType[] }) => {
                                                 ).getDate()}`}
                                             </div>
                                         </div>
+                                    </div>
+                                    <div className="NoteMeta">
                                         <div className="Coments">
                                             <FontAwesomeIcon
                                                 icon={faComment}
