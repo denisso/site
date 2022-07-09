@@ -5,6 +5,7 @@
  */
 
 import React from "react";
+import ReactDOM from "react-dom";
 import styled from "styled-components";
 import { up, only, down } from "styled-breakpoints";
 import { useDispatch } from "react-redux";
@@ -81,6 +82,7 @@ const ModalStyled = styled.div<{ show: boolean; scrollbarwidth: number }>`
         }
     }
 `;
+
 export const useModal = (title?: string) => {
     const refModal = React.useRef<any>(null);
     const dispatch = useDispatch();
@@ -166,7 +168,7 @@ export const CModal = ({
         }
     }, [show]);
 
-    return (
+    return ReactDOM.createPortal(
         <>
             {display && (
                 <ModalStyled
@@ -187,5 +189,5 @@ export const CModal = ({
                 </ModalStyled>
             )}
         </>
-    );
+    , document.body);
 };
