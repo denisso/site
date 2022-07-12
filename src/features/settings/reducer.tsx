@@ -60,10 +60,6 @@ export const useGetReady = () => {
     const isReady: any = useSelector((state) =>
         selectorsSettings.selectById(state, "isReady")
     );
-    let value = false;
-    if (isReady instanceof Object && isReady.hasOwnProperty("value")) {
-        value = isReady.value ? true : false;
-    }
-    return value;
+    return isReady.value;
 };
 export const { setProp } = slice.actions;
