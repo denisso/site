@@ -10,7 +10,7 @@ import { Badge } from "components/Elements/Badge";
 import { Anchor } from "components/Elements/Anchor";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCode, faLink } from "@fortawesome/free-solid-svg-icons";
-import { ComponentLazy } from "../ComponentLazy";
+import { ComponentLazy } from "../../../components/Elements/ComponentLazy";
 
 const Container = styled.div`
     & > * + * {

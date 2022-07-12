@@ -6,7 +6,7 @@
 
 import React from "react"
 import styled from "styled-components";
-import { ComponentLazy } from "../ComponentLazy";
+import { ComponentLazy } from "../../../components/Elements/ComponentLazy";
 import { up, down } from "styled-breakpoints";
 const Container = styled.div`
     .Children {

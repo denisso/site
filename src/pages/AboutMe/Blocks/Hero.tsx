@@ -7,7 +7,7 @@
 import React from "react";
 import styled from "styled-components";
 import { ImageLazy } from "components/Elements/ImageLazy";
-import { ComponentLazy } from "../ComponentLazy";
+import { ComponentLazy } from "../../../components/Elements/ComponentLazy";
 import { Badge } from "components/Elements/Badge";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
