@@ -10,7 +10,6 @@ import { Badge } from "components/Elements/Badge";
 import { Anchor } from "components/Elements/Anchor";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCode, faLink } from "@fortawesome/free-solid-svg-icons";
-import { ComponentLazy } from "../../../components/Elements/ComponentLazy";
 
 const Container = styled.div`
     & > * + * {
@@ -39,13 +38,12 @@ const Container = styled.div`
         }
     }
 `;
-const BlockSectionChildren = ({ section, data }: any) => {
+export const BlockSection = ({ className, data }: any) => {
     const { name, desc, links, badgets, sandboxes } = data;
     return (
-        <ComponentLazy>
-            <Container>
+            <Container className={className}>
                 <h2 className="Header">
-                    {section} {">"} {name}
+                    {name}
                 </h2>
                 <div className="Description">{desc}</div>
                 <div className="Links">
@@ -97,22 +95,6 @@ const BlockSectionChildren = ({ section, data }: any) => {
                         ))}
                 </div>
             </Container>
-        </ComponentLazy>
     );
 };
 
-export const BlockSection = React.memo(({ data, className }: any) => {
-    return (
-        <div className={className}>
-            {data &&
-                data.children instanceof Array === true &&
-                data.children.map((dataSection: any) => (
-                    <BlockSectionChildren
-                        data={dataSection}
-                        key={dataSection.name}
-                        section={data.name}
-                    />
-                ))}
-        </div>
-    );
-});

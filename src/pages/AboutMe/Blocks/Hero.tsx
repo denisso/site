@@ -7,7 +7,7 @@
 import React from "react";
 import styled from "styled-components";
 import { ImageLazy } from "components/Elements/ImageLazy";
-import { ComponentLazy } from "../../../components/Elements/ComponentLazy";
+
 import { Badge } from "components/Elements/Badge";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
@@ -61,7 +61,7 @@ const Container = styled.div`
 
 export const BlockHero = React.memo(({ className, data }: any) => {
     return (
-        <ComponentLazy className={className}>
+        
             <Container>
                 <div className="HeroAvatar">
                     <ImageLazy
@@ -99,6 +99,6 @@ export const BlockHero = React.memo(({ className, data }: any) => {
                     </div>
                 </div>
             </Container>
-        </ComponentLazy>
+
     );
 });

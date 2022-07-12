@@ -8,37 +8,14 @@ import styled from "styled-components";
 import { PagesContext, PagesContextType } from "pages";
 
 const Wrapper = styled.div`
-    display: flex;
-    min-height: 150px;
+
     transform: translateY(50px);
     opacity: 0;
     transition: transform 1s, opacity 1s;
-    > .LeftSide,
-    > .RightSide {
-        width: 1rem;
-        border: solid;
-        border-color: transparent;
-        transition: border-color var(--transition);
-    }
-    > .LeftSide {
-        border-right: none;
-    }
 
-    > .RightSide {
-        border-left: none;
-    }
-
-    &:hover .LeftSide,
-    &:hover .RightSide {
-        border-color: ${({ theme }) => theme.colors.third};
-    }
     &.visible {
         transform: translateY(0px);
         opacity: 1;
-    }
-    > .Children {
-        padding: 1rem 0;
-        flex: 1;
     }
 `;
 
@@ -78,9 +55,7 @@ export const ComponentLazy = React.memo(({ className, children }: any) => {
             }
             ref={componentRefCb}
         >
-            <div className="LeftSide"></div>
-            <div className="Children">{children}</div>
-            <div className="RightSide"></div>
+            {children}
         </Wrapper>
     );
 });

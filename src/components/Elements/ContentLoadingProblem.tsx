@@ -38,7 +38,7 @@ export const ContentLoadingProblem = ({ message }: { message: string }) => {
 export const ContentLoadingProblemNotFound = () => {
     return (
         <>
-            <ContentLoadingProblem message="Could not find data for such a query..." />
+            <ContentLoadingProblem message="Could not find data..." />
             <Spinner />
         </>
     );
