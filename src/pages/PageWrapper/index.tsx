@@ -15,9 +15,9 @@ export const WrapperComponents = () => {
     const { ready, addNodes, removeNodes } = useIntersection();
 
     const context = React.useRef<PagesContextType>({
-        intersect: { ready, addNodes, removeNodes },
+        intersect: { addNodes, removeNodes },
     });
-    context.current = { intersect: { ready, addNodes, removeNodes } };
+    context.current = { intersect: { addNodes, removeNodes } };
     return (
         <PagesContext.Provider value={context.current}>
             <Header />

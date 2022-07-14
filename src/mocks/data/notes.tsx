@@ -25,12 +25,11 @@ export type NoteDataType = {
     author: {
         name: string;
         ref: string;
-    }
+    };
     original?: {
         name: string;
         ref: string;
-    }
-    excerpt: string;
+    };
     content: string;
     createdAt: number;
     numComments?: number; // get this number from comments when note will be requested
@@ -41,7 +40,6 @@ const notes: NoteDataType[] = [
         id: 0,
         slug: "",
         title: "An Introduction to Document-Oriented Databases",
-        excerpt: "",
         content: "",
         icon: "/asset/notes/note001_icon.png",
         image: {
@@ -62,7 +60,6 @@ const notes: NoteDataType[] = [
         id: 0,
         slug: "",
         title: "The S.O.L.I.D Principles in Pictures",
-        excerpt: "",
         content: "",
         icon: "/asset/notes/note002_icon.png",
         image: {
@@ -83,7 +80,6 @@ const notes: NoteDataType[] = [
         id: 0,
         slug: "",
         title: "Flux In-Depth",
-        excerpt: "",
         content: "",
         icon: "/asset/notes/note003_icon.png",
         image: {
@@ -104,7 +100,6 @@ const notes: NoteDataType[] = [
         id: 0,
         slug: "",
         title: "How JavaScript works: Service Workers, their lifecycle and use cases",
-        excerpt: "",
         content: "",
         icon: "/asset/notes/note004_icon.png",
         image: {
@@ -125,7 +120,6 @@ const notes: NoteDataType[] = [
         id: 0,
         slug: "",
         title: "How JavaScript works: an overview of the engine, the runtime, and the call stack",
-        excerpt: "",
         content: "",
         icon: "/asset/notes/note005_icon.png",
         image: {
@@ -146,8 +140,8 @@ const notes: NoteDataType[] = [
 
 export const NotesModule = ((notes) => {
     const _notes = Array.from(notes);
-    let _ready = false
-    const _load = async () => {
+    let _ready = false;
+    const load = async () => {
         for (let i = 0; i < links.length; i++) {
             const response = await fetch(links[i]);
             const text = await response.text();
@@ -161,12 +155,12 @@ export const NotesModule = ((notes) => {
             e.id = i;
             e.slug = `${createSlug(e.title)}-${i}`;
         });
-        _ready = true
+        _ready = true;
     };
-    _load();
-    const getReady = () => _ready
+
+    const getReady = () => _ready;
     const data = () => {
         return _notes;
     };
-    return { data, getReady };
+    return { data, getReady, load };
 })(notes);

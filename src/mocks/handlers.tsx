@@ -17,7 +17,7 @@ import {
 import { users, UsersType } from "./data/users";
 
 let currentUserID: string | null | undefined = "guest";
-
+NotesModule.load()
 export const handlers = [
     rest.get("/api/page/:slug", (req, res, ctx) => {
         const { slug } = req.params as { slug: string };
@@ -34,7 +34,6 @@ export const handlers = [
         const resData = NotesModule.data().map(
             ({
                 id,
-                excerpt,
                 title,
                 slug,
                 image,
@@ -43,7 +42,6 @@ export const handlers = [
                 createdAt,
             }: NoteDataType) => ({
                 id,
-                excerpt,
                 title,
                 image,
                 icon,
@@ -70,11 +68,11 @@ export const handlers = [
         return res(ctx.json(noteData), ctx.delay(400));
     }),
     rest.get("/api/getready", (req, res, ctx) => {
-        const notesReady = NotesModule.getReady();
-        return res(ctx.json({ ready: notesReady }), ctx.delay(400));
+        const ready = NotesModule.getReady();
+        return res(ctx.json({ ready: ready }), ctx.delay(400));
     }),
     rest.get("/api/comments/:noteslug", (req, res, ctx) => {
-        // Get all comment by note slug
+        // Get comments by note slug
         const { noteslug }: { noteslug: string } = req.params as {
             noteslug: string;
         };

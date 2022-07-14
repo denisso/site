@@ -55,9 +55,7 @@ const Image = ({ src, alt, width, height, ...props }: any) => {
         if (!node.current) return;
         if (!error.current) node.current?.classList.add("loaded");
     }, []);
-    if (!intersect.ready) {
-        return <></>;
-    }
+
     return (
         <img
             ref={onLoadRef}

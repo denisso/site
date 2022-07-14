@@ -5,11 +5,13 @@
  */
 
 import React from "react";
-
+import { useDispatch } from "react-redux";
+import { setProp } from "features/settings/reducer";
 export const useIntersection = () => {
     const refArrayNodes = React.useRef(new Map());
     const refObserver = React.useRef<any>(null);
     const [ready, setReady] = React.useState(false)
+    const dispatch = useDispatch();
     React.useEffect(() => {
         const options = {
             root: null,
@@ -33,6 +35,7 @@ export const useIntersection = () => {
             }
         }, options);
         setReady(true)
+        dispatch(setProp({id: "isReadyObserver", value: true}))
     }, []);
 
     const addNodes = React.useCallback(

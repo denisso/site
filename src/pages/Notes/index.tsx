@@ -1,5 +1,5 @@
 /**
- * 
+ *
  * @author Denis Kurochkin (mr_dramm) <blackbrain2009@gmail.com>
  * @copyright Denis Kurochkin 2022
  */
@@ -17,16 +17,16 @@ export const Notes = () => {
     }, []);
     const refHeaders = React.useRef<any[]>([]);
     return (
-        <AnimateItem>
-            <ContextNotes.Provider
-                value={{
-                    currentHeader,
-                    refHeaders,
-                    setCurrentHeader
-                }}
-            >
-                <Outlet />
-            </ContextNotes.Provider>
-        </AnimateItem>
+
+        <ContextNotes.Provider
+            value={{
+                currentHeader,
+                refHeaders,
+                setCurrentHeader,
+            }}
+        >
+            <Outlet />
+        </ContextNotes.Provider>
+
     );
 };

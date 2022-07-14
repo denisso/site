@@ -166,28 +166,26 @@ export const HomePage = () => {
         scrollContent(0);
     }, []);
     return (
-        <AnimateItem>
-            <Content>
-                <h1>
-                    <FontAwesomeIcon icon={faCubesStacked} /> Site ecosystem
-                </h1>
+        <Content>
+            <h1>
+                <FontAwesomeIcon icon={faCubesStacked} /> Site ecosystem
+            </h1>
 
-                {error ? (
-                    <ContentLoadingProblemError />
-                ) : isLoading ? (
-                    <Spinner />
-                ) : data !== undefined ? (
-                    <BoxStyled>
-                        {data.arrComponents.map((data: any, i: any) => (
-                            <ItemStyled key={i}>
-                                <ComponentInfoStyled {...{ data }} />
-                            </ItemStyled>
-                        ))}
-                    </BoxStyled>
-                ) : (
-                    <ContentLoadingProblemNotFound />
-                )}
-            </Content>
-        </AnimateItem>
+            {error ? (
+                <ContentLoadingProblemError />
+            ) : isLoading ? (
+                <Spinner />
+            ) : data !== undefined ? (
+                <BoxStyled>
+                    {data.arrComponents.map((data: any, i: any) => (
+                        <ItemStyled key={i}>
+                            <ComponentInfoStyled {...{ data }} />
+                        </ItemStyled>
+                    ))}
+                </BoxStyled>
+            ) : (
+                <ContentLoadingProblemNotFound />
+            )}
+        </Content>
     );
 };

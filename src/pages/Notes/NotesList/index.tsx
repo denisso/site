@@ -109,6 +109,7 @@ const NotesList = ({ notes }: { notes: NoteDataType[] }) => {
         scrollContent(0);
         document.title = "Notes List";
     }, []);
+
     return (
         <NotesListElement className="NotesList">
             {notes.map((noteData: NoteDataType) => {

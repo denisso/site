@@ -15,13 +15,11 @@ export type PagesContextType = {
             trigger: ({ entity, unobserve }: any) => void;
         }) => void;
         removeNodes: (value: any) => void;
-        ready: boolean;
     };
 };
 export const PagesContext = React.createContext({
     intersect: {
         addNodes: (arg) => {},
-        removeNodes: (arg) => {},
-        ready: false,
+        removeNodes: (arg) => {}
     },
 } as PagesContextType);

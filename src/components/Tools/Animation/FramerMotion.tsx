@@ -33,12 +33,12 @@ export type Props = {
 
 export const AnimateItem = ({
     children,
-    isVisible = true,
     className,
+    isVisible = true,
 }: Props) => {
     return (
         <AnimatePresence>
-            {isVisible && (
+            {isVisible === true && (
                 <motion.div
                     className={className}
                     variants={animations}

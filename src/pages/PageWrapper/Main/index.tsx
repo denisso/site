@@ -21,14 +21,12 @@ const MainContainer = styled.div.attrs({ className: "container" })`
 `;
 
 export const Main = () => {
-    const isReady = useGetReady()
+    const isReady = useGetReady();
     return (
         <MainWrapper>
             <MainContainer>
                 <ErrorBoundary name="MainComponent">
-                    <AnimateItem isVisible={!isReady}>
-                        <PreLoader />
-                    </AnimateItem>
+                    <PreLoader />
                     <AnimateItem isVisible={isReady}>
                         <Outlet />
                     </AnimateItem>

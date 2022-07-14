@@ -44,9 +44,6 @@ export const ComponentLazy = React.memo(({ className, children }: any) => {
             intersect.addNodes({ node, trigger });
         }
     }, []);
-    if (!intersect.ready) {
-        return <></>;
-    }
 
     return (
         <Wrapper

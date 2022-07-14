@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
-import { useGetReady, fetchGetReady } from "./reducer";
+import { useGetReadyServer, fetchGetReadyServer } from "./reducer";
 import { useModal } from "components/Elements/CModal";
 import { Spinner } from "components/Elements/Spinner";
 
@@ -17,15 +17,15 @@ const Container = styled.div`
 export const PreLoader = () => {
     const dispatch = useDispatch();
     const { Modal, openModal, closeModal } = useModal("Welocome!");
-    const isReady = useGetReady()
+    const isReady = useGetReadyServer()
     React.useEffect(() => {
         openModal();
     }, []);
     React.useEffect(() => {
         // first request in src\store\initStore.tsx
-        if (isReady === false)
-            setTimeout(() => dispatch(fetchGetReady()), 1000);
-        if (isReady === true) closeModal();
+        if (isReady.value === false && isReady.counter > 0)
+            setTimeout(() => dispatch(fetchGetReadyServer()), 1000);
+        if (isReady.value === true) closeModal();
     }, [isReady]);
     return (
         <Modal>
