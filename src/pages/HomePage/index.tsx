@@ -27,7 +27,7 @@ import {
     ContentLoadingProblemNotFound,
     ContentLoadingProblemError,
 } from "components/Elements/ContentLoadingProblem";
-
+import { ComponentLazy } from "components/Elements/ComponentLazy";
 const BoxStyled = styled(BoxAnimated)`
     --gap: 10px;
     display: flex;
@@ -71,50 +71,7 @@ const ItemStyled = styled(ItemAnimated)`
     }
 `;
 
-const ComponentInfo = ({ className, data }: any) => {
-    const { name, desc, link, sandbox } = data;
-    return (
-        <div {...{ className }}>
-            <div className="Header">
-                <span className="Icon">
-                    <FontAwesomeIcon icon={faPizzaSlice} />
-                </span>
-
-                <span className="Title">{name}</span>
-            </div>
-            <div className="Content">{desc}</div>
-            <div className="Footer">
-                {link && (
-                    <Anchor
-                        href={link}
-                        className="Link"
-                        target="_blank"
-                        title="Go to page for more info"
-                    >
-                        <span className="Icon">
-                            <FontAwesomeIcon icon={faLink} />
-                        </span>
-                    </Anchor>
-                )}
-
-                {sandbox && (
-                    <Anchor
-                        href={sandbox}
-                        className="Link"
-                        target="_blank"
-                        title="Go to sandbox"
-                    >
-                        <span className="Icon">
-                            <FontAwesomeIcon icon={faCode} />
-                        </span>
-                    </Anchor>
-                )}
-            </div>
-        </div>
-    );
-};
-
-const ComponentInfoStyled = styled(ComponentInfo)<{ theme?: themeType }>`
+const Container = styled(ComponentLazy)<{ theme?: themeType }>`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -122,7 +79,7 @@ const ComponentInfoStyled = styled(ComponentInfo)<{ theme?: themeType }>`
     background-color: ${({ theme }) => theme.colors.firstLightMore};
     padding: 1rem;
     border: solid ${({ theme }) => theme.colors.firstLight};
-    transition: border-color var(--transition);
+    transition: border-color var(--transition), transform var(--transition), opacity var(--transition);
     .Header {
         .Icon {
             transition: color var(--transition);
@@ -148,7 +105,50 @@ const ComponentInfoStyled = styled(ComponentInfo)<{ theme?: themeType }>`
         }
     }
 `;
+const ComponentInfo = ({ className, data }: any) => {
+    const { name, desc, link, sandbox } = data;
+    return (
 
+            <Container>
+                <div className="Header">
+                    <span className="Icon">
+                        <FontAwesomeIcon icon={faPizzaSlice} />
+                    </span>
+
+                    <span className="Title">{name}</span>
+                </div>
+                <div className="Content">{desc}</div>
+                <div className="Footer">
+                    {link && (
+                        <Anchor
+                            href={link}
+                            className="Link"
+                            target="_blank"
+                            title="Go to page for more info"
+                        >
+                            <span className="Icon">
+                                <FontAwesomeIcon icon={faLink} />
+                            </span>
+                        </Anchor>
+                    )}
+
+                    {sandbox && (
+                        <Anchor
+                            href={sandbox}
+                            className="Link"
+                            target="_blank"
+                            title="Go to sandbox"
+                        >
+                            <span className="Icon">
+                                <FontAwesomeIcon icon={faCode} />
+                            </span>
+                        </Anchor>
+                    )}
+                </div>
+            </Container>
+
+    );
+};
 const Content = styled.div`
     .Icon {
         margin-right: 0.5rem;
@@ -179,7 +179,7 @@ export const HomePage = () => {
                 <BoxStyled>
                     {data.arrComponents.map((data: any, i: any) => (
                         <ItemStyled key={i}>
-                            <ComponentInfoStyled {...{ data }} />
+                            <ComponentInfo {...{ data }} />
                         </ItemStyled>
                     ))}
                 </BoxStyled>

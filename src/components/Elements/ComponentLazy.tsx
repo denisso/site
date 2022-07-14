@@ -11,7 +11,7 @@ const Wrapper = styled.div`
 
     transform: translateY(50px);
     opacity: 0;
-    transition: transform 1s, opacity 1s;
+    transition: transform var(--transition), opacity var(--transition);
 
     &.visible {
         transform: translateY(0px);

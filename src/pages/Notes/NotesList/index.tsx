@@ -24,7 +24,7 @@ import {
     ContentLoadingProblemNotFound,
     ContentLoadingProblemError,
 } from "components/Elements/ContentLoadingProblem";
-
+import { ComponentLazy } from "components/Elements/ComponentLazy";
 const NotesListElement = styled(BoxAnimated)<{ theme: themeType }>`
     display: grid;
     gap: var(--gap);
@@ -115,32 +115,33 @@ const NotesList = ({ notes }: { notes: NoteDataType[] }) => {
             {notes.map((noteData: NoteDataType) => {
                 return (
                     <NoteContainer key={noteData.id}>
-                        <NavLink
-                            to={`/notes/${noteData.slug}`}
-                            className="NoteContainer"
-                        >
-                            <div className="NoteBlock">
-                                <div className="NoteImage">
-                                    <img
-                                        src={noteData.icon}
-                                        alt={"article image"}
-                                    />
-                                </div>
-                                <div className="NoteContent">
-                                    <div className="NoteTitle">
-                                        {noteData.title}
+                        <ComponentLazy>
+                            <NavLink
+                                to={`/notes/${noteData.slug}`}
+                                className="NoteContainer"
+                            >
+                                <div className="NoteBlock">
+                                    <div className="NoteImage">
+                                        <img
+                                            src={noteData.icon}
+                                            alt={"article image"}
+                                        />
                                     </div>
-                                    <div className="NoteMeta">
-                                        <div className="WrittenBy">
-                                            <div className="Author">
-                                                <span>
-                                                    {noteData.author.name}
-                                                </span>
-                                            </div>
-                                            <div className="WriteAt">
-                                                {`${new Date(
-                                                    noteData.createdAt
-                                                ).getFullYear()} /
+                                    <div className="NoteContent">
+                                        <div className="NoteTitle">
+                                            {noteData.title}
+                                        </div>
+                                        <div className="NoteMeta">
+                                            <div className="WrittenBy">
+                                                <div className="Author">
+                                                    <span>
+                                                        {noteData.author.name}
+                                                    </span>
+                                                </div>
+                                                <div className="WriteAt">
+                                                    {`${new Date(
+                                                        noteData.createdAt
+                                                    ).getFullYear()} /
                                                 ${
                                                     new Date(
                                                         noteData.createdAt
@@ -149,21 +150,22 @@ const NotesList = ({ notes }: { notes: NoteDataType[] }) => {
                                                 ${new Date(
                                                     noteData.createdAt
                                                 ).getDate()}`}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="NoteMeta">
+                                            <div className="Coments">
+                                                <FontAwesomeIcon
+                                                    icon={faComment}
+                                                    className="Icon"
+                                                />{" "}
+                                                {noteData.numComments}
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="NoteMeta">
-                                        <div className="Coments">
-                                            <FontAwesomeIcon
-                                                icon={faComment}
-                                                className="Icon"
-                                            />{" "}
-                                            {noteData.numComments}
-                                        </div>
-                                    </div>
                                 </div>
-                            </div>
-                        </NavLink>
+                            </NavLink>
+                        </ComponentLazy>
                     </NoteContainer>
                 );
             })}
