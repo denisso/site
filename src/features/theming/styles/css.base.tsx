@@ -1,5 +1,5 @@
 /**
- * @description 
+ * @description
  * @author Denis Kurochkin (mr_dramm) <blackbrain2009@gmail.com>
  * @copyright Denis Kurochkin 2022
  */
@@ -24,7 +24,8 @@ export const base = css<{ theme: themeType }>`
         width: var(--width);
         background-color: ${({ theme }) => theme.colorBackground};
         color: ${({ theme }) => theme.colorText};
-        transition: color var(--transition), background-color var(--transition);
+        transition: color var(--transition), background-color var(--transition),
+            width var(--transition);
         font-size: 16px;
         font-family: ${({ theme }) => theme.fontFamily};
         /* for position sticky */
