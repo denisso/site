@@ -12,7 +12,7 @@ import { NavHeadersDesktop } from "./NavHeadersDesktop";
 import { useGetNoteQuery } from "api-query/";
 import { BlockContent } from "./BlockContent";
 import { Spinner } from "components/Elements/Spinner";
-import { AnimateItem, scrollContent } from "components/Tools";
+import { ItemAnimatePresence, scrollContent } from "components/Tools";
 import { CommentsComponent } from "../Comments";
 import { ErrorBoundary } from "components/Tools/ErrorBoundary";
 import { up, down } from "styled-breakpoints";
@@ -52,12 +52,14 @@ export const NoteContent = withTheme(({ theme }: { theme: themeType }) => {
         scrollContent(0);
     }, []);
     // Get param from URL string
-    const { noteSlug } = useParams<{ noteSlug?: string }>();
+    const { noteSlug } = useParams<{
+        noteSlug: string;
+    }>();
     // load data
     const { data, error, isLoading } = useGetNoteQuery(noteSlug);
 
     return (
-        <AnimateItem>
+        <ItemAnimatePresence>
             {error ? (
                 <ContentLoadingProblemError />
             ) : isLoading ? (
@@ -87,6 +89,6 @@ export const NoteContent = withTheme(({ theme }: { theme: themeType }) => {
             ) : (
                 <ContentLoadingProblemNotFound />
             )}
-        </AnimateItem>
+        </ItemAnimatePresence>
     );
 });

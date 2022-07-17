@@ -8,7 +8,7 @@ import styled from "styled-components";
 import { scrollContent } from "components/Tools/scrollContent";
 import { ContextNotes } from "../ContextNotes";
 import { AnchorBox } from "components/Elements/Anchor";
-import { AnimateItem } from "components/Tools";
+import { ItemAnimatePresence } from "components/Tools";
 
 const Nav = styled.nav`
     padding: 1rem;
@@ -65,7 +65,7 @@ export const NavHeadersDesktop = ({
         return <></>;
     }
     return (
-        <AnimateItem {...{ className, isVisible }}>
+        <ItemAnimatePresence {...{ className, isVisible }}>
             <Nav>
                 {refHeaders.current.map((header: any, i: number) => (
                     <AnchorBoxStyled
@@ -78,6 +78,6 @@ export const NavHeadersDesktop = ({
                     </AnchorBoxStyled>
                 ))}
             </Nav>
-        </AnimateItem>
+        </ItemAnimatePresence>
     );
 };

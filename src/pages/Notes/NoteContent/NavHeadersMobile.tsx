@@ -12,9 +12,9 @@ import { Button } from "components/Elements/Button";
 import { scrollContent } from "components/Tools";
 import { useModal } from "components/Elements/CModal";
 import { AnchorBox } from "components/Elements/Anchor";
-import { AnimateItem } from "components/Tools";
+import { ItemAnimatePresence } from "components/Tools";
 
-const Container = styled(AnimateItem)<{ theme: themeType }>`
+const Container = styled(ItemAnimatePresence)<{ theme: themeType }>`
     position: sticky;
     left: 0;
     bottom: 0;
