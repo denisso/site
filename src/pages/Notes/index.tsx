@@ -7,7 +7,7 @@
 import { Outlet } from "react-router-dom";
 import React from "react";
 import { ContextNotes } from "./ContextNotes";
-import { AnimateItem, scrollContent } from "components/Tools";
+import { scrollContent } from "components/Tools";
 
 export const Notes = () => {
     const [currentHeader, setCurrentHeader] = React.useState(-1);
@@ -17,7 +17,6 @@ export const Notes = () => {
     }, []);
     const refHeaders = React.useRef<any[]>([]);
     return (
-
         <ContextNotes.Provider
             value={{
                 currentHeader,
@@ -27,6 +26,5 @@ export const Notes = () => {
         >
             <Outlet />
         </ContextNotes.Provider>
-
     );
 };

@@ -7,7 +7,7 @@
 export { HomePage } from "./HomePage";
 export { AboutMe } from "./AboutMe";
 export { Notes } from "./Notes";
-export { NoteContent } from "./Notes/NoteContentBlock";
+export { NoteContent } from "./Notes/NoteContent";
 export { NotesListWithFilter } from "./Notes/NotesList";
 export { PagesContext } from "./PageWrapper/PagesContext";
 

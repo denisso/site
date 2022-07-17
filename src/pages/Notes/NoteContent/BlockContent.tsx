@@ -28,6 +28,7 @@ const ArticleBox = styled.div`
         text-align: center;
         margin: 1rem 0;
         font-weight: bold;
+        line-height: 2.5rem;
     }
     .articlePublishedAt {
         font-weight: bold;
@@ -58,7 +59,16 @@ const ArticleBox = styled.div`
         display: flex;
         flex-direction: column;
         ul {
-            margin-left: 2rem;
+            margin-left: 3rem;
+        }
+        h1 {
+            line-height: 2.0rem;
+        }
+        h2 {
+            line-height: 1.8rem;
+        }
+        h3,h4,h5,h6 {
+            line-height: 2.3rem;
         }
         h1,
         h2,
@@ -226,9 +236,8 @@ export const BlockContent = ({
                 }
             }}
         >
-            <div className="ArticleTitle">{data.title}</div>
+            <h1 className="ArticleTitle">{data.title}</h1>
             <hr />
-
             <ImageLazy
                 src={data.image.src}
                 alt="Article image"
