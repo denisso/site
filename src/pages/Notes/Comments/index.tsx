@@ -9,7 +9,7 @@ import styled from "styled-components";
 import { CommentsRender } from "./Comments";
 import { CommentDataType } from "mocks/data/notes-comments";
 import { useCommentsHandler } from "./useCommentsHandler";
-import { AnimateItem } from "components/Tools";
+import { ItemAnimatePresence } from "components/Tools";
 import { Spinner } from "components/Elements/Spinner";
 
 import { Context } from "./Context";
@@ -54,7 +54,7 @@ export const CommentsComponent = ({ noteSlug }: any) => {
         <Context.Provider
             value={{ dispatch, currentComment, setCurrentComment }}
         >
-            <AnimateItem>
+            <ItemAnimatePresence>
                 {error ? (
                     <ContentLoadingProblemError />
                 ) : isLoading ? (
@@ -78,7 +78,7 @@ export const CommentsComponent = ({ noteSlug }: any) => {
                 ) : (
                     <ContentLoadingProblemNotFound />
                 )}
-            </AnimateItem>
+            </ItemAnimatePresence>
         </Context.Provider>
     );
 };

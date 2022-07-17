@@ -9,7 +9,7 @@
  */
 
 import React from "react";
-import { AnimateItem } from "components/Tools";
+import { ItemAnimatePresence } from "components/Tools";
 import { schemaForm, CForm } from "components/Elements/CForm";
 import { Context } from "./Context";
 import { Button } from "components/Elements/Button";
@@ -118,7 +118,7 @@ export const CommentButtons = ({
 
     return (
         <CommentButtonsStyled className={className}>
-            <AnimateItem
+            <ItemAnimatePresence
                 isVisible={!showReplyForm}
                 className="CommentControlButtons"
             >
@@ -143,8 +143,8 @@ export const CommentButtons = ({
                             </Button>
                         </>
                     )}
-            </AnimateItem>
-            <AnimateItem isVisible={showReplyForm} className={"CommentForm"}>
+            </ItemAnimatePresence>
+            <ItemAnimatePresence isVisible={showReplyForm} className={"CommentForm"}>
                 <CForm
                     {...{
                         schema,
@@ -152,7 +152,7 @@ export const CommentButtons = ({
                         onCancel,
                     }}
                 />
-            </AnimateItem>
+            </ItemAnimatePresence>
         </CommentButtonsStyled>
     );
 };

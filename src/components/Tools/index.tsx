@@ -6,5 +6,5 @@
 
 export { scrollContent } from "./scrollContent";
 
-export { AnimateItem } from "./Animation/FramerMotion";
-export type { Props } from "./Animation/FramerMotion";
+export { ItemAnimatePresence } from "./Animation/ItemAnimatePresence";
+export type { Props } from "./Animation/ItemAnimatePresence";

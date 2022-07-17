@@ -13,7 +13,7 @@ import { useCycle } from "framer-motion";
 
 import { Logo } from "assets/img/LogoIcon";
 import { themeType, mDown, mUp, switchTheme } from "features/theming";
-import { AnimateItem } from "components/Tools/Animation";
+import { ItemAnimatePresence } from "components/Tools/Animation";
 
 import { MobileMenu } from "./Elements/MobileMenu";
 import { MainMenu } from "./Elements/MainMenu";
@@ -71,7 +71,7 @@ export const Header = withTheme(({ theme }: { theme: themeType }) => {
             <HeaderWrapper>
                 <HeaderLine>
                     <HeaderLeftSide>
-                        <AnimateItem
+                        <ItemAnimatePresence
                             key={0}
                             isVisible={mDown("md", theme.breakpoint)}
                         >
@@ -79,15 +79,15 @@ export const Header = withTheme(({ theme }: { theme: themeType }) => {
                                 toggleOpen={() => toggleOpen()}
                                 isOpen={isOpen}
                             />
-                        </AnimateItem>
-                        <AnimateItem
+                        </ItemAnimatePresence>
+                        <ItemAnimatePresence
                             key={"MobileMenu"}
                             isVisible={mUp("md", theme.breakpoint)}
                         >
                             <Link to="/">
                                 <Logo size="30px" />
                             </Link>
-                        </AnimateItem>
+                        </ItemAnimatePresence>
 
                         <MainMenu key={"DesktopMenu"} />
                     </HeaderLeftSide>

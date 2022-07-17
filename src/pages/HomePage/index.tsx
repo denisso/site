@@ -7,7 +7,7 @@
 import React from "react";
 import styled from "styled-components";
 import { up, down, between } from "styled-breakpoints";
-import { scrollContent, AnimateItem } from "components/Tools";
+import { scrollContent, ItemAnimatePresence } from "components/Tools";
 import { themeType } from "features/theming";
 import {
     ItemAnimated,

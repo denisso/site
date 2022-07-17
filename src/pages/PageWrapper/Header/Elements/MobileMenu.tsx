@@ -6,7 +6,7 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
-import { AnimateItem } from "components/Tools/Animation";
+import { ItemAnimatePresence } from "components/Tools/Animation";
 import styled, { withTheme } from "styled-components";
 import { motion } from "framer-motion";
 import { LinkStyled } from "components/Elements/Link";
@@ -76,7 +76,7 @@ const MenuItems = withTheme(({ theme }: { theme: themeType }) => {
     );
 });
 
-const MenuWrapper = styled(AnimateItem)`
+const MenuWrapper = styled(ItemAnimatePresence)`
     position: fixed;
     top: 3rem;
     left: 0;

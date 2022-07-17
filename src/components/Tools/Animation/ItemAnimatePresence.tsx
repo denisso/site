@@ -7,7 +7,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 
 /**
- * Type animation used in AnimateItem
+ * Type animation used in ItemAnimatePresence
  */
 const animations = {
     initial: { x: 50, opacity: 0 },
@@ -31,7 +31,7 @@ export type Props = {
     className?: any;
 };
 
-export const AnimateItem = ({
+export const ItemAnimatePresence = ({
     children,
     className,
     isVisible = true,

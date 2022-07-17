@@ -5,7 +5,7 @@
  */
 
 import React from "react";
-import { scrollContent, AnimateItem } from "components/Tools";
+import { scrollContent, ItemAnimatePresence } from "components/Tools";
 import styled from "styled-components";
 import { faHand } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -36,12 +36,12 @@ export const AboutMe = () => {
     }, []);
     return (
         <Content>
-            <AnimateItem>
+            <ItemAnimatePresence>
                 <h1>
                     <FontAwesomeIcon icon={faHand} className="Icon" />
                     <span>About Me</span>
                 </h1>
-            </AnimateItem>
+            </ItemAnimatePresence>
             {error ? (
                 <ContentLoadingProblemError />
             ) : isLoading ? (

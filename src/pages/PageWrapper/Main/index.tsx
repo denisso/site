@@ -8,7 +8,7 @@ import styled from "styled-components";
 import { ErrorBoundary } from "components/Tools/ErrorBoundary";
 import { PreLoader } from "features/settings/PreLoader";
 import { useGetReady } from "features/settings/reducer";
-import { AnimateItem } from "components/Tools";
+import { ItemAnimatePresence } from "components/Tools";
 
 const MainWrapper = styled.main`
     padding: 2rem 0;
@@ -27,9 +27,9 @@ export const Main = () => {
             <MainContainer>
                 <ErrorBoundary name="MainComponent">
                     <PreLoader />
-                    <AnimateItem isVisible={isReady}>
+                    <ItemAnimatePresence isVisible={isReady}>
                         <Outlet />
-                    </AnimateItem>
+                    </ItemAnimatePresence>
                 </ErrorBoundary>
             </MainContainer>
         </MainWrapper>

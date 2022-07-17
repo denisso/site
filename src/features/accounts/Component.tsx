@@ -9,10 +9,10 @@ import { selectSignInState } from "./reducer";
 import { GoogleButton } from "./Google/GoogleButton";
 import styled from "styled-components";
 import { ReactComponent as LogoGuest } from "assets/guest.svg";
-import { AnimateItem } from "components/Tools";
+import { ItemAnimatePresence } from "components/Tools";
 import { useGetReady } from "features/settings/reducer";
 
-const Container = styled(AnimateItem)`
+const Container = styled(ItemAnimatePresence)`
     display: flex;
     align-items: center;
     .AvatarBox {
