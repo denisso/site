@@ -6,19 +6,26 @@
 import React from "react";
 import styled from "styled-components";
 
-const useAnimateBlocks = (refBlock: any) => {
-    const animationInterval: any = React.useRef(null);
+const useAnimateBlocks = () => {
+    const refBlock = React.useRef<any>(null);
+    const stop = React.useRef<boolean>(false);
+    const [refreshState, setRefresh] = React.useState({});
     React.useEffect(() => {
-        if (!refBlock.current) return;
-        const items: NodeListOf<any> = refBlock.current.childNodes;
+        if (refBlock.current === null) return;
+        let content: any = [];
+        let items: any = [];
+        for (let i = 0; i < refBlock.current.childNodes.length; i++) {
+            const element = refBlock.current.childNodes[i];
+            if (
+                element.classList.contains("ItemAnimated") &&
+                element.childNodes.length
+            ) {
+                items.push(element);
+                content.push(element.childNodes[0]);
+            }
+        }
 
-        const content: any[] = [];
-
-        items.forEach((element: any) => {
-            content.push(element.childNodes[0]);
-        });
-
-        for (var i = 0; i < items.length; i++) {
+        for (let i = 0; i < content.length; i++) {
             content[i].style.width = items[i].offsetWidth + "px";
             content[i].style.height = items[i].offsetHeight + "px";
             content[i].style.top =
@@ -26,24 +33,37 @@ const useAnimateBlocks = (refBlock: any) => {
             content[i].style.left =
                 items[i].offsetLeft - content[i].offsetLeft + "px";
         }
-        const timeout = 200;
-
         const animEasy = (attrName: string, offsetName: string, i: number) => {
             content[i].style[attrName] = items[i][offsetName] + "px";
         };
-        if (animationInterval.current !== null) {
-            clearInterval(animationInterval.current);
-            animationInterval.current = null;
-        }
 
-        animationInterval.current = setInterval(() => {
-            items.forEach((e, i) => {
+        const animateItems = () => {
+            for (let i = 0; i < content.length; i++) {
                 animEasy("width", "offsetWidth", i);
                 animEasy("top", "offsetTop", i);
                 animEasy("left", "offsetLeft", i);
-            });
-        }, timeout);
-    }, [refBlock]);
+            }
+
+            if (stop.current === true) {
+                content = null;
+                items = null;
+            } else {
+                setTimeout(animateItems, 200);
+            }
+        };
+        animateItems();
+    }, [refreshState]);
+    const refresh = React.useCallback(() => {
+        setRefresh({});
+    }, []);
+    const uninstall = React.useCallback(() => {
+        stop.current = true;
+    }, []);
+    const install = React.useCallback((node) => {
+        refBlock.current = node;
+        setRefresh({});
+    }, []);
+    return { install, refresh, uninstall };
 };
 const Content = styled.div`
     position: absolute;
@@ -56,12 +76,14 @@ const Content = styled.div`
 export const ItemAnimated = ({ children, className }: any) => {
     const arrayComponents = React.Children.toArray(children);
     return (
-        <div {...{ className }}>
+        <div
+            className={className ? `${className} ItemAnimated` : "ItemAnimated"}
+        >
             {React.Children.map(
                 arrayComponents,
                 (child: any, index: number) => {
                     return (
-                        <Content>
+                        <Content className="ItemAnimatedContent">
                             <child.type
                                 {...child.props}
                                 key={index}
@@ -78,12 +100,27 @@ export const ItemAnimated = ({ children, className }: any) => {
 };
 
 export const BoxAnimated = ({ children, className }: any) => {
-    const refParentBox: any = React.useRef<any>(null);
-    useAnimateBlocks(refParentBox);
+    const refParentBox = React.useRef<any>(null);
+    const { install, refresh, uninstall } = useAnimateBlocks();
+    React.useEffect(() => {
+        // recreate elements
+        refresh();
+    }, [children]);
+    React.useEffect(() => {
+        return () => {
+            // uninstall component
+            uninstall();
+        };
+    }, []);
     return (
         <div
             {...{ className }}
-            ref={refParentBox}
+            ref={(node) => {
+                if (node && !refParentBox.current) {
+                    refParentBox.current = node;
+                    install(refParentBox.current);
+                }
+            }}
             style={{ position: "relative" }}
         >
             {children}
