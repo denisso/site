@@ -12,7 +12,7 @@ import { useIntersection } from "components/Tools/IntersectionOserver";
 import { PagesContext } from "./PagesContext";
 import { PagesContextType } from "./PagesContext";
 export const WrapperComponents = () => {
-    const { ready, addNodes, removeNodes } = useIntersection();
+    const { addNodes, removeNodes } = useIntersection();
 
     const context = React.useRef<PagesContextType>({
         intersect: { addNodes, removeNodes },

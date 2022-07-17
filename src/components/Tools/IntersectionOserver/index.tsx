@@ -56,7 +56,6 @@ export const useIntersection = () => {
         []
     );
     return {
-        ready,
         addNodes,
         removeNodes,
     };
