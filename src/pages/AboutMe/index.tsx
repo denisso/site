@@ -32,7 +32,7 @@ export const AboutMe = () => {
 
     React.useEffect(() => {
         document.title = "About me";
-        setTimeout(() => scrollContent(0), 200);
+        scrollContent(0);
     }, []);
     return (
         <Content>
