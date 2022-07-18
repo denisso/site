@@ -1,3 +1,8 @@
+/**
+ *
+ * @author Denis Kurochkin (mr_dramm) <blackbrain2009@gmail.com>
+ * @copyright Denis Kurochkin 2022
+ */
 import React from "react";
 import { useLazyGetNotesListQuery } from "api-query";
 import { NoteDataType } from "mocks/data/notes";
