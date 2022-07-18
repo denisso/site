@@ -9,9 +9,10 @@ import noteLink002 from "./notes/note002.md";
 import noteLink003 from "./notes/note003.md";
 import noteLink004 from "./notes/note004.md";
 import noteLink005 from "./notes/note005.md";
+import noteLink006 from "./notes/note006.md";
 import { createSlug } from "tools/createSlug";
 
-const links = [noteLink001, noteLink002, noteLink003, noteLink004, noteLink005];
+const links = [noteLink001, noteLink002, noteLink003, noteLink004, noteLink005, noteLink006];
 
 export type NoteDataType = {
     id: number;
@@ -134,7 +135,27 @@ const notes: NoteDataType[] = [
             name: "blog.sessionstack.com",
             ref: "https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf",
         },
-        createdAt: Number(new Date(2022, 1, 5, 0, 0, 0, 0)),
+        createdAt: Number(new Date(2021, 1, 5, 0, 0, 0, 0)),
+    },
+    {
+        id: 0,
+        slug: "",
+        title: "16 ways to promote your YouTube channel for more views",
+        content: "",
+        icon: "/asset/notes/note006_icon.png",
+        image: {
+            src: "/asset/notes/note006.png",
+            alt: "",
+        },
+        author: {
+            name: "Brent Barnhart",
+            ref: "https://sproutsocial.com/insights/author/brent-barnhart/",
+        },
+        original: {
+            name: "sproutsocial.com",
+            ref: "https://sproutsocial.com/insights/how-to-promote-your-youtube-channel/",
+        },
+        createdAt: Number(new Date(2021, 8, 14, 0, 0, 0, 0)),
     },
 ];
 

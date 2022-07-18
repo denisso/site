@@ -61,9 +61,9 @@ export const dataHomepage = {
             sandbox: "https://remarkjs.github.io/react-markdown/"
         },
         {
-            name: "React Icons",
-            desc: "Include popular icons in your React projects easily with react-icons, which utilizes ES6 imports that allows you to include only the icons that your project is using.",
-            link: "https://react-icons.github.io/react-icons/",
+            name: "React Font Awesome Icons",
+            desc: "Font Awesome now has an official React component that's available for a friction-less way to use our icons in your React applications..",
+            link: "https://fontawesome.com/v5/docs/web/use-with/react",
             sandbox: "https://codesandbox.io/s/react-icons001-z4i5mq",
         },
     ],
