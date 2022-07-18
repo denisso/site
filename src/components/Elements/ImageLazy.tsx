@@ -47,7 +47,7 @@ const Image = ({ src, alt, width, height, ...props }: any) => {
     }, []);
     const onError = React.useCallback(() => {
         if (!node.current) return;
-        node.current.src = "/asset/imageLoadingProblem2.svg";
+        node.current.src = "/asset/imageLoadingProblem.svg";
         node.current?.classList.add("notloaded");
         error.current = true;
     }, []);
