@@ -91,7 +91,7 @@ const ArticleBox = styled.div`
             white-space: pre-wrap;
             margin: 1rem auto;
         }
-        img {
+        img, iframe {
             max-width: 90%;
             display: block;
             margin: 1rem auto;
@@ -153,7 +153,9 @@ export const BlockContent = ({
         // case ## header (default)
         const childrenText = ({ node, className, children, props }: any) => {
             let slug = createSlug(node.children[0].value);
-
+            if(Number.isInteger(parseInt(slug[0]))){
+                slug = "N" + slug
+            }
             return (
                 <node.tagName
                     ref={addNodeToIntersect}
@@ -168,14 +170,17 @@ export const BlockContent = ({
         const childrenAHREF = ({ node, className, children, props }: any) => {
             let text = node.children[0]?.props?.children[0];
             let href = node.children[0]?.props?.href;
-            let id = href === "#" ? href.slice(1) : href;
+            href = "#" === href[0]  ? href.slice(1) : href;
+            if(Number.isInteger(parseInt(href[0]))){
+                href = "N" + href
+            }
 
             return (
                 <node.tagName
                     ref={addNodeToIntersect}
                     {...props}
                     {...{ className }}
-                    id={id}
+                    id={href}
                 >
                     <a href={href}>{text}</a>
                 </node.tagName>
