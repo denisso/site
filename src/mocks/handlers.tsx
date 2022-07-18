@@ -17,7 +17,7 @@ import {
 import { users, UsersType } from "./data/users";
 
 let currentUserID: string | null | undefined = "guest";
-NotesModule.load()
+NotesModule.load();
 export const handlers = [
     rest.get("/api/page/:slug", (req, res, ctx) => {
         const { slug } = req.params as { slug: string };
@@ -30,34 +30,47 @@ export const handlers = [
         return res(ctx.json({}), ctx.delay(400));
     }),
     // get all notea for NotesList, need use chache data
-    rest.get("/api/notes", (req, res, ctx) => {
-        const resData = NotesModule.data().map(
-            ({
-                id,
-                title,
-                slug,
-                image,
-                icon,
-                author,
-                createdAt,
-            }: NoteDataType) => ({
-                id,
-                title,
-                image,
-                icon,
-                slug,
-                author,
-                createdAt,
-                numComments: comments[slug] ? comments[slug].numComments : 0,
-            })
-        );
-        return res(ctx.json(resData), ctx.delay(400));
+    rest.get("/api/notes/:page", (req, res, ctx) => {
+        const { page } = req.params as { page: string };
+        const pageNum = parseInt(page);
+        const data = NotesModule.data();
+        const pageNumMax = Math.floor(data.length / 10)
+        if (isNaN(pageNum) || pageNum > pageNumMax)
+            return res(
+                ctx.json({ notes: [], pageNum, pageNumMax, last: true }),
+                ctx.delay(400)
+            );
+        let last = false;
+        const perPage = 10;
+        
+        const indxMax = perPage * pageNum + perPage;
+        let indxLast =
+            indxMax < data.length ? indxMax : ((last = true), data.length);
+
+        const notes: any[] = [];
+
+        for (let i = perPage * pageNum; i < indxLast; i++) {
+            notes.push({
+                id: data[i].id,
+                title: data[i].title,
+                slug: data[i].slug,
+                image: data[i].image,
+                icon: data[i].icon,
+                author: data[i].author,
+                createdAt: data[i].createdAt,
+                numComments: comments[data[i].slug]
+                    ? comments[data[i].slug].numComments
+                    : 0,
+            });
+        }
+
+        return res(ctx.json({ notes, pageNum, pageNumMax, last: pageNum >= pageNumMax}), ctx.delay(400));
     }),
     //
-    rest.get("/api/notes/:noteslug", (req, res, ctx) => {
+    rest.get("/api/note/:noteslug", (req, res, ctx) => {
         const { noteslug } = req.params as { noteslug: string };
         const data = NotesModule.data();
-        const noteData: NoteDataType | undefined = NotesModule.data().find(
+        const noteData: NoteDataType | undefined = data.find(
             (e) => e.slug === noteslug
         );
         if (noteData === undefined)
