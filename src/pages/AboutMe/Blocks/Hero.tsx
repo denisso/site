@@ -1,5 +1,5 @@
 /**
- * @description 
+ * @description
  * @author Denis Kurochkin (mr_dramm) <blackbrain2009@gmail.com>
  * @copyright Denis Kurochkin 2022
  */
@@ -34,11 +34,11 @@ const Container = styled.div`
         }
         .HeroName {
             display: flex;
-            .Link{
+            .Link {
                 font-size: 1.5rem;
                 font-weight: bold;
             }
-            
+
             & > * + * {
                 margin-left: 1rem;
             }
@@ -61,44 +61,42 @@ const Container = styled.div`
 
 export const BlockHero = React.memo(({ className, data }: any) => {
     return (
-        
-            <Container>
-                <div className="HeroAvatar">
-                    <ImageLazy
-                        src={data?.hero?.photo?.src}
-                        className="HeroImage"
-                        width={170}
-                        height={170}
-                        alt={data?.hero?.photo?.alt}
-                    />
-                </div>
-                <div className="HeroAbout">
-                    <div className="HeroName">
-                        <h2 className="Name">{data?.hero?.name}</h2>
+        <Container>
+            <div className="HeroAvatar">
+                <ImageLazy
+                    src={data?.hero?.photo?.src}
+                    className="HeroImage"
+                    width={170}
+                    height={170}
+                    alt={data?.hero?.photo?.alt}
+                />
+            </div>
+            <div className="HeroAbout">
+                <div className="HeroName">
+                    <h2 className="Name">{data?.hero?.name}</h2>
 
-                        <Anchor
-                            href={"mailto: blackbrain2009@gmail.com"}
-                            className="Link"
-                            target="_blank"
-                            title="Go to sandbox"
-                        >
-                            <span className="Icon">
-                                <FontAwesomeIcon icon={faEnvelope} />
-                            </span>
-                        </Anchor>
-                    </div>
-                    <div className="HeroRole">{data?.hero?.role}</div>
-                    <div className="HeroSkills">
-                        {data.hero &&
-                            data.hero.skills instanceof Array === true &&
-                            data.hero.skills.map((badgeText: string) => (
-                                <Badge className="Badge" key={badgeText}>
-                                    {badgeText}
-                                </Badge>
-                            ))}
-                    </div>
+                    <Anchor
+                        href={"mailto: blackbrain2009@gmail.com"}
+                        className="Link"
+                        target="_blank"
+                        title="Go to sandbox"
+                    >
+                        <span className="Icon">
+                            <FontAwesomeIcon icon={faEnvelope} />
+                        </span>
+                    </Anchor>
                 </div>
-            </Container>
-
+                <div className="HeroRole">{data?.hero?.role}</div>
+                <div className="HeroSkills">
+                    {data.hero &&
+                        data.hero.skills instanceof Array === true &&
+                        data.hero.skills.map((badgeText: string) => (
+                            <Badge className="Badge" key={badgeText}>
+                                {badgeText}
+                            </Badge>
+                        ))}
+                </div>
+            </div>
+        </Container>
     );
 });
