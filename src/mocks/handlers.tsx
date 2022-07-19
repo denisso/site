@@ -29,6 +29,9 @@ export const handlers = [
         }
         return res(ctx.json({}), ctx.delay(400));
     }),
+    rest.get("/api/keepalive", (req, res, ctx) => {
+        return res(ctx.json({}));
+    }),
     // get all notea for NotesList, need use chache data
     rest.get("/api/notes/:page", (req, res, ctx) => {
         const { page } = req.params as { page: string };

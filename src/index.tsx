@@ -17,8 +17,10 @@ import {
     NotesListWithFilter,
     HomePage,
 } from "pages";
-
+import pingpong from "./ping-pong"
 import reportWebVitals from "./reportWebVitals";
+
+pingpong()
 
 const rootElement = document.getElementById("root");
 
