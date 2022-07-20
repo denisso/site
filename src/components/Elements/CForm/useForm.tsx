@@ -5,17 +5,26 @@ import { ItemAnimatePresence } from "components/Tools";
 import styled from "styled-components";
 import { Spinner } from "../Spinner";
 import { Button } from "../Button";
+
+import { faFaceSadCry, faThumbsUp } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const Container = styled.div`
     position: relative;
-    .Submitted {
-        position: absolute;
-        top: 0;
-        left: -0.5rem;
-        width: calc(100% + 1rem);
-        height: 100%;
-        display: grid;
-        place-items: center;
-        background: white;
+    .Middleware {
+        .Submitted {
+            position: absolute;
+            top: 0;
+            left: -0.5rem;
+            width: calc(100% + 1rem);
+            height: 100%;
+            display: grid;
+            place-items: center;
+            background: white;
+            .Icon{
+                width: 3rem;
+                height: auto;
+            }
+        }
     }
 `;
 
@@ -90,17 +99,17 @@ const ModalComponent = ({
                                         setSubmit(true);
                                         submitRef.current = args;
                                     }
-                                    onSubmit(...args);
+                                    if (!submit) onSubmit(...args);
                                 },
                                 onCancel: (e) => {
-                                    closeModal(e);
+                                    if (!submit) closeModal(e);
                                 },
                             }}
                         />
                     </div>
                 </ItemAnimatePresence>
                 <div
-                    className="Success"
+                    className="Middleware"
                     style={{ display: submit ? "block" : "none" }}
                 >
                     <ItemAnimatePresence
@@ -124,6 +133,12 @@ const ModalComponent = ({
                                 ? "The message was delivered!"
                                 : "An error has occurred"}
                         </div>
+                        <FontAwesomeIcon
+                            className="Icon"
+                            icon={
+                                modalEnum.fulfilled ? faThumbsUp : faFaceSadCry
+                            }
+                        />
                         <Button onClick={() => closeModal()}>Ok</Button>
                     </ItemAnimatePresence>
                 </div>
