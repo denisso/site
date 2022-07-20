@@ -67,14 +67,17 @@ export const NotesListWithFilter = () => {
     const { data, error, isLoading, last, fetchNextPage } = useInfiniteQuery();
     const triggerElement = React.useRef<HTMLElement | null>();
     const [infinity, setInfinity] = React.useState(false);
-    const trigger = React.useCallback(({ entity }: any) => {
-        if (!triggerElement.current) return;
-        if (entity.isIntersecting) {
-            setInfinity(false);
-            intersect.removeNodes(triggerElement.current);
-            fetchNextPage();
-        }
-    }, [fetchNextPage]);
+    const trigger = React.useCallback(
+        ({ entity }: any) => {
+            if (!triggerElement.current) return;
+            if (entity.isIntersecting) {
+                setInfinity(false);
+                intersect.removeNodes(triggerElement.current);
+                fetchNextPage();
+            }
+        },
+        [fetchNextPage]
+    );
 
     const infinityCallback = React.useCallback(() => {
         setInfinity(true);
@@ -86,10 +89,12 @@ export const NotesListWithFilter = () => {
     }, [infinity, last, error, isLoading]);
     return (
         <Content>
-            <h1>
-                <FontAwesomeIcon icon={faBookOpenReader} className="Icon" />
-                Notes
-            </h1>
+            <ItemAnimatePresence>
+                <h1>
+                    <FontAwesomeIcon icon={faBookOpenReader} className="Icon" />
+                    Notes
+                </h1>
+            </ItemAnimatePresence>
             <>
                 {data && data instanceof Array && (
                     <NotesListStyle className="NotesList">

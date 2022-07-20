@@ -17,6 +17,7 @@ import { ImageLazy } from "components/Elements/ImageLazy";
 import { scrollContent } from "components/Tools";
 import { createSlug } from "tools/createSlug";
 import { Anchor } from "components/Elements/Anchor";
+import { ItemAnimatePresence } from "components/Tools";
 
 const ArticleBox = styled.div`
     line-height: 1.5rem;
@@ -62,12 +63,15 @@ const ArticleBox = styled.div`
             margin-left: 3rem;
         }
         h1 {
-            line-height: 2.0rem;
+            line-height: 2rem;
         }
         h2 {
             line-height: 1.8rem;
         }
-        h3,h4,h5,h6 {
+        h3,
+        h4,
+        h5,
+        h6 {
             line-height: 2.3rem;
         }
         h1,
@@ -91,7 +95,8 @@ const ArticleBox = styled.div`
             white-space: pre-wrap;
             margin: 1rem auto;
         }
-        img, iframe {
+        img,
+        iframe {
             max-width: 90%;
             display: block;
             margin: 1rem auto;
@@ -153,8 +158,8 @@ export const BlockContent = ({
         // case ## header (default)
         const childrenText = ({ node, className, children, props }: any) => {
             let slug = createSlug(node.children[0].value);
-            if(Number.isInteger(parseInt(slug[0]))){
-                slug = "N" + slug
+            if (Number.isInteger(parseInt(slug[0]))) {
+                slug = "N" + slug;
             }
             return (
                 <node.tagName
@@ -170,9 +175,9 @@ export const BlockContent = ({
         const childrenAHREF = ({ node, className, children, props }: any) => {
             let text = node.children[0]?.props?.children[0];
             let href = node.children[0]?.props?.href;
-            href = "#" === href[0]  ? href.slice(1) : href;
-            if(Number.isInteger(parseInt(href[0]))){
-                href = "N" + href
+            href = "#" === href[0] ? href.slice(1) : href;
+            if (Number.isInteger(parseInt(href[0]))) {
+                href = "N" + href;
             }
 
             return (
@@ -241,7 +246,9 @@ export const BlockContent = ({
                 }
             }}
         >
-            <h1 className="ArticleTitle">{data.title}</h1>
+            <ItemAnimatePresence>
+                <h1 className="ArticleTitle">{data.title}</h1>
+            </ItemAnimatePresence>
             <hr />
             <ImageLazy
                 src={data.image.src}

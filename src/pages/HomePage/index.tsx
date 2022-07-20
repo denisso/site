@@ -79,7 +79,8 @@ const Container = styled(ComponentLazy)<{ theme?: themeType }>`
     background-color: ${({ theme }) => theme.colors.firstLightMore};
     padding: 1rem;
     border: solid ${({ theme }) => theme.colors.firstLight};
-    transition: border-color var(--transition), transform var(--transition), opacity var(--transition);
+    transition: border-color var(--transition), transform var(--transition),
+        opacity var(--transition);
     .Header {
         .Icon {
             transition: color var(--transition);
@@ -108,45 +109,43 @@ const Container = styled(ComponentLazy)<{ theme?: themeType }>`
 const ComponentInfo = ({ className, data }: any) => {
     const { name, desc, link, sandbox } = data;
     return (
+        <Container>
+            <div className="Header">
+                <span className="Icon">
+                    <FontAwesomeIcon icon={faPizzaSlice} />
+                </span>
 
-            <Container>
-                <div className="Header">
-                    <span className="Icon">
-                        <FontAwesomeIcon icon={faPizzaSlice} />
-                    </span>
+                <span className="Title">{name}</span>
+            </div>
+            <div className="Content">{desc}</div>
+            <div className="Footer">
+                {link && (
+                    <Anchor
+                        href={link}
+                        className="Link"
+                        target="_blank"
+                        title="Go to page for more info"
+                    >
+                        <span className="Icon">
+                            <FontAwesomeIcon icon={faLink} />
+                        </span>
+                    </Anchor>
+                )}
 
-                    <span className="Title">{name}</span>
-                </div>
-                <div className="Content">{desc}</div>
-                <div className="Footer">
-                    {link && (
-                        <Anchor
-                            href={link}
-                            className="Link"
-                            target="_blank"
-                            title="Go to page for more info"
-                        >
-                            <span className="Icon">
-                                <FontAwesomeIcon icon={faLink} />
-                            </span>
-                        </Anchor>
-                    )}
-
-                    {sandbox && (
-                        <Anchor
-                            href={sandbox}
-                            className="Link"
-                            target="_blank"
-                            title="Go to sandbox"
-                        >
-                            <span className="Icon">
-                                <FontAwesomeIcon icon={faCode} />
-                            </span>
-                        </Anchor>
-                    )}
-                </div>
-            </Container>
-
+                {sandbox && (
+                    <Anchor
+                        href={sandbox}
+                        className="Link"
+                        target="_blank"
+                        title="Go to sandbox"
+                    >
+                        <span className="Icon">
+                            <FontAwesomeIcon icon={faCode} />
+                        </span>
+                    </Anchor>
+                )}
+            </div>
+        </Container>
     );
 };
 const Content = styled.div`
@@ -167,9 +166,11 @@ export const HomePage = () => {
     }, []);
     return (
         <Content>
-            <h1>
-                <FontAwesomeIcon icon={faCubesStacked} /> Site ecosystem
-            </h1>
+            <ItemAnimatePresence>
+                <h1>
+                    <FontAwesomeIcon icon={faCubesStacked} /> Site ecosystem
+                </h1>
+            </ItemAnimatePresence>
 
             {error ? (
                 <ContentLoadingProblemError />
