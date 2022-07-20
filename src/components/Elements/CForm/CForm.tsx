@@ -32,6 +32,7 @@ export type CFormProps = {
     schema: schemaForm;
     onSubmit: (...args: any[]) => void;
     onCancel?: (...args: any[]) => void;
+    className?: string;
 };
 
 const FormStyled = styled(Form)`
@@ -46,7 +47,7 @@ const FormStyled = styled(Form)`
  }
 `
 
-export const CForm = ({ onSubmit, onCancel, schema }: CFormProps) => {
+export const CForm = ({ onSubmit, onCancel, schema, className }: CFormProps) => {
     const initialValues: initialValuesType = React.useMemo(() => {
         return schema.reduce((prev: any, { name, value }: any) => {
             prev[name] = value || "";
@@ -64,7 +65,7 @@ export const CForm = ({ onSubmit, onCancel, schema }: CFormProps) => {
             {...{ initialValues, onSubmit }}
             validationSchema={validationSchema}
         >
-            <FormStyled>
+            <FormStyled className={className}>
                 {schema.map((element: schemaField) => {
                     return (
                         <Field

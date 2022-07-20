@@ -3,11 +3,11 @@
  * @author Denis Kurochkin (mr_dramm) <blackbrain2009@gmail.com>
  * @copyright Denis Kurochkin 2022
  */
-
+import React from "react";
 import styled from "styled-components";
 import { down, up } from "styled-breakpoints";
 import { Button } from "components/Elements/Button";
-import { useFormModal, schemaForm } from "components/Elements/CForm";
+import { useFormModal, schemaForm, modalEnum } from "components/Elements/CForm";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Anchor } from "components/Elements/Anchor";
@@ -137,14 +137,19 @@ const schema: schemaForm = [
 ];
 
 export const Footer = () => {
-    const { CFormModal, openFormModal, closeFormModal } =
-        useFormModal("Send message");
-    const onSubmit = (values: any, { setSubmitting }: any) => {
-        setTimeout(() => {
-            closeFormModal();
-            setSubmitting(false);
-        }, 400);
-    };
+    const { CFormModal, openFormModal, closeFormModal, processFormModal } =
+        useFormModal("Send message", { middleware: true });
+    const onSubmit = React.useCallback(
+        (values: any, { setSubmitting }: any) => {
+            processFormModal({ payload: modalEnum.loading });
+            setTimeout(() => {
+                // closeFormModal();
+                processFormModal({ payload: modalEnum.fulfilled });
+                setSubmitting(false);
+            }, 1400);
+        },
+        []
+    );
     return (
         <FooterWrapper>
             <div className="sendMessageContainer">

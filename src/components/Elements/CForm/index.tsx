@@ -1,5 +1,5 @@
 export { CForm } from "./CForm";
-export { useFormModal } from "./useForm";
+export { useFormModal, modalEnum } from "./useForm";
 
 export type { schemaForm } from "./CForm";
 export type { schemaField } from "./CForm";
