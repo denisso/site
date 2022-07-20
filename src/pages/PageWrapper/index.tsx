@@ -1,5 +1,5 @@
 /**
- * 
+ *
  * @author Denis Kurochkin (mr_dramm) <blackbrain2009@gmail.com>
  * @copyright Denis Kurochkin 2022
  */
@@ -11,14 +11,14 @@ import { Main } from "./Main";
 import { useIntersection } from "components/Tools/IntersectionOserver";
 import { PagesContext } from "./PagesContext";
 import { PagesContextType } from "./PagesContext";
-const MainMemo = React.memo(Main)
-export const WrapperComponents = () => {
+const MainMemo = React.memo(Main);
+export const Wrapper = () => {
     const { addNodes, removeNodes } = useIntersection();
 
     const context = React.useRef<PagesContextType>({
         intersect: { addNodes, removeNodes },
     });
-    context.current = { intersect: { addNodes, removeNodes } };
+
     return (
         <PagesContext.Provider value={context.current}>
             <Header />
@@ -27,3 +27,4 @@ export const WrapperComponents = () => {
         </PagesContext.Provider>
     );
 };
+export const WrapperComponents = React.memo(Wrapper);

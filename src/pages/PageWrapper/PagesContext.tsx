@@ -17,9 +17,9 @@ export type PagesContextType = {
         removeNodes: (value: any) => void;
     };
 };
-export const PagesContext = React.createContext({
+export const PagesContext = React.createContext<PagesContextType>({
     intersect: {
         addNodes: (arg) => {},
         removeNodes: (arg) => {}
     },
-} as PagesContextType);
+});

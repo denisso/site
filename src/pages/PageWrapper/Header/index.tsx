@@ -1,40 +1,31 @@
 /**
- * 
+ *
  * @author Denis Kurochkin (mr_dramm) <blackbrain2009@gmail.com>
  * @copyright Denis Kurochkin 2022
  */
 
 import React from "react";
-import { up,down } from "styled-breakpoints";
+import { up } from "styled-breakpoints";
 import styled, { withTheme, css } from "styled-components";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useCycle } from "framer-motion";
-
 import { Logo } from "assets/img/LogoIcon";
 import { themeType, mDown, mUp, switchTheme } from "features/theming";
 import { ItemAnimatePresence } from "components/Tools/Animation";
-
 import { MobileMenu } from "./Elements/MobileMenu";
 import { MainMenu } from "./Elements/MainMenu";
 import { ThemeSwitcher } from "./Elements/Switcher";
 import { ButtonHamburger } from "./Elements/ButtonHamburger";
 import { AccountComponent } from "features/accounts/Component";
+import { ModalFormSendMessage } from "components/Custom/ModalFormSendMessage";
+import { Anchor } from "components/Elements/Anchor";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaperPlane } from "@fortawesome/free-regular-svg-icons";
 
-const HeaderLine = styled.div.attrs({ className: "container" })`
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    align-items: center;
-    height: 3rem;
-`;
-
-const flex = css`
-    display: flex;
-    align-items: center;
-`;
 const HeaderWrapper = styled.header`
-    ${flex};
+    display: flex;
+    align-items: center;
     position: sticky;
     z-index: 9998;
     top: 0px;
@@ -47,20 +38,36 @@ const HeaderWrapper = styled.header`
 
     box-shadow: var(--boxShadowHorizontal)
         ${({ theme }) => theme.colorBoxShadow};
-`;
-const HeaderLeftSide = styled.div`
-    ${flex}
-`;
-const HeaderRightSide = styled.div`
-    ${flex}
-    & > * +* {
-        margin-left: 1rem;
+
+    .HeaderLine {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+        height: 3rem;
+        .HeaderLeftSide,
+        .HeaderRightSide {
+            display: flex;
+            align-items: center;
+        }
+        .HeaderRightSide {
+            & > * + * {
+                margin-left: 1rem;
+            }
+            & > .Anchor {
+                & > .Icon {
+                    width: 1.5rem;
+                    height: 1.5rem;
+                }
+            }
+        }
     }
 `;
 
 export const Header = withTheme(({ theme }: { theme: themeType }) => {
     const dispatch = useDispatch();
     const [isOpen, toggleOpen] = useCycle(false, true);
+    const openFormModal = React.useRef<(arg: any) => void>((arg: any) => {});
     React.useEffect(() => {
         // mobile menu must be close in desktop mode
         if (mUp("md", theme.breakpoint) && isOpen) toggleOpen();
@@ -69,8 +76,8 @@ export const Header = withTheme(({ theme }: { theme: themeType }) => {
     return (
         <>
             <HeaderWrapper>
-                <HeaderLine>
-                    <HeaderLeftSide>
+                <div className="HeaderLine container">
+                    <div className="HeaderLeftSide">
                         <ItemAnimatePresence
                             key={0}
                             isVisible={mDown("md", theme.breakpoint)}
@@ -90,8 +97,20 @@ export const Header = withTheme(({ theme }: { theme: themeType }) => {
                         </ItemAnimatePresence>
 
                         <MainMenu key={"DesktopMenu"} />
-                    </HeaderLeftSide>
-                    <HeaderRightSide>
+                    </div>
+                    <div className="HeaderRightSide">
+                        <Anchor
+                            className="Anchor"
+                            onClick={(e: any) => {
+                                if (openFormModal.current)
+                                    openFormModal.current(e);
+                            }}
+                        >
+                            <FontAwesomeIcon
+                                icon={faPaperPlane}
+                                className="Icon"
+                            />
+                        </Anchor>
                         <ThemeSwitcher
                             size={"1.6rem"}
                             trigger={(name: string) =>
@@ -100,10 +119,15 @@ export const Header = withTheme(({ theme }: { theme: themeType }) => {
                         />
 
                         <AccountComponent />
-                    </HeaderRightSide>
-                </HeaderLine>
+                    </div>
+                </div>
             </HeaderWrapper>
             <MobileMenu isOpen={isOpen} toggleOpen={toggleOpen} />
+            <ModalFormSendMessage
+                openFormModalCB={(callback: any) => {
+                    openFormModal.current = callback;
+                }}
+            />
         </>
     );
 });

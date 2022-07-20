@@ -7,11 +7,11 @@ import React from "react";
 import styled from "styled-components";
 import { down, up } from "styled-breakpoints";
 import { Button } from "components/Elements/Button";
-import { useFormModal, schemaForm, modalEnum } from "components/Elements/CForm";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Anchor } from "components/Elements/Anchor";
 import { ReactComponent as LogoGuest } from "assets/codesandbox.svg";
+import { ModalFormSendMessage } from "components/Custom/ModalFormSendMessage";
 
 const FooterWrapper = styled.footer.attrs({ className: "container" })`
     display: flex;
@@ -112,50 +112,20 @@ const FooterWrapper = styled.footer.attrs({ className: "container" })`
     }
 `;
 
-const schema: schemaForm = [
-    {
-        name: "name",
-        label: "Name",
-        type: "text",
-        required: true,
-        options: { placeholder: "Name" },
-    },
-    {
-        name: "email",
-        label: "EMail",
-        type: "email",
-        required: true,
-        options: { placeholder: "example@mail.com" },
-    },
-    {
-        name: "message",
-        label: "Message",
-        type: "textarea",
-        required: true,
-        options: { placeholder: "Your message..." },
-    },
-];
-
 export const Footer = () => {
-    const { CFormModal, openFormModal, closeFormModal, processFormModal } =
-        useFormModal("Fake Send message (under development)", { middleware: true });
-    const onSubmit = React.useCallback(
-        (values: any, { setSubmitting }: any) => {
-            processFormModal({ payload: modalEnum.loading });
-            setTimeout(() => {
-                processFormModal({ payload: modalEnum.fulfilled });
-                setSubmitting(false);
-            }, 1400);
-        },
-        []
-    );
+    const openFormModal = React.useRef<(arg: any) => void>((arg: any) => {});
     return (
         <FooterWrapper>
             <div className="sendMessageContainer">
                 <div className="sendMesage">
                     <div className="headerSendMesage">Denis in touch</div>
                     <div className="btnSendMesage">
-                        <Button onClick={() => openFormModal()}>
+                        <Button
+                            onClick={(e: any) => {
+                                if (openFormModal.current)
+                                    openFormModal.current(e);
+                            }}
+                        >
                             Send message
                         </Button>
                     </div>
@@ -182,7 +152,11 @@ export const Footer = () => {
                     <LogoGuest className="Icon" />
                 </Anchor>
             </div>
-            <CFormModal {...{ schema, onSubmit }} />
+            <ModalFormSendMessage
+                openFormModalCB={(callback: any) => {
+                    openFormModal.current = callback;
+                }}
+            />
         </FooterWrapper>
     );
 };
