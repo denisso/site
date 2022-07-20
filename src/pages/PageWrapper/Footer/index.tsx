@@ -138,12 +138,11 @@ const schema: schemaForm = [
 
 export const Footer = () => {
     const { CFormModal, openFormModal, closeFormModal, processFormModal } =
-        useFormModal("Send message", { middleware: true });
+        useFormModal("Fake Send message (under development)", { middleware: true });
     const onSubmit = React.useCallback(
         (values: any, { setSubmitting }: any) => {
             processFormModal({ payload: modalEnum.loading });
             setTimeout(() => {
-                // closeFormModal();
                 processFormModal({ payload: modalEnum.fulfilled });
                 setSubmitting(false);
             }, 1400);
