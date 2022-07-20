@@ -14,7 +14,7 @@ import { parseJwt } from "tools/parseJWT";
 import { useDispatch } from "react-redux";
 import { signIn, CredentialsType, postUserCredentials } from "../reducer";
 import { loadScript } from "tools/loadScript";
-
+import { GSI_key } from "settings-demo-project";
 export enum GoogleLoadingStates {
     NotLoaded = 0,
     ScriptLoaded,
@@ -35,7 +35,7 @@ export const useGoogleIdentityApi = () => {
             picture: credentialGoogle.picture,
         };
         dispatch(signIn(credentials));
-        dispatch(postUserCredentials(credentials))
+        dispatch(postUserCredentials(credentials));
     }, []);
 
     React.useEffect(() => {
@@ -55,8 +55,7 @@ export const useGoogleIdentityApi = () => {
                 if (!window.google) return;
 
                 window.google.accounts.id.initialize({
-                    client_id:
-                        "32181816134-9v3igk7t98d9qksv6pfcies9sd0dimcr.apps.googleusercontent.com",
+                    client_id: GSI_key,
                     auto_select: true,
                     callback: handleCredentialResponse,
                 });

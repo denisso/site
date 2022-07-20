@@ -5,19 +5,13 @@
  */
 
 import { createTheme } from "styled-breakpoints";
+import {breakpoints} from "settings-demo-project"
 
 type breaksNumberType = {
     [key: string]: number;
 };
 
-export const breaksNumber: breaksNumberType = {
-    xs: 0,    
-    xm: 400,
-    sm: 600,
-    md: 820,
-    lg: 1040,
-    xl: 1500,
-};
+export const breaksNumber: breaksNumberType = breakpoints
 
 type breaksNumberPXType = {
     [key: string]: string;
